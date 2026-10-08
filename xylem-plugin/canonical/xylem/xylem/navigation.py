@@ -14,6 +14,8 @@ MEANINGS = {
     "USES_IN_TYPE": "the source declaration's type uses the target constant",
     "USES_IN_PROOF": "the source declaration's proof uses the target constant",
     "IMPORTS": "the source module imports the target module",
+    "COMPONENT_OF": "the declaration is explicitly listed as evidence for the component",
+    "COMPONENT_RELATION": "the component relation is recorded by the component manifest",
 }
 SCOPE_NOTE = (
     "Indexed dependencies describe the last extraction, not a new proof or a "
@@ -126,6 +128,8 @@ def node(conn, nid, detail=False):
                    axioms=props.get("axioms"),
                    metadata={k: v for k, v in props.items()
                              if k not in {"premises", "dependency_capture"}})
+        if r["kind"] == "component":
+            out["component"] = props
     return out
 
 
@@ -143,8 +147,12 @@ def _edge(src, dst, types):
     ts = sorted(types[src, dst])
     return {"source": src, "target": dst, "types": ts,
             "evidence": "extracted",
-            "origins": {t: "module_graph.dot" if t == "IMPORTS" else "declarations.json"
-                        for t in ts},
+            "origins": {
+                t: ("module_graph.dot" if t == "IMPORTS"
+                    else "components.json" if t in {"COMPONENT_OF", "COMPONENT_RELATION"}
+                    else "declarations.json")
+                for t in ts
+            },
             "explanations": [MEANINGS[t] for t in ts]}
 
 
@@ -181,7 +189,8 @@ def context(conn, name, limit=10, edge_scope="all"):
             continue
         rows = conn.execute(
             "SELECT src,dst,type FROM edge WHERE (src=? OR dst=?) "
-            "AND type IN ('DECLARED_IN','PAIRED_WITH','BRICK_OF','CITES','BRICK_DEPENDS_ON') "
+            "AND type IN ('DECLARED_IN','PAIRED_WITH','BRICK_OF','CITES','BRICK_DEPENDS_ON',"
+            "'COMPONENT_OF','COMPONENT_RELATION') "
             "ORDER BY src,dst,type", (cur, cur))
         for r in rows:
             other = r["dst"] if r["src"] == cur else r["src"]
@@ -284,3 +293,77 @@ def discover(conn, text, limit=10):
             "ranking": "all terms required; name=3, documentation=2, signature=1 per term",
             "items": [{"node": node(conn, nid), "score": score, "matched_fields": hits}
                       for score, _, nid, hits in matches[:limit]]}
+
+
+def component_zoom(conn, name, limit=100):
+    """Return one component with exact declaration evidence and typed relations."""
+    _validate(limit)
+    nid = _resolve(conn, name)
+    row = conn.execute("SELECT kind FROM node WHERE id=?", (nid,)).fetchone()
+    if row["kind"] != "component":
+        raise ValueError(f"'{name}' is not a component node")
+    declarations = [
+        node(conn, r["src"], True)
+        for r in conn.execute(
+            "SELECT src FROM edge WHERE dst=? AND type='COMPONENT_OF' ORDER BY src LIMIT ?",
+            (nid, limit),
+        )
+    ]
+    relations = []
+    for r in conn.execute(
+        "SELECT src,dst,type,props FROM edge WHERE (src=? OR dst=?) "
+        "AND type='COMPONENT_RELATION' ORDER BY src,dst",
+        (nid, nid),
+    ):
+        other = r["dst"] if r["src"] == nid else r["src"]
+        relations.append({
+            "source": r["src"], "target": r["dst"], "type": r["type"],
+            "direction": "out" if r["src"] == nid else "in",
+            "node": node(conn, other, True),
+            "props": json.loads(r["props"] or "{}"),
+        })
+    return {
+        "component": node(conn, nid, True),
+        "declarations": declarations,
+        "declarations_truncated": len(declarations) >= limit,
+        "relations": relations,
+        "interpretation_note": (
+            "Component membership and relations are manifest evidence; they do not add "
+            "synthetic Lean proof edges or certify explanation quality."
+        ),
+    }
+
+
+def overview(conn, surface=None, limit=100):
+    """Return a readable component overview with formal/interpretive status labels."""
+    _validate(limit)
+    rows = conn.execute(
+        "SELECT id,name,docstring,props FROM node WHERE kind='component' ORDER BY id"
+    ).fetchall()
+    items = []
+    for row in rows:
+        props = json.loads(row["props"] or "{}")
+        if surface and props.get("surface") not in {surface, "shared", None}:
+            continue
+        count = conn.execute(
+            "SELECT COUNT(*) AS c FROM edge WHERE dst=? AND type='COMPONENT_OF'", (row["id"],)
+        ).fetchone()["c"]
+        items.append({
+            "id": row["id"], "name": row["name"], "title": row["docstring"],
+            "surface": props.get("surface"), "role": props.get("role"),
+            "formal_status": props.get("formal_status"),
+            "interpretation_status": props.get("interpretation_status"),
+            "evidence_status": props.get("evidence_status"),
+            "declaration_count": count,
+            "summary": props.get("summary"),
+        })
+    return {
+        "surface": surface,
+        "total_components": len(items),
+        "truncated": len(items) > limit,
+        "items": items[:limit],
+        "status_note": (
+            "formal_status is a source/index classification, not a claim that Lean "
+            "establishes the component's human-readable explanation."
+        ),
+    }

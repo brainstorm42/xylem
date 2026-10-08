@@ -1,9 +1,9 @@
 {
   "name": "proofbricks-xylem",
   "version": "0.1.0",
-  "description": "WIP ProofBricks/Xylem tools with the existing canonical Xylem MCP and BrickConverter runtimes, a tiny supplied graph example, and evidence-grounded explanation. Optional capture regeneration requires a user-supplied authorized tool.",
-  "author": {"name": "ProofBricks local staging"},
+  "description": "Private reviewed ProofBricks/Xylem release candidate held for human review and not authorized for public distribution, with the existing canonical Xylem MCP and BrickConverter runtimes, a tiny supplied graph example, and evidence-grounded explanation. Optional capture regeneration requires a user-supplied authorized tool.",
+  "author": {"name": "ProofBricks private review"},
   "license": "Apache-2.0",
-  "licenseScope": "Scoped; see NOTICE.md and PROVENANCE-INVENTORY.md",
+  "licenseScope": "Scoped; see LICENSE-SCOPE.md and NOTICE.md",
   "mcpServers": "./.mcp.json"
 }

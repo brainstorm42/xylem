@@ -1,0 +1,1335 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/anthropics/formal-math",
+  "source_revision": "795efb86f191735c5481675763537cfb4ff37e55",
+  "source_root": "upstream",
+  "file_count": 265,
+  "lean_file_count": 251,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 62,
+      "sha256": "d15e1042096886b9f8726df75572765245b4fae3de5b81c9e2340d355c686725"
+    },
+    {
+      "path": "AUDIT.md",
+      "bytes": 4001,
+      "sha256": "a095ef7b646d35e7d85ba469cd8efd3f66a3ecc37d5312b1247c53e87d226c6b"
+    },
+    {
+      "path": "Challenge.lean",
+      "bytes": 9174,
+      "sha256": "5578f9b4d6ae573fc5443a2e236298194f3f2c4a48cd2028435ebba02bd7a19c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 1061,
+      "sha256": "ad21213633eb205aea2f47e7e44ac3425938e7c5f84aa85cfd716591e708b450"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/BystanderCluster.lean",
+      "bytes": 1881,
+      "sha256": "e4b36519a494aa8cdd3e085444550c274bedeb2a2fdb736cf19f701bb9ead1c0"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/CSHHpart.lean",
+      "bytes": 21076,
+      "sha256": "7ce173a7982d739432fc90b666a2cbc289bcd42d61d1b9c931f21d6e358131bc"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/CSHHtwBridge.lean",
+      "bytes": 19012,
+      "sha256": "3bbc3142046d879e322cc578d56ae0640cfd1d653e0df5c701827bf874b73332"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/CSHInduction.lean",
+      "bytes": 12113,
+      "sha256": "32f9931b21ca73dad11f0d0c4369507d8207faee229adcbccea797cd8a941a89"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/GenOfSurplusTransfer.lean",
+      "bytes": 18370,
+      "sha256": "f4674e8cb8f8264f5cf650d9b42ba05a87edc91a93b722cb0ef9a36c0cb192b8"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/GenPair.lean",
+      "bytes": 18664,
+      "sha256": "dcdc8c929d0926ca932e9699e384a022610f058806037f38eabbff4e2fd06462"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/Glue.lean",
+      "bytes": 931,
+      "sha256": "f1e7c468664724aee4e448a70f17d63f0de8a07585605c43ae32ed1055dad5cb"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/OfAGloc.lean",
+      "bytes": 16479,
+      "sha256": "d1c276f756f94604d3e16636e814b4633712b9bc25a26469f4b1506ab3a31771"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/OfSurplusTransfer.lean",
+      "bytes": 7603,
+      "sha256": "60900d73d871649d75799b2109d82d9e25645c9e484a554e96f91dd5bfb40d03"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/SandwichPrelim.lean",
+      "bytes": 1531,
+      "sha256": "ce60b49c6bdee4358b6587a10d6972706ce83bbe592331771f97d630de76e5bc"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/Suffices.lean",
+      "bytes": 1064,
+      "sha256": "9b2d4cf3d2f39030a3f8df95e4b0facfc1f21566091cafa85c35d4a9cfbe901b"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/SurplusClosure.lean",
+      "bytes": 13757,
+      "sha256": "8d2f01ccfc0e0959e1fc5e61d06d6179c1fd8364f07e8604f7e30f8497be4106"
+    },
+    {
+      "path": "Percolation/Continuity/AdditiveGluing/SurplusTransfer.lean",
+      "bytes": 18690,
+      "sha256": "5421a99eb50790fbac5464cdc1734586de92351819fec1a4daee117877b449bc"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/AdditiveGluingOfCSH.lean",
+      "bytes": 3920,
+      "sha256": "54fe998a57412bf0fd9e7392034017f7058ba8b7cd27f07384c38b30b52a85fe"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/Defs.lean",
+      "bytes": 23260,
+      "sha256": "870267ad3133a326ba63cc47e7cddb733681afddb1e6e209fdc29b3078dae543"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/LemmaT.lean",
+      "bytes": 6845,
+      "sha256": "a7ea46562b2460da0e23944970ac78a35bd1cde0d3325b69b0b80960a1d1a361"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/LevelForms.lean",
+      "bytes": 8551,
+      "sha256": "aba130200672de57d375e714fb136bd4f8247aa8c1782e6a4b236473f1e8d9db"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/Peel.lean",
+      "bytes": 11477,
+      "sha256": "77306c8a69479a38c17b063ee685407e279ee43a13deebc437b441f03d29f0cc"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/PeelTools.lean",
+      "bytes": 16385,
+      "sha256": "a9a0235cecde48422bb07b6c1f9901b1f61ff5266172be7da2f756df799249c7"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/Phi.lean",
+      "bytes": 7084,
+      "sha256": "e3969e4ce7a42ff195e83339334ac7cd308058e72ac5a4c0e61508303e9d7d5b"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/PhiMarkov.lean",
+      "bytes": 9171,
+      "sha256": "3a93098fa9cec106e2ffa615625ba7757a7fb11f58bb484c88543eb2937ce5ca"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/Unfold.lean",
+      "bytes": 18837,
+      "sha256": "5b0fd86a71a386415007af9a7473f244e01b04e0c2907484131b3c3b5fc74877"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/UnfoldDecoy.lean",
+      "bytes": 24814,
+      "sha256": "9dbf5bdb37002c8ba7083dd6ae3e6d1f18207e72022f07828026f2ede3a00796"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/UnfoldMain.lean",
+      "bytes": 19587,
+      "sha256": "71f509a56be7fe969f06bf2e996217434d1ab1e347774a64890d4e9406ea6ea7"
+    },
+    {
+      "path": "Percolation/Continuity/CSH/UnfoldOneTools.lean",
+      "bytes": 12827,
+      "sha256": "5d2e0fc0c77bf6971d85a46a0f706060ed108556865fdbdc3c517608167a4e2c"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2Anti.lean",
+      "bytes": 11220,
+      "sha256": "38461384ff12a825aac59e9ef1f0381a1b6ee1b8b20925138083fd4fd0c6efbc"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2Defs.lean",
+      "bytes": 6403,
+      "sha256": "6f1c31691156d12a20efb5521e86abd99a7beab052f8cd76203c4187d9f0622c"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2EdgeDefs.lean",
+      "bytes": 1153,
+      "sha256": "ea9f42de71b4a8b32d18d364aef48ff2c8b1b1741fd84f3fcd8d682e50ac2d95"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2H.lean",
+      "bytes": 4848,
+      "sha256": "5e44b352126f63d30b4dd80aacd318d93df2660f884c85885224c80a36f045b7"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2Push.lean",
+      "bytes": 14958,
+      "sha256": "41fe2b4a23ed667213bb9d5e72883d40037c7817727074e12bb66f836270b1b6"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/A2Star.lean",
+      "bytes": 7287,
+      "sha256": "895a0143407a8f12ffe79d356b3a97d2708170aec85498b62bf515298f35f31c"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/Bridge.lean",
+      "bytes": 4787,
+      "sha256": "03e3bf7cf4b2926fb4275112577086532191337a525dbe8f3809e6a78670616a"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/MetaA2.lean",
+      "bytes": 13651,
+      "sha256": "8e6084d2d4065279a2480ceb8b9ba2c55466cd03e2200bd6823f8c42e3add9e3"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/MetaA2Anti.lean",
+      "bytes": 8374,
+      "sha256": "0bf0a0cd96734727afb372a8d3751200d05a48ea7b2828850eb5389bda8a7143"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/MetaA2Defs.lean",
+      "bytes": 12599,
+      "sha256": "9483ba3dce6aaaf48891e1de46400e977ac40146d1b254f593ca2053f199a050"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/OfTA.lean",
+      "bytes": 16269,
+      "sha256": "0b2e0f65170bf1303c04e1261b9785f03561fc9cbe207d35c58fa424c9c7f613"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarBridge.lean",
+      "bytes": 7343,
+      "sha256": "0b225c93c474ae1a4735d99c411afb33724b653709b66a49fc2c2cd2fa90068b"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarBridgeEdge.lean",
+      "bytes": 1302,
+      "sha256": "2e612b1a1d1976d4a6e48fb6c89fdbf588e939745a0d1d7c2f68099a1e1d753d"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarBridgeS.lean",
+      "bytes": 14028,
+      "sha256": "2837bd08b2e5921f7977d6812e342d18cea1f70e6a4c474fb76f7b065b3c2738"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarH.lean",
+      "bytes": 18256,
+      "sha256": "15882680940dde1ca1fb7de56a997e1e8e6cd79c9e692a10d6d49b64c73f9f63"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarHPrelim.lean",
+      "bytes": 15778,
+      "sha256": "17d53a980582938a5b3e5ccbae5fd7a7d23fc730fc358dde623ba2466f29df26"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarNPrelim.lean",
+      "bytes": 15371,
+      "sha256": "d7d5a89e0cf94def58addb31a26287db0a73b5dab8fb3af64371f57d45f3027f"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/StarNReal.lean",
+      "bytes": 6100,
+      "sha256": "07f37f2d8d88368a55b1716eb5cefb3dd4458a7bb69dfc823741094400eab37e"
+    },
+    {
+      "path": "Percolation/Continuity/CovTau/Transfer.lean",
+      "bytes": 13883,
+      "sha256": "bce063cc3f6a498edc540386ea9ae4ea2952e1ab17117b02a37388a9414c3c6f"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/DeletedEdges.lean",
+      "bytes": 9933,
+      "sha256": "0a68acffcb2a5812b4a76ab7f07c5851d8889f031e126837a5a5081fdd051f2f"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/MarkerDominanceTools.lean",
+      "bytes": 9271,
+      "sha256": "0f64fc1db6aba4136b49ce069c7abd84f594184855a46ba2558f1b766b4808f8"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/SelectionThreeTA.lean",
+      "bytes": 17186,
+      "sha256": "412102377a9c4ab92e05ef44812843314b47332fe7f24288075252ecfca1cee2"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TABase.lean",
+      "bytes": 16011,
+      "sha256": "65a52489468e795b7a6536ce03dae619436f927d48da8a2346535bc155b21fbe"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TACE.lean",
+      "bytes": 11883,
+      "sha256": "163c24371b616910c0455f2c28fca9cfa4d8dc3653a1467d97f5fa04050126f0"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TACond.lean",
+      "bytes": 19586,
+      "sha256": "551b996d48c6d5c76bc1c6fb8241f72578f7c2852bbb3fe6e8cdd90df078873e"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TADefs.lean",
+      "bytes": 3863,
+      "sha256": "5db7a3930a073f635412d2939a5ac4ff6fd525a59913c840c239ee148b67b9fa"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TAInduction.lean",
+      "bytes": 17201,
+      "sha256": "f93dcb5bef524f590a9520856d8104e24ab9dd7726e5824a179ed88fd9c027ea"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TALayer.lean",
+      "bytes": 10744,
+      "sha256": "19138dbc85bbe9f2e40d9a2fe372508cd3e8a2f2277994e52a85be97a3b19c5f"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TAPv.lean",
+      "bytes": 22123,
+      "sha256": "5d08e4e8e3df4fe7dd7f57ffb90d2e1e496e8050dc4fcbae9d0f87fae6bf9cab"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TASections.lean",
+      "bytes": 16737,
+      "sha256": "8b2eeb4914e94fc6dd88f23e67527d61653c97e0fa173dce85942e29db6b8ec3"
+    },
+    {
+      "path": "Percolation/Continuity/HullPort/TAStep.lean",
+      "bytes": 9130,
+      "sha256": "ffefffedf686418afca29736f511961604313b4231cd22b1b0b5cc8873b7794b"
+    },
+    {
+      "path": "Percolation/Continuity/LowerTail/MarkerDominancePv.lean",
+      "bytes": 4675,
+      "sha256": "3cc7d7f3c55caf8d8472e625dc3c55067acc14c1d78d2a6668728b5754a87dc1"
+    },
+    {
+      "path": "Percolation/Continuity/LowerTail/SurplusTransferPairOfCov.lean",
+      "bytes": 16745,
+      "sha256": "59da701bbfb2dea3f59d2ab13eaa5296ad11677612a6ac644eb1aea04d221f58"
+    },
+    {
+      "path": "Percolation/Continuity/LowerTail/SurplusTransferPairTools.lean",
+      "bytes": 18355,
+      "sha256": "41cd8ce16d4207129aeca5d6257a329618877573fcd75373d2d69afb01528c43"
+    },
+    {
+      "path": "Percolation/Continuity/LowerTail/TreeHarrisReal.lean",
+      "bytes": 14765,
+      "sha256": "f5fff31b6cab902b1662177cdbdd4a844e7dbeb64de54fff5eaa6e7b730d056c"
+    },
+    {
+      "path": "Percolation/Continuity/MainTheorem.lean",
+      "bytes": 16828,
+      "sha256": "94964a1cb9ac3cce6b24607989010638f23b202252026211a74295308bf7c792"
+    },
+    {
+      "path": "Percolation/Continuity/OfGluing.lean",
+      "bytes": 2570,
+      "sha256": "f69e95a47b211b4dc4736b1796856a7f151b61ff99f9a3bedc8edf18afc26cad"
+    },
+    {
+      "path": "Percolation/Continuity/Statements.lean",
+      "bytes": 5049,
+      "sha256": "cabe919a6d08a5eacb6da8e25293c52951b441ad8dcfa250d911f00b5fcb4bec"
+    },
+    {
+      "path": "Percolation/Literature/AdaptiveProbing.lean",
+      "bytes": 28503,
+      "sha256": "32631d5f13c2c986e29beb689d534421d7dfbb3b2db57c3d037455dc31d53734"
+    },
+    {
+      "path": "Percolation/Literature/Basic.lean",
+      "bytes": 13275,
+      "sha256": "21352f9a8c251e619a2f830506e631bfc00d82e8217ee71078234206a268161c"
+    },
+    {
+      "path": "Percolation/Literature/BernoulliPercolation.lean",
+      "bytes": 9851,
+      "sha256": "63bc1a8f3c543056ba4b7510cda69a30a6d33f9eefba668fb27e0748269ff358"
+    },
+    {
+      "path": "Percolation/Literature/BernoulliPercolationProofs.lean",
+      "bytes": 2334,
+      "sha256": "492a0d4d29fb84e1e24984663ebf34647338e6099533852d8552ab14968a4389"
+    },
+    {
+      "path": "Percolation/Literature/BlockKit.lean",
+      "bytes": 29534,
+      "sha256": "c799793cdf273b4f4f0d02f0bc21eac51a9a32535d9030dfb593e92949b49137"
+    },
+    {
+      "path": "Percolation/Literature/BondPercolationSymmetry.lean",
+      "bytes": 8872,
+      "sha256": "93d1e6516bb3b232914ef57bb0b32aa8dd4fea548b1d764ebf382e16eb9884d8"
+    },
+    {
+      "path": "Percolation/Literature/BoxCrossing.lean",
+      "bytes": 1463,
+      "sha256": "eb96c9bdb9bd9d8d14970c4952d20743d1fb80147bf7cddc36b2eb113e4b0f53"
+    },
+    {
+      "path": "Percolation/Literature/BurtonKeaneCombinatorics.lean",
+      "bytes": 18178,
+      "sha256": "62bc9baa1a09acd4aa1924928c84a45e434a22c5f0ad8384fb7f31666dd9f85b"
+    },
+    {
+      "path": "Percolation/Literature/CerfLem51Proofs.lean",
+      "bytes": 2243,
+      "sha256": "e581d340ca6b71e9881f5c93ae2c44e6eada1e2f37a7e2c70f8ccae1507270ba"
+    },
+    {
+      "path": "Percolation/Literature/CerfTwoArms.lean",
+      "bytes": 2921,
+      "sha256": "2027d50e0b062fd781c5c0e85d78b7b83baa97be0c95560d682b887f60a00b49"
+    },
+    {
+      "path": "Percolation/Literature/CleanSeeds.lean",
+      "bytes": 3864,
+      "sha256": "da2522b27d27fe7fc93f5d62a7db82fe413020de3e43ea3a7794f108f4ca526b"
+    },
+    {
+      "path": "Percolation/Literature/ClusterConditionalCovariance.lean",
+      "bytes": 6699,
+      "sha256": "d5a32c5b2a44e5e02ddc75e595abe4003698dc141b5471752285b7cf6d89a363"
+    },
+    {
+      "path": "Percolation/Literature/ConditionalPositiveAssociation.lean",
+      "bytes": 8400,
+      "sha256": "88c207d29f46bae2794aa4c476d81d141153f534acb4916d3cbb297d24ef4848"
+    },
+    {
+      "path": "Percolation/Literature/ConditionalPositiveAssociationProofs.lean",
+      "bytes": 43934,
+      "sha256": "6ad454fc9893563a12c7646f535851a80c5c17eeab8cb76b90101e89320e494b"
+    },
+    {
+      "path": "Percolation/Literature/Connectivity.lean",
+      "bytes": 3225,
+      "sha256": "2dba77c8b873d993dc7103bc9be089bde60bac7ffd38df3b1bdfcffd8b9fc8ae"
+    },
+    {
+      "path": "Percolation/Literature/ConnectivityProofs.lean",
+      "bytes": 10007,
+      "sha256": "66afbb31ba148a951e6d5e36d036271df900f9958762b6e39e8c269d5fa9c562"
+    },
+    {
+      "path": "Percolation/Literature/ConstrainedClusters.lean",
+      "bytes": 24030,
+      "sha256": "932daf316a7536bd51ca41870d2bb4060aadf315880de2c9b73c65077feba640"
+    },
+    {
+      "path": "Percolation/Literature/CriticalContinuity.lean",
+      "bytes": 6742,
+      "sha256": "125a98f83e2d84e09b144cc639e8bf43cbca17dbef8d208fae84c376b58fca51"
+    },
+    {
+      "path": "Percolation/Literature/CriticalContinuityProofs.lean",
+      "bytes": 24837,
+      "sha256": "b43ed4537818590712aa66c18eae6b67a9c3c8848e09213b698709b078bf83a2"
+    },
+    {
+      "path": "Percolation/Literature/Crossings.lean",
+      "bytes": 27469,
+      "sha256": "d74645aebd078d0fb3617f8267a91b8db4376f9ea019a58fb60d376adc1ab3c4"
+    },
+    {
+      "path": "Percolation/Literature/DecisionTreeBK.lean",
+      "bytes": 15089,
+      "sha256": "46e18f0c7d59f4d21dac5780261b2f2d264de7619bd7e3ebeb47f6b08b779562"
+    },
+    {
+      "path": "Percolation/Literature/DecisionTreeWeighted.lean",
+      "bytes": 22268,
+      "sha256": "1b5c399d84347865c229629a250256963f0e1225efbe7b21c04b96f384625a27"
+    },
+    {
+      "path": "Percolation/Literature/DualContours.lean",
+      "bytes": 51249,
+      "sha256": "de810036868d97db270cd4104c8f76b7114b1b92ee5c99fed1fa87884d85de29"
+    },
+    {
+      "path": "Percolation/Literature/DynamicRenormalization.lean",
+      "bytes": 64040,
+      "sha256": "7cbdb5a4dd03f6046f3ffb03835683cf8f7c9d57b03124376253c185b830c892"
+    },
+    {
+      "path": "Percolation/Literature/DynamicSiteRenormalization.lean",
+      "bytes": 13243,
+      "sha256": "9d7c27f958d816081c15cdef0e77073af9e57388ff1fc97c58da2be0c6965dff"
+    },
+    {
+      "path": "Percolation/Literature/FiniteEnergy.lean",
+      "bytes": 27022,
+      "sha256": "afe0e9e37175d81e84d5b9a4822a0f7a539b4af2f3349a161a4e388f76fe42a8"
+    },
+    {
+      "path": "Percolation/Literature/FlatBoundsC.lean",
+      "bytes": 73840,
+      "sha256": "c90347ef066359b3dc1ba5b0c8b390ef5f6769e38104caf6a7c7662ff17aac51"
+    },
+    {
+      "path": "Percolation/Literature/FlatBoundsG.lean",
+      "bytes": 77997,
+      "sha256": "357683cb2e2e38ebca5b32c19569efe19e4c44aeddc931f34fbdbafda1fc03f9"
+    },
+    {
+      "path": "Percolation/Literature/FlatDisjA.lean",
+      "bytes": 19258,
+      "sha256": "928ab7f6f6c96d325c6f1fb6fd3853ed000a038364241b8e0a71072e320a67b1"
+    },
+    {
+      "path": "Percolation/Literature/FlatDisjD.lean",
+      "bytes": 70157,
+      "sha256": "748cfe5ef226f8ea3aa9793c9bbe1e0ac1dc4477d07f633e35a1e1b56f1d4d62"
+    },
+    {
+      "path": "Percolation/Literature/FlatDisjF.lean",
+      "bytes": 84937,
+      "sha256": "e236c7a16ad8dd7c0d8fce150e138e26ac25d323a58bb1da18ac4b38fcb4fdd5"
+    },
+    {
+      "path": "Percolation/Literature/FlatFrame.lean",
+      "bytes": 17178,
+      "sha256": "483102d8623a249d1094dc38babe0842dbd37b54e578764261c26bcfcd404285"
+    },
+    {
+      "path": "Percolation/Literature/FlatGeom.lean",
+      "bytes": 11989,
+      "sha256": "1698af7f4a0f504c6ba1d3c728dcc12c3ce6a4aa308fe6d7564eb77a29a65686"
+    },
+    {
+      "path": "Percolation/Literature/FlatHops.lean",
+      "bytes": 10062,
+      "sha256": "5dbb225509001369fcff839b831a43506021c3e815c72eec853df0bcdc03ca84"
+    },
+    {
+      "path": "Percolation/Literature/FlatInv.lean",
+      "bytes": 7814,
+      "sha256": "00e43daba73af55287ec1b300c6a310fd6f1ae837a784d47764c8b36b30c052b"
+    },
+    {
+      "path": "Percolation/Literature/FlatKin.lean",
+      "bytes": 8217,
+      "sha256": "87f95a1cdbc5476b9c6e5e9e983b05958ac77a6eac4ccedb4f66cb96e5a757f8"
+    },
+    {
+      "path": "Percolation/Literature/FlatKit.lean",
+      "bytes": 69209,
+      "sha256": "d278bf3bdd2cf45f945d3795a282be08e428162630e9400ed21fa1662293da9c"
+    },
+    {
+      "path": "Percolation/Literature/FlatKitDef.lean",
+      "bytes": 97738,
+      "sha256": "35e01fec615732f1258dcf72b46782fcd6b3c2725fcfbfdfb01404ab8b02d92f"
+    },
+    {
+      "path": "Percolation/Literature/FlatLegs.lean",
+      "bytes": 13196,
+      "sha256": "c262da06aac91510137cae91059c9d8f76c77f6c5783f4fef548607a72fac000"
+    },
+    {
+      "path": "Percolation/Literature/FlatRise.lean",
+      "bytes": 14471,
+      "sha256": "03c82ad1c87cc34ffd4681bff5f39fc9074c7663b1b9ff737299462741b03fcd"
+    },
+    {
+      "path": "Percolation/Literature/FlatRoute.lean",
+      "bytes": 12404,
+      "sha256": "5d28fecf8431085fbaac0cd9f022a371d2565f3b7d56e8756492d2e37e704d90"
+    },
+    {
+      "path": "Percolation/Literature/FlatRouteB.lean",
+      "bytes": 6028,
+      "sha256": "00274447e88bba2605087c48554aa17fb35b61f02f3da41c0c316ef5b543a734"
+    },
+    {
+      "path": "Percolation/Literature/FlatRun5.lean",
+      "bytes": 91497,
+      "sha256": "7047b5687773ec627046916341cd76bf69214413b2691e869ef4afabecf5b4a2"
+    },
+    {
+      "path": "Percolation/Literature/FlatStep.lean",
+      "bytes": 43569,
+      "sha256": "8a97662d5330327850d174febd362283834815ca6a904773062e1bae220c1e34"
+    },
+    {
+      "path": "Percolation/Literature/GMFiniteSize.lean",
+      "bytes": 8449,
+      "sha256": "454911326be538709a5413e3f6106bb86db23001436ebd72e3edd3211c99d3ef"
+    },
+    {
+      "path": "Percolation/Literature/GaitKinematics.lean",
+      "bytes": 14288,
+      "sha256": "ee20318011f642874f9ed17f92c11574e685e3cbe05f6822ac14d2bdfd20192e"
+    },
+    {
+      "path": "Percolation/Literature/GaitSteps.lean",
+      "bytes": 11995,
+      "sha256": "811f9ae8bb6fcf59e422d50261b4b3e1f632a2f5bae5938f21ea78aa1f88702e"
+    },
+    {
+      "path": "Percolation/Literature/GladkovExploration.lean",
+      "bytes": 2327,
+      "sha256": "860f471e0a8bc0c34fa4c070f06d5f82474029fe39c27ff7a7218a2934a3970b"
+    },
+    {
+      "path": "Percolation/Literature/GladkovZiminKernel.lean",
+      "bytes": 17351,
+      "sha256": "5381fbf3434e4b1521f739b473881f7ff728bd081853f0fbd1dd3232455aa48a"
+    },
+    {
+      "path": "Percolation/Literature/GrimmettMarstrand.lean",
+      "bytes": 6104,
+      "sha256": "cd4d9ee50dc90ece280498378daf163bd1de21a2e5c1fad2ccc67de15c35e977"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpace.lean",
+      "bytes": 6232,
+      "sha256": "f7a2489115df08353ab5db07c7b977e46840dc4efc9cd5834bafcceae86f286a"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceBGN.lean",
+      "bytes": 6705,
+      "sha256": "95ba242f023726d3aeab4c517bab1640a39e964fc2158290e07edea7a63e2933"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceBrickSeeds.lean",
+      "bytes": 4219,
+      "sha256": "35a247b10be9302facb665f2597e8f87ca2d2e3aadb17fab2755668be4464898"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceBrickSymmetry.lean",
+      "bytes": 4078,
+      "sha256": "e8ddf10eb545199f213e0584105ea22b1719d1c7eb8b6fec5b48c188d58383fb"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceBrickUp.lean",
+      "bytes": 8967,
+      "sha256": "1b0e96a81b8ce504bf7486e67bf867f83edd8d530d588842dce3302b3dc99756"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDim.lean",
+      "bytes": 12485,
+      "sha256": "d19060dd33ad14d93f0965cf93628d89655513bf8a75aa38a9f99a7c938f0689"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimBounded.lean",
+      "bytes": 37401,
+      "sha256": "8c6bebae040221d54a356bfa8d8e73e776522c7c9b6a22b0530e51f15e0d35d1"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimBrick.lean",
+      "bytes": 33700,
+      "sha256": "2bd59476fffa20cf584c31899c98b8998629b8c7c1d6141b247162ce71d6c81a"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimBrickExit.lean",
+      "bytes": 45735,
+      "sha256": "2aa92b83b88601bbd5b1d05f0937209d198d39d550541aa52467775e62e1fa55"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimClean.lean",
+      "bytes": 28481,
+      "sha256": "1ee85f6f587b141978aaaf5c368f300dc4b7f21763a3487ab6f4615c4506b5a7"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimLemma736.lean",
+      "bytes": 29801,
+      "sha256": "70e8015c550a77ba4457c1d5807290e553c985d36c27f931e16fc13e2d14ce4b"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimPlaced.lean",
+      "bytes": 48177,
+      "sha256": "132cbff9a547be3bd0500ad0b35cec6a7130883602f7bba30a8e670dd7f6f059"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimSeeds.lean",
+      "bytes": 21085,
+      "sha256": "174f8cd4d15e99a9587ec23ececfac9af846d2513fb6e22707289e44d42cc6f3"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimSlab.lean",
+      "bytes": 33422,
+      "sha256": "e819fc5977a30754c104a6d85e1a1b8f947c8fd48155f16e6630430ac9a14f2c"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimStar.lean",
+      "bytes": 19588,
+      "sha256": "03f4d5c8451b64594bd0e64e945a4e17e499f5c19e38bc4c360d3b87b2f5b224"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceHighDimSymmetry.lean",
+      "bytes": 24001,
+      "sha256": "a1a9aef63ef14365ad5e1b563f981fcdd3f14a0ab8ecddb96d387ba1eb6e939d"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceLemma752.lean",
+      "bytes": 2352,
+      "sha256": "4a0feab03132f0366fbd94043664fcdbb313f344c8390908ac0e42cc893c2962"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpacePinnedPairs.lean",
+      "bytes": 3488,
+      "sha256": "04ad362d91dd374bd1841057ca3e0df062a25f54876641a0b0054dae4d69f6be"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceProofs.lean",
+      "bytes": 7440,
+      "sha256": "ca795f6996713fd30c15a193a7a0c336b0b7ee27b631d921359c1c79f32b910b"
+    },
+    {
+      "path": "Percolation/Literature/HalfSpaceSlab.lean",
+      "bytes": 1767,
+      "sha256": "65a0cc71605fd218e3434fa6273ee96dbc6ff4125395e425aa4e27b11d149ddd"
+    },
+    {
+      "path": "Percolation/Literature/HarrisInequality.lean",
+      "bytes": 29638,
+      "sha256": "857bb7fdcc0e307b649c68f1904667d674b72d5c5fa5fad2db6a1a3ddfb859f1"
+    },
+    {
+      "path": "Percolation/Literature/HarrisLocal.lean",
+      "bytes": 12988,
+      "sha256": "2dd1c12d4881f9b8c9626e64ddb7225445bf72628c93a1a4a2d8074bdfb2f71c"
+    },
+    {
+      "path": "Percolation/Literature/HarrisTheorem.lean",
+      "bytes": 43868,
+      "sha256": "02e7b75e41d021bdd70c4227bbacf8f71d65206a5f8e3c12b4055553a9176864"
+    },
+    {
+      "path": "Percolation/Literature/HistorySiteRenormalization.lean",
+      "bytes": 45894,
+      "sha256": "7b12a05707e925623f72f71e201ae368d4b50b6236b9941b920c4662626a157d"
+    },
+    {
+      "path": "Percolation/Literature/Inequalities.lean",
+      "bytes": 5363,
+      "sha256": "0f3f65ff12c89dd95edca6b46beebfcdcf2344a2cb54cf15a55e8ec26f4ad448"
+    },
+    {
+      "path": "Percolation/Literature/InequalitiesProofs.lean",
+      "bytes": 11350,
+      "sha256": "6c0b25ff427e13ce74448d604108662032e133cc3fd3cd3f8c28aba5b5d7c0df"
+    },
+    {
+      "path": "Percolation/Literature/InsertionTolerance.lean",
+      "bytes": 8298,
+      "sha256": "a7b767f6b4086e9d5e8df85075fb64be757d72f034964b4982706467cdc92cfe"
+    },
+    {
+      "path": "Percolation/Literature/KestenTheorem.lean",
+      "bytes": 22435,
+      "sha256": "1054e33933701df7618d5641c53acd58520a17162e80285b3306233bf2f3193b"
+    },
+    {
+      "path": "Percolation/Literature/KestenTheoremProofs.lean",
+      "bytes": 14036,
+      "sha256": "3176ca2004ace011d86bd5e478252e11f8fcedf5fa567a0cf4b8c4d9bde36862"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanBoxes.lean",
+      "bytes": 39078,
+      "sha256": "536755e45409cc430ef105dd350a36d8ec7975e72e047f3f928caa6b5173aa54"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanClusterProperty.lean",
+      "bytes": 42458,
+      "sha256": "b5b897535e6b02516568c00299fb471a03f10323328dea8dac379d61c682b3d5"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanClusterPropertyReal.lean",
+      "bytes": 52348,
+      "sha256": "141614a76beef6073381c212bfc44a79c88fbf08358834119dcf771a5e66cb38"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanCorridor.lean",
+      "bytes": 71948,
+      "sha256": "b45a781819c44386f7bf9306afe8180f16b8bed116ece7de4cdaa11871bb8c0b"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanHGluing.lean",
+      "bytes": 3310,
+      "sha256": "1148105eeb821caf8f4cb5b1fd1cbd264279bb648ca0c81c213c7b3933458351"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanHittable.lean",
+      "bytes": 23533,
+      "sha256": "5a07e15b25ca745789f87e437073a127ea38bf730f3127338d91e8ed29be3838"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanPinning.lean",
+      "bytes": 41268,
+      "sha256": "477e2b6766804b926fb5e5b6576256ab640a48b97cbdac999e8fc3636de7b772"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanPreFKG.lean",
+      "bytes": 68694,
+      "sha256": "5c16a2cf9a28deedbacf7d3d4dbb8a9d95ce8438d8b9a0e7932c89b66e4582d1"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanReduction.lean",
+      "bytes": 8468,
+      "sha256": "d43baf19994e7018385f7304ef35a34c6d502daa261a8dc70a60f3665241587f"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanScheme.lean",
+      "bytes": 47797,
+      "sha256": "e30c10a8fd46033af89ebb50e91af7eb768a3fd999abf65de92f30fd50ec6342"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanSeparatingTriple.lean",
+      "bytes": 139668,
+      "sha256": "61c95cdb7283f2e67bd167fac8a12051409004848de51cfbe503a9267f169a42"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanSteps.lean",
+      "bytes": 88795,
+      "sha256": "32bb3dfddf9adca5ddecca91f2877f8e7f103e0498cf925299d456a277353609"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanTargetLemma.lean",
+      "bytes": 127959,
+      "sha256": "6a9c8acb8f46d326cb1bfd486b6e538eeaf132ca68ef60956bde945d9ae4d129"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanTheorem6.lean",
+      "bytes": 65780,
+      "sha256": "8086dd0689c215300571900973338bf5372377972daa5a89ef922be726aa01f7"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanTheorem6OfSlab.lean",
+      "bytes": 17101,
+      "sha256": "920583b0e21f48a6261a925a19c09bb8668a4fa01b3ad1c61272bbcdbdc62e50"
+    },
+    {
+      "path": "Percolation/Literature/KozmaNitzanTheorem6SlabCritical.lean",
+      "bytes": 6414,
+      "sha256": "e76b196bdf96c93cfdecd1097d0f673d1508751c63f7a384d05721f07f31764d"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/LatticeGraph.lean",
+      "bytes": 11799,
+      "sha256": "36003f3f90f98bd15216b52cad922d5477c2fee8c1318a77af75dd9d768a10de"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulli.lean",
+      "bytes": 4101,
+      "sha256": "87e3f5c986c1ab04e163d7572ed676bc75bd49f7cebd1f5bdf7d955298965f36"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliAtomExpansion.lean",
+      "bytes": 2769,
+      "sha256": "dc51af162ee389a747ea6cecb7c0b2e175f72287ea7cc662be710a94c2b782f4"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliBK.lean",
+      "bytes": 7085,
+      "sha256": "2619bd89ce9b7b80e0084bc1caffc509d046e028e6106437dc0e6adcaa58c360"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliClusterLocality.lean",
+      "bytes": 4456,
+      "sha256": "ab5ea1e384c2ad0c41d180ce77fb46ee1c34e87a208626d523ef08dba9e35ed3"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliCoupling.lean",
+      "bytes": 7257,
+      "sha256": "dfeb43b7c0c767cf48924b0f24459b019731e58edd2bc847e52c001af58fa284"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliIndependence.lean",
+      "bytes": 13686,
+      "sha256": "5babcd21738e4bdede6a32ea2c42cb7cbf7e29bfbb5370b08f059a40fb884b41"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliProofs.lean",
+      "bytes": 1360,
+      "sha256": "996d5ebc6188ce9075b833db5220657ef481ca1c4cc19da7e615b5980ecfd683"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliRecolour.lean",
+      "bytes": 3940,
+      "sha256": "6db5da7f1c999082061cda04b910d7d683cdcc79484b9b805a3c1e40aa0851db"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ProdBernoulliWeightContinuity.lean",
+      "bytes": 7025,
+      "sha256": "601088716b91373c4afff6355c07cf202a829f1ca43b00fb55390474881ad076"
+    },
+    {
+      "path": "Percolation/Literature/LatticeModels/ThermodynamicLimit.lean",
+      "bytes": 4787,
+      "sha256": "8f0cc2f3eecb8d08050c98ee1840bf73478160d81fca4310581b6c964070d0f7"
+    },
+    {
+      "path": "Percolation/Literature/LatticeSymmetry.lean",
+      "bytes": 14731,
+      "sha256": "4c46871a6ca4a65fa5b76fe928a4231cbfdf6d077eaf80c2b751a6b885cdcff7"
+    },
+    {
+      "path": "Percolation/Literature/LocallyMonotoneFKG.lean",
+      "bytes": 19014,
+      "sha256": "91ad5227d89136a73c714d441d6d68b19498836f7f22941029ae92d554e8a264"
+    },
+    {
+      "path": "Percolation/Literature/LonePortSum.lean",
+      "bytes": 2883,
+      "sha256": "bd45f68b129274ff4abb794266e4d86241bb6a76ebe450504d236e5e9c436b31"
+    },
+    {
+      "path": "Percolation/Literature/LonePortSumGeneral.lean",
+      "bytes": 17372,
+      "sha256": "5b5c163c5d284f3bf0050bd68860b66fd00739b37dd75f433270dcba13abcd6e"
+    },
+    {
+      "path": "Percolation/Literature/LowestCrossing.lean",
+      "bytes": 26063,
+      "sha256": "3a7fa6fb1dc8c89020cd461383c178218969cfe751f691f35b9d12193efac6db"
+    },
+    {
+      "path": "Percolation/Literature/MacroRenormalization.lean",
+      "bytes": 6914,
+      "sha256": "45a5b63a789f99bc5d7179d9ab3c01aab1adfd7105ff76cc45056b5cc8338ca1"
+    },
+    {
+      "path": "Percolation/Literature/MultiValuedMapPrinciple.lean",
+      "bytes": 3107,
+      "sha256": "8b46d4f4821a94600e543aada870a4f5ca4c6162a92a00b1bbc9d4114bc72d87"
+    },
+    {
+      "path": "Percolation/Literature/PercolationEvents.lean",
+      "bytes": 9733,
+      "sha256": "68cbd688bc81b81dcc71427a90e4a246e372a272009a8412acdee5d6fd002eff"
+    },
+    {
+      "path": "Percolation/Literature/PercolationProofs.lean",
+      "bytes": 16597,
+      "sha256": "1207a99afae7ce6cbf5a2de2d5963f9da6ff2cdcb1742ded48a9b9435ccb755b"
+    },
+    {
+      "path": "Percolation/Literature/PlacedBricks.lean",
+      "bytes": 2197,
+      "sha256": "93a870cb5c7fdad6de72bf21c1c4abf8f28fe4376040ab37bab8587eaefc5924"
+    },
+    {
+      "path": "Percolation/Literature/PlanarDuality.lean",
+      "bytes": 81504,
+      "sha256": "28fcaf0fd7f337606edea940889145961cb116a6ee083adc1bd34b19d3afc53a"
+    },
+    {
+      "path": "Percolation/Literature/RSW.lean",
+      "bytes": 25861,
+      "sha256": "6650a900db5c63b14856ada7f818a1ffb9d801c38071b48f88737bc783d8949c"
+    },
+    {
+      "path": "Percolation/Literature/RSWLemma.lean",
+      "bytes": 71867,
+      "sha256": "d27c7b57aa270c7daae62579a4ab65f0eacf27d7c022e88df87248e14bcf8fea"
+    },
+    {
+      "path": "Percolation/Literature/RSWProofs.lean",
+      "bytes": 24807,
+      "sha256": "395df6baed01eed28bb9e73c3aa4e3d0e540daa027cfddb535232f4d47ccd908"
+    },
+    {
+      "path": "Percolation/Literature/RussoFormula.lean",
+      "bytes": 19094,
+      "sha256": "46b5a5975eccb0baab2ac41441843068cc8a629b7330225ccf8ae8237038517c"
+    },
+    {
+      "path": "Percolation/Literature/SeedLemma.lean",
+      "bytes": 33352,
+      "sha256": "ca4c45bca157ada607ec2287e679dfdee2cce2c7f64670a9ecd2dcc010dc44db"
+    },
+    {
+      "path": "Percolation/Literature/SequentialProbing.lean",
+      "bytes": 8552,
+      "sha256": "387196f88ca3bfb6d6ee191f1dadaa57c22fd37d416687f7605b713ef30456bd"
+    },
+    {
+      "path": "Percolation/Literature/SetClusterExploration.lean",
+      "bytes": 18946,
+      "sha256": "7a822c27b15c709dfbe0fd13a891b77d738770009dca3c712687e8de5249821f"
+    },
+    {
+      "path": "Percolation/Literature/SharpnessDCT.lean",
+      "bytes": 15608,
+      "sha256": "35ca4c9c3c39aa45eb5b36fdbf700bd6039d51d00b1dd07f2aa1fc87bc4cb580"
+    },
+    {
+      "path": "Percolation/Literature/SharpnessDCTProofs.lean",
+      "bytes": 83387,
+      "sha256": "73d4dba46744cd4951c995054ac995059cc0b908f7d292ef3b2f641fa307f904"
+    },
+    {
+      "path": "Percolation/Literature/SiteConnectionTools.lean",
+      "bytes": 15978,
+      "sha256": "a496be0af4ad15882e1df64e934c6b9ede34fc7de438bd5189e83853085201b6"
+    },
+    {
+      "path": "Percolation/Literature/SiteMonotonicity.lean",
+      "bytes": 2662,
+      "sha256": "57e7cc7852b970e64f2876af2779f50ffdd548617c35faa39514fc474d6d0ddc"
+    },
+    {
+      "path": "Percolation/Literature/SitePaths.lean",
+      "bytes": 6458,
+      "sha256": "b6fe255541ef7685360db7503fcf19b3a0dfeb2ded0b0232ee714155ca9011c6"
+    },
+    {
+      "path": "Percolation/Literature/SitePercolationMeasure.lean",
+      "bytes": 4821,
+      "sha256": "d117db04d07015fd24fae5d1a19780bd93eb8cdc5aef577ae4e8fa1a1ddd3d97"
+    },
+    {
+      "path": "Percolation/Literature/SlabCriticality.lean",
+      "bytes": 99049,
+      "sha256": "84fc2af7dd602736310422fb69bc0ab340cf3bde92d53689b6ef0ce94abe74bd"
+    },
+    {
+      "path": "Percolation/Literature/SlabCriticalityChain4.lean",
+      "bytes": 24134,
+      "sha256": "2fe075fe68f22e65d3e2bb124763d0eb3d1ee6594868cc7139a30f2b50b97115"
+    },
+    {
+      "path": "Percolation/Literature/SlabCriticalityInputs.lean",
+      "bytes": 82894,
+      "sha256": "383abad771c0a1c4692bf5ffda3d8569f11dabd487630c3838c28c47b405e2d3"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluing.lean",
+      "bytes": 38547,
+      "sha256": "31af36e17c49d3cab57b4c5133e1f381e07b9947809dc2a56c46b4cb60d62a15"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingFact1.lean",
+      "bytes": 62099,
+      "sha256": "4da9829e188fee893089772758bb596b0a39d5b68e96cb4df924db3662bfc5e2"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingFact2.lean",
+      "bytes": 30531,
+      "sha256": "af23140b88ece3ee70f6bf4712921a35980e56a4b5aac949f01e651e95803657"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingFact2Core.lean",
+      "bytes": 59059,
+      "sha256": "680414408f3bdd054495820229ba68db576f3088b2b04cf86b328550dfa60800"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingRecovery.lean",
+      "bytes": 4979,
+      "sha256": "f3e59d340e67e3258cd07d2f5feb509f729c20df0e7dd0b5908bede41a641adc"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingRouting.lean",
+      "bytes": 126229,
+      "sha256": "5341dea518ff235eb2a20488a326620469038bc98a0869289840aa2365bd1fd0"
+    },
+    {
+      "path": "Percolation/Literature/SlabGluingSurgery.lean",
+      "bytes": 26967,
+      "sha256": "0bb877f91e512c57155b9a392ad7da8422d50c7177a40a524259a95c67530b1e"
+    },
+    {
+      "path": "Percolation/Literature/SlabUniqueness.lean",
+      "bytes": 44212,
+      "sha256": "c4f97032127a9c90a4635b5a1e155685f5d43a92f42a0b5cbe44a3159bebe264"
+    },
+    {
+      "path": "Percolation/Literature/SubgraphMonotonicity.lean",
+      "bytes": 10029,
+      "sha256": "fa88b3475b8d6aed359a9c09500f54e09f6ef9aed78706cf6cab229cf2a1a07f"
+    },
+    {
+      "path": "Percolation/Literature/TallBounds.lean",
+      "bytes": 23043,
+      "sha256": "0d1481cb137b391476c5e295c1a596d8d2f1c6ad93cf29c79e20cabebd7e9624"
+    },
+    {
+      "path": "Percolation/Literature/TallDisjoint.lean",
+      "bytes": 13534,
+      "sha256": "5923230a8149e1275dcc014415abd1a416c3a649557960705106e4989abd1d28"
+    },
+    {
+      "path": "Percolation/Literature/TallDisjoint2.lean",
+      "bytes": 16874,
+      "sha256": "b1e959cc114840c44ac4a8a1fbcf6d17c4f833204bc874da3f4336f8191e41c7"
+    },
+    {
+      "path": "Percolation/Literature/TallDisjoint3.lean",
+      "bytes": 22920,
+      "sha256": "74765470e9dff3167e2355e1d0e9320861e82ea1851749ea7e7b08e114989b0f"
+    },
+    {
+      "path": "Percolation/Literature/TallFeas.lean",
+      "bytes": 31983,
+      "sha256": "e9e97f3277e9417074c6198210d124f5409de05cc516bb0cf7b7748bfd8b2a1e"
+    },
+    {
+      "path": "Percolation/Literature/TallGeom.lean",
+      "bytes": 8069,
+      "sha256": "501189421426581d0557aa35edf1ff4f2bd148afd63e51f0d6f55a409c140f1f"
+    },
+    {
+      "path": "Percolation/Literature/TallInit.lean",
+      "bytes": 13596,
+      "sha256": "cd8c434ad5db414edcb2069b4ac9dfc6b3c909cbddec2bc1b0ede04a44bf1a85"
+    },
+    {
+      "path": "Percolation/Literature/TallInv.lean",
+      "bytes": 11493,
+      "sha256": "b0ea0b9f55ad7b6ce6b2999bdfae92bb77af9a755d4318bf6da118a81e241da4"
+    },
+    {
+      "path": "Percolation/Literature/TallInvA.lean",
+      "bytes": 7425,
+      "sha256": "4a1f0c4a68d372da676a096089b71057028457103fbf51fc86a23f994b1b470f"
+    },
+    {
+      "path": "Percolation/Literature/TallInvA2.lean",
+      "bytes": 22902,
+      "sha256": "df9497c99546db0ab4292145b77608fb2712e9cd8b7e0442d552f60594b0d631"
+    },
+    {
+      "path": "Percolation/Literature/TallInvB.lean",
+      "bytes": 15739,
+      "sha256": "240cbb1139439f5f48a73e7fb25d4f1759fde23bdf1ccf046edf14b93de18958"
+    },
+    {
+      "path": "Percolation/Literature/TallInvJ.lean",
+      "bytes": 12254,
+      "sha256": "911540ec63d26d61f3c4f54f5e9e0c3c45af53812d05d0d17bf0abbbdf76cf16"
+    },
+    {
+      "path": "Percolation/Literature/TallInvR.lean",
+      "bytes": 15998,
+      "sha256": "0ca522c37fd76d8288d778d83f0b0ddc822339e82764bac0d060243f8b0b62eb"
+    },
+    {
+      "path": "Percolation/Literature/TallInvT.lean",
+      "bytes": 19314,
+      "sha256": "f44b1e0657203c8f09c53b377d177fffa721fbc179915a19eae0c82a54371476"
+    },
+    {
+      "path": "Percolation/Literature/TallInvariant.lean",
+      "bytes": 11323,
+      "sha256": "b59e6501c08dddfd685df1fdb7eaf96a16c22cbdb578e6b74f100bc78d797d54"
+    },
+    {
+      "path": "Percolation/Literature/TallKit.lean",
+      "bytes": 10879,
+      "sha256": "20b47fc60ed053289753161f3e8060220d4c003e7e4adc0604a57360189186b9"
+    },
+    {
+      "path": "Percolation/Literature/TallKitDef.lean",
+      "bytes": 3621,
+      "sha256": "894ba50d15b06518d69656eab1676343b72a40131b34f21bfe1e8cb907ec6e24"
+    },
+    {
+      "path": "Percolation/Literature/TallRoute.lean",
+      "bytes": 22211,
+      "sha256": "002e6299f9740b7b59237fb76da8f5b861a04ecea32bafd5a3ab204d81514a7f"
+    },
+    {
+      "path": "Percolation/Literature/TallRun.lean",
+      "bytes": 16896,
+      "sha256": "6243b11d42874da1208774ab8b367969244c52b11b971c6a8dd08ee717d36f35"
+    },
+    {
+      "path": "Percolation/Literature/TallRun2.lean",
+      "bytes": 17350,
+      "sha256": "484a021824cc02e1b181eb1cbf58ca2dcb67076df8c1793a95abea3140ba589b"
+    },
+    {
+      "path": "Percolation/Literature/TallRun3.lean",
+      "bytes": 22988,
+      "sha256": "6cafbfe0208009c9f2a570e5cb9742db197c9f1c292c0fbab07cf9c29554ce76"
+    },
+    {
+      "path": "Percolation/Literature/TallRun4.lean",
+      "bytes": 21826,
+      "sha256": "6d5826e009d28584256e92ff09574ed8629d7bb65c47b1acd5ac64e626a2daaa"
+    },
+    {
+      "path": "Percolation/Literature/TallRun5.lean",
+      "bytes": 19119,
+      "sha256": "4cb49f35617c5c2c1e71a64443b0c7a04deb385c33bd6615d9f17a4dfeefcd7d"
+    },
+    {
+      "path": "Percolation/Literature/TallStatic.lean",
+      "bytes": 58016,
+      "sha256": "2795d11b3b7133fd2ef2445f1addfa5aa418cc513f8017c2f7bf11e8f1f44bd7"
+    },
+    {
+      "path": "Percolation/Literature/TallStep.lean",
+      "bytes": 15375,
+      "sha256": "0658d957dfde39f68153644a9e815ec909a6d4bce7d48089e5336f9e706bceb5"
+    },
+    {
+      "path": "Percolation/Literature/TallZone.lean",
+      "bytes": 53878,
+      "sha256": "0a228e8fca294c0bd07844493ecc5e871d973eaf7094c0177c372c183aae1e35"
+    },
+    {
+      "path": "Percolation/Literature/TargetExploration.lean",
+      "bytes": 12167,
+      "sha256": "0a3fb20b8af26212680339aee1ebcdb9ca026a530806d2e36b68d6684406a011"
+    },
+    {
+      "path": "Percolation/Literature/TargetExplorationHK.lean",
+      "bytes": 5970,
+      "sha256": "8012b0bf0184f0aaa5ff325ccc8febaed969dbe6637e75b88103089257560508"
+    },
+    {
+      "path": "Percolation/Literature/TargetExplorationRevealed.lean",
+      "bytes": 4131,
+      "sha256": "5e6028e844ab8f6d191d19640b2750382de91532b3d77b445efdd1e6b29204f8"
+    },
+    {
+      "path": "Percolation/Literature/TripodExchange.lean",
+      "bytes": 5189,
+      "sha256": "eea8a7a1b297dcaeeb81bcd7d902bdbabe8b237ee35a7c2070203dbeb8b13907"
+    },
+    {
+      "path": "Percolation/Literature/TwoAvoidanceSets.lean",
+      "bytes": 7427,
+      "sha256": "e4dd3421274df0ad8a72d0773707e7a623f9a5648e0d687f08f2adc0aa43c572"
+    },
+    {
+      "path": "Percolation/Literature/TwoClusterConditionalAssociation.lean",
+      "bytes": 13530,
+      "sha256": "3d0c04f0ef661fd0bdd9530af3c2589fb5aa462a10ceba9f61763c2b77ae426d"
+    },
+    {
+      "path": "Percolation/Literature/TwoClusterConditionalAssociationProofs.lean",
+      "bytes": 22952,
+      "sha256": "af65fe02d052a1753522877eee5253d310027a45f699eb5bb4688acdca345f56"
+    },
+    {
+      "path": "Percolation/Literature/TwoClusterGibbsCovariance.lean",
+      "bytes": 54665,
+      "sha256": "55f267cf8352975a4f11265280f96159afae06224560b790baee048814825cdc"
+    },
+    {
+      "path": "Percolation/Literature/TwoClusterGibbsSampler.lean",
+      "bytes": 29958,
+      "sha256": "565d6f9d072b68f10e3560e47f698d2b8aed2bd179d602858746a23e53185622"
+    },
+    {
+      "path": "Percolation/Literature/TwoSetConditionalAssociation.lean",
+      "bytes": 30842,
+      "sha256": "5ba0776ee218f4ef25048017c7a5d844b0b615101d64f3019547eab7cba75169"
+    },
+    {
+      "path": "Percolation/Literature/TwoSetExchange.lean",
+      "bytes": 19817,
+      "sha256": "c7cedd9ff04c0f8c8f95d1faa9bce83534d6a42e4f6e57bf73c3d6a8478cb40d"
+    },
+    {
+      "path": "Percolation/Literature/UniformPercolation.lean",
+      "bytes": 17987,
+      "sha256": "6b553a28fc0a38be7ceda6bd36751dbe444a9b048c77ef141769d88f1248bfaa"
+    },
+    {
+      "path": "Percolation/Literature/UniquenessInfiniteCluster.lean",
+      "bytes": 66244,
+      "sha256": "310d04209004338d94fbd359044c05da046fb027e4e4759704fb5ace0290c5d2"
+    },
+    {
+      "path": "Percolation/Literature/UniquenessZone.lean",
+      "bytes": 16859,
+      "sha256": "b1b01bb73b279eaeb2d91fb266ef68f8f71e9c4ac32447768a1c042c42de8361"
+    },
+    {
+      "path": "Percolation/Literature/ZeroOneLaw.lean",
+      "bytes": 21288,
+      "sha256": "2cb1d5f81325f2ab00c8e3320016b2fff5f5925902eac28d4e47d18e8d53c86c"
+    },
+    {
+      "path": "Percolation/Util/Linter.lean",
+      "bytes": 1134,
+      "sha256": "28d522dd024a15a93b40ef52956baecbdeda425166c595bf605f85a83614440a"
+    },
+    {
+      "path": "Percolation.lean",
+      "bytes": 274,
+      "sha256": "9b2a64cdf73a00db2df3b86191409abddaab56803da1aeffb3a4e0a2fdf1d081"
+    },
+    {
+      "path": "README.md",
+      "bytes": 23076,
+      "sha256": "c3d37f1ec669df14dae4a5d4b4932290dc7bf3efbee860df4c2f995da22757f8"
+    },
+    {
+      "path": "Solution.lean",
+      "bytes": 7120,
+      "sha256": "a915e2dfd066e29a652a988297859e3af5004ec3c475bc822bacd66b27454a0d"
+    },
+    {
+      "path": "amsplain-norepeat.bst",
+      "bytes": 26314,
+      "sha256": "8b23fc6656ed1307823f3ae8090cfa5ff54c2c5cad4fa7f2f2dd5411619c55b0"
+    },
+    {
+      "path": "comparator.json",
+      "bytes": 311,
+      "sha256": "652ee2bd228eaaad0f155f1bfca88e6b702671c0e8726f6cd6335455ac8664f6"
+    },
+    {
+      "path": "formalization.yaml",
+      "bytes": 15677,
+      "sha256": "a6b4e9b0801be948f9e865f61edbd9d3a207728539b9a86753389c8213374e90"
+    },
+    {
+      "path": "lake-manifest.json",
+      "bytes": 3238,
+      "sha256": "49a76ea1a828b5a530f389461995f84c890b94a36c0f1661048aaa090467379e"
+    },
+    {
+      "path": "lakefile.toml",
+      "bytes": 806,
+      "sha256": "392df856937cd3b91dbe883b9383e558bf34191fad70522d96ab4d0513018007"
+    },
+    {
+      "path": "lean-toolchain",
+      "bytes": 25,
+      "sha256": "2773c517aa90b66ea8a2c52bddddf84393157797f8341be0df45294fff7fd32e"
+    },
+    {
+      "path": "references.bib",
+      "bytes": 16843,
+      "sha256": "0485ca7d7ec541e57863ebf2bdde654ff9b39c010d8b912fb21544c704634af9"
+    },
+    {
+      "path": "scripts/Axioms.lean",
+      "bytes": 1100,
+      "sha256": "ee8dc78bc13908a2d481b50948f32201ce238e48a82482d2d479cfa509567892"
+    },
+    {
+      "path": "summary.pdf",
+      "bytes": 243946,
+      "sha256": "5540fee046a4dfff0247410630aec8d6b42c8f3c074c19e98a3b66f8f9410a75"
+    },
+    {
+      "path": "summary.tex",
+      "bytes": 77669,
+      "sha256": "4f9b3bbd88634989b179c675fb4bfc5d3b30e0cd6d404f27c6b0f6edb5116ed4"
+    }
+  ]
+}

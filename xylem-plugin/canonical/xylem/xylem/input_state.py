@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def files_for(spec):
-    files = {Path(spec[k]) for k in ('dot', 'extractor', 'bibliography') if spec.get(k)}
+    files = {Path(spec[k]) for k in ('dot', 'extractor', 'bibliography', 'components') if spec.get(k)}
     for path in Path(spec['vault']).glob('*.md'):
         files.add(path)
     if spec.get('bricks'):
@@ -15,6 +15,9 @@ def files_for(spec):
         files.update(root.joinpath('Ctrllib').rglob('*.lean'))
         files.update(root/name for name in ('Ctrllib.lean', 'Extract.lean', 'lean-toolchain',
                                           'lakefile.toml', 'lake-manifest.json'))
+    if spec.get('source_root'):
+        root = Path(spec['source_root'])
+        files.update(path for path in root.rglob('*') if path.is_file() and '.lake' not in path.parts)
     return sorted(files)
 
 
@@ -24,23 +27,33 @@ def snapshot(spec):
 
 
 def extraction_issues(spec, nodes):
-    if not spec.get('ctrllib'):
+    source_key = 'source_root' if spec.get('source_root') else 'ctrllib'
+    if not spec.get(source_key):
         return []
-    root = Path(spec['ctrllib'])
-    sources = list(root.joinpath('Ctrllib').rglob('*.lean'))
-    sources += [root/name for name in ('Ctrllib.lean', 'Extract.lean', 'lean-toolchain',
-                                      'lakefile.toml', 'lake-manifest.json')]
+    root = Path(spec[source_key])
+    if source_key == 'source_root':
+        sources = [path for path in root.rglob('*') if path.is_file() and '.lake' not in path.parts]
+        lean_sources = [path for path in root.rglob('*.lean')
+                        if '.lake' not in path.parts and 'scripts' not in path.parts]
+    else:
+        sources = list(root.joinpath('Ctrllib').rglob('*.lean'))
+        sources += [root/name for name in ('Ctrllib.lean', 'Extract.lean', 'lean-toolchain',
+                                           'lakefile.toml', 'lake-manifest.json')]
+        lean_sources = list(root.joinpath('Ctrllib').rglob('*.lean'))
     stamp = min(Path(spec[k]).stat().st_mtime_ns for k in ('dot', 'extractor'))
     newer = [str(p.relative_to(root)) for p in sources if p.is_file() and p.stat().st_mtime_ns > stamp]
     modules = {p.relative_to(root).with_suffix('').as_posix().replace('/', '.')
-               for p in root.joinpath('Ctrllib').rglob('*.lean')}
+               for p in lean_sources}
+    if source_key == 'ctrllib':
+        modules = {name.replace('Ctrllib.', 'Ctrllib.', 1) for name in modules}
     indexed = {r['module'] for r in nodes.values() if r['kind'] == 'module'}
     issues = []
     if newer:
         issues.append('Lean inputs newer than extraction: ' + ', '.join(newer))
     if modules - indexed:
         issues.append('source modules absent from graph: ' + ', '.join(sorted(modules - indexed)))
-    removed = {name for name in indexed if name and name.startswith('Ctrllib.')} - modules
+    prefixes = ('Ctrllib.',) if source_key == 'ctrllib' else ('Percolation', 'Solution', 'Challenge')
+    removed = {name for name in indexed if name and name.startswith(prefixes)} - modules
     if removed:
         issues.append('indexed modules without source files: ' + ', '.join(sorted(removed)))
     return issues

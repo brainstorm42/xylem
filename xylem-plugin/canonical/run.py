@@ -45,6 +45,10 @@ def load_config(path: Path) -> tuple[dict[str, Path | None], Path]:
         raise ValueError("relative_to must be 'package_root' or 'config'")
     values = {key: _path(value, key=key, base=base)
               for key, value in raw["paths"].items()}
+    options = raw.get("options", {})
+    if not isinstance(options, dict):
+        raise ValueError("config options must be an object")
+    values["compact_index"] = bool(options.get("compact_index", False))
     required = ("dot", "extractor", "vault", "db")
     missing = [key for key in required if values.get(key) is None]
     if missing:
@@ -79,6 +83,13 @@ def _check_input_paths(paths: dict[str, Path | None]) -> None:
                 raise ValueError(f"configured vault directory does not exist: {value}")
         elif not value.is_file():
             raise ValueError(f"configured input file does not exist: {value}")
+    for key in ("components",):
+        value = paths.get(key)
+        if value is not None and not value.is_file():
+            raise ValueError(f"configured input file does not exist: {value}")
+    value = paths.get("source_root")
+    if value is not None and not value.is_dir():
+        raise ValueError(f"configured source root does not exist: {value}")
 
 
 def _import_xylem():
@@ -106,8 +117,12 @@ def _build(paths: dict[str, Path | None]) -> int:
         "--bricks", str(paths.get("bricks") or ""),
         "--bib", str(paths.get("bib") or ""),
         "--ctrllib", str(paths.get("ctrllib") or ""),
+        "--source-root", str(paths.get("source_root") or ""),
+        "--components", str(paths.get("components") or ""),
         "--db", str(paths["db"]),
     ]
+    if paths.get("compact_index"):
+        argv.append("--compact-index")
     return build.main(argv)
 
 

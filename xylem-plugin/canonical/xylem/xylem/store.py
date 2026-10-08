@@ -9,7 +9,10 @@ from pathlib import Path
 DEPENDENCY_EDGE_TYPES = ("IMPORTS", "USES_IN_TYPE", "USES_IN_PROOF")
 # BRICK_OF/CITES are provenance, not proof dependency: a
 # declaration isn't "dependent on" its Brick the way it depends on a premise.
-CONTAINMENT_EDGE_TYPES = ("DECLARED_IN", "PAIRED_WITH", "BRICK_OF", "CITES", "BRICK_DEPENDS_ON")
+CONTAINMENT_EDGE_TYPES = (
+    "DECLARED_IN", "PAIRED_WITH", "BRICK_OF", "CITES", "BRICK_DEPENDS_ON",
+    "COMPONENT_OF", "COMPONENT_RELATION",
+)
 
 
 def open_db(path):
@@ -98,13 +101,17 @@ def shortest_path(adj, a, b):
 def pagerank(node_ids, edges, damping=0.85, max_iter=100, tol=1e-8):
     """Power-iteration PageRank over dependency edges. rank accumulates at pointed-to
     (dst) nodes, so a foundational lemma many decls depend on outranks a leaf."""
-    ids = list(node_ids)
+    # PageRank is persisted in the canonical SQLite artifact.  A set here would
+    # make the floating-point accumulation order depend on Python's per-process
+    # hash seed, producing byte-different but logically identical indexes.
+    ids = sorted(node_ids)
+    node_set = set(ids)
     n = len(ids)
     if n == 0:
         return {}
     out_links = defaultdict(list)
-    for src, dst, _type in edges:
-        if src in node_ids and dst in node_ids:
+    for src, dst, _type in sorted(edges):
+        if src in node_set and dst in node_set:
             out_links[src].append(dst)
     rank = {i: 1.0 / n for i in ids}
     teleport = (1.0 - damping) / n

@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "status": "PASS",
+  "components_manifest": "data/components-generated.json",
+  "proof_trace": "data/proof-trace.json.gz",
+  "client": "reconstruction/SubargumentSpine.lean",
+  "selected_trace_count": 8063,
+  "trace_backed_component_count": 8063,
+  "trace_application_target_component_count": 0,
+  "trace_application_record_count": 3314889,
+  "trace_reference_record_count": 28919499,
+  "exact_context_application_count": 3314889,
+  "structural_only_application_count": 0,
+  "proof_application_count": 106395,
+  "data_application_count": 3208494,
+  "omitted_structural_application_count": 299496929,
+  "omitted_external_reference_count": 622384457,
+  "referenced_exact_subterm_count": 18924,
+  "compiler_relation_count": 14645,
+  "trace_only_relation_count": 0,
+  "negative_tests": {
+    "swapped_arguments": {
+      "status": "PASS",
+      "candidate": "BondPercolation.percolation_continuity::/body/body/arg",
+      "mutated_error_sample": [
+        "argument order/index mismatch: [1, 0]"
+      ],
+      "reason": "swapping ordered argument records must be rejected"
+    },
+    "type_only_false_positive": {
+      "status": "PASS",
+      "type_only_statement_constants": [
+        "Percolation.Continuity.Statements.AdditiveGluing",
+        "Percolation.Continuity.Statements.NearOneGluing"
+      ],
+      "proof_application_statement_heads": [],
+      "false_positive_overlap": [],
+      "reason": "statement constants used only in types must not be treated as proof applications"
+    },
+    "proof_data_classification": {
+      "status": "PASS",
+      "data_heads_observed": [
+        "g",
+        "w"
+      ],
+      "data_head_application_counts": {
+        "w": 197963,
+        "g": 16831
+      },
+      "data_heads_promoted_as_proof": [],
+      "local_proof_application_count": 5340,
+      "reason": "w/e and g/e applications must remain data evidence; local proposition applications remain proof evidence"
+    }
+  },
+  "opaque_body_policy": "Structural proof traces and named declaration interfaces are retained; opaque theorem bodies are not claimed to be inlined.",
+  "errors": []
+}

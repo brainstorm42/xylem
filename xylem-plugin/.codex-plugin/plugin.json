@@ -1,17 +1,17 @@
 {
   "name": "proofbricks-xylem",
   "version": "0.1.0",
-  "description": "WIP ProofBricks/Xylem tools with the existing canonical Xylem MCP and BrickConverter runtimes, a tiny supplied graph example, and evidence-grounded explanation.",
-  "author": {"name": "ProofBricks local staging"},
+  "description": "Private reviewed ProofBricks/Xylem release candidate held for human review and not authorized for public distribution, with the existing canonical Xylem MCP and BrickConverter runtimes, a tiny supplied graph example, and evidence-grounded explanation.",
+  "author": {"name": "ProofBricks private review"},
   "license": "Apache-2.0",
-  "licenseScope": "Scoped; see NOTICE.md and PROVENANCE-INVENTORY.md",
+  "licenseScope": "Scoped; see LICENSE-SCOPE.md and NOTICE.md",
   "skills": "./skills",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "ProofBricks Xylem",
     "shortDescription": "Inspect one supplied Lean component and follow its evidence.",
-    "longDescription": "A local WIP package that carries the existing canonical Xylem MCP and BrickConverter source with repository-relative dataset configuration, a tiny CompactBounds graph example, a retained proof-free Lean declaration projection, and separate explanation/review skills. Regeneration requires a user-supplied authorized capture tool.",
-    "developerName": "ProofBricks local staging",
+    "longDescription": "A private reviewed release candidate held for human review and not authorized for public distribution. It carries the existing canonical Xylem MCP and BrickConverter source with repository-relative dataset configuration, a tiny CompactBounds graph example, a retained proof-free Lean declaration projection, and separate explanation/review skills. Regeneration requires a user-supplied authorized capture tool.",
+    "developerName": "ProofBricks private review",
     "category": "Developer Tools",
     "capabilities": ["Read", "Write", "Shell"],
     "defaultPrompt": [

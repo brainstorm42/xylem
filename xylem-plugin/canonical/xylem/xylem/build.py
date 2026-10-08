@@ -4,6 +4,7 @@ importGraph DOT, the Lean extractor JSON (contract v1), vault/lean/*.md frontmat
 (wiki pages + Brick source locators), and the corpus BibTeX (source bibliographic
 data). Idempotent: drops and recreates every table on each run. Prints node/edge counts."""
 import argparse
+import gzip
 import json
 import os
 import re
@@ -54,7 +55,14 @@ def parse_dot(path, nodes, edges):
     Invertible). Under the store's src-depends-on-dst convention the IMPORTS edge is
     therefore dst-depends-on-src: the DOT destination depends on the DOT source."""
     text = Path(path).read_text(encoding="utf-8")
-    for src, dst in DOT_EDGE.findall(text):
+    # Do not let explanatory comments containing the arrow token become graph
+    # edges.  The percolation source graph records its direction convention in
+    # a comment immediately above the edge list.
+    graph_lines = "\n".join(
+        line for line in text.splitlines()
+        if not line.lstrip().startswith(("//", "#"))
+    )
+    for src, dst in DOT_EDGE.findall(graph_lines):
         _put(nodes, _mod_node(src), force=False)
         _put(nodes, _mod_node(dst), force=False)
         edges.append((f"mod:{dst}", f"mod:{src}", "IMPORTS", None))
@@ -111,14 +119,17 @@ def _dependency_capture_status(capture, declaration):
     }
 
 
-def parse_declarations(path, nodes, edges):
+def parse_declarations(path, nodes, edges, compact=False):
     """Add declaration nodes, DECLARED_IN, and USES_IN_TYPE/PROOF edges from the extractor JSON.
 
     Contract v1 (RULED-FINAL 2026-07-18): FLAT premises = [{name, module, in_type,
     in_proof, external}], one row per constant with independent booleans, no
     premise_nodes — this builder derives the node/edge split on insert. Raises
     ValueError on malformed/empty JSON (the caller maps it to a named nonzero exit)."""
-    raw = Path(path).read_text(encoding="utf-8")
+    input_path = Path(path)
+    opener = gzip.open if input_path.suffix == ".gz" else open
+    with opener(input_path, "rt", encoding="utf-8") as handle:
+        raw = handle.read()
     try:
         data = json.loads(raw)
     except json.JSONDecodeError as e:
@@ -130,20 +141,35 @@ def parse_declarations(path, nodes, edges):
         rng = d.get("range") or {}
         start = (rng.get("start") or [None])[0]
         end = (rng.get("end") or [None])[0]
+        binders = d.get("binders", [])
+        if compact:
+            binders = [{key: binder.get(key) for key in ("idx", "name", "binderInfo", "type")}
+                       for binder in binders]
         sig = {
-            "binders": d.get("binders", []),
+            "binders": binders,
             "conclusion": d.get("conclusion"),
-            "conclusion_tree": d.get("conclusion_tree"),
+            "conclusion_tree": None if compact else d.get("conclusion_tree"),
             "signature": d.get("signature"),
         }
+        source_file = d.get("src_file") or module.replace(".", "/") + ".lean"
+        capture_surface = d.get("capture_surface")
         _put(nodes, {
             "id": f"decl:{d['name']}", "kind": "declaration", "name": d["name"],
             "module": module, "decl_kind": d.get("kind"), "docstring": d.get("doc"),
-            "src_file": module.replace(".", "/") + ".lean", "src_start": start,
+            "src_file": source_file, "src_start": start,
             "src_end": end, "signature": json.dumps(sig), "is_external": 0,
             "props": json.dumps({
-                "premises": d.get("premises", []),
                 "axioms": d.get("axioms", []),
+                "premise_count": len(d.get("premises", [])),
+                "type_premise_count": sum(bool(p.get("in_type")) for p in d.get("premises", [])),
+                "proof_premise_count": sum(bool(p.get("in_proof")) for p in d.get("premises", [])),
+                "capture_storage": "compact_index_projection" if compact else "full_node_projection",
+                # Keep the index portable across checkouts; the exact absolute
+                # input and its content hash live in input_state/receipts.
+                "capture_artifact": Path(path).name,
+                **({"premises": d.get("premises", [])} if not compact else {}),
+                "capture_surface": capture_surface,
+                "source_name": d.get("source_name", d["name"]),
                 "dependency_capture": _dependency_capture_status(data, d),
             }),
             "rank": None,
@@ -162,6 +188,89 @@ def parse_declarations(path, nodes, edges):
                 edges.append((f"decl:{d['name']}", tid, "USES_IN_TYPE", None))
             if p.get("in_proof"):
                 edges.append((f"decl:{d['name']}", tid, "USES_IN_PROOF", None))
+
+
+def parse_components(path, nodes, edges):
+    """Add source-backed component nodes and typed, non-proof relations.
+
+    Component edges deliberately stay outside ``DEPENDENCY_EDGE_TYPES``.  A
+    component record may summarize a formal chain or carry an authored
+    interpretation, but it never becomes a synthetic Lean proof dependency.
+    Every declaration reference is checked against the elaborated declaration
+    set so stale or misspelled component claims fail the build.
+    """
+    if not path:
+        return {"components": 0, "relations": 0, "issues": []}
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if data.get("schema_version") not in {1, 2}:
+        raise ValueError(f"unsupported component schema in {path}")
+    declarations = {nid[5:] for nid, row in nodes.items()
+                    if row["kind"] == "declaration" and nid.startswith("decl:")}
+    components = data.get("components")
+    relations = data.get("relations", [])
+    if not isinstance(components, list) or not isinstance(relations, list):
+        raise ValueError(f"components and relations must be arrays in {path}")
+    captured_edge_keys = {(src, dst, edge_type) for src, dst, edge_type, _props in edges}
+    ids = set()
+    for component in components:
+        cid = component.get("id")
+        if not isinstance(cid, str) or not cid or cid in ids:
+            raise ValueError(f"component ids must be unique nonempty strings in {path}")
+        ids.add(cid)
+        referenced = component.get("declarations", [])
+        if not isinstance(referenced, list) or any(name not in declarations for name in referenced):
+            missing = [name for name in referenced if name not in declarations]
+            raise ValueError(f"component {cid} references missing declarations: {missing[:5]}")
+        component_id = f"component:{cid}"
+        props = dict(component)
+        props.pop("id", None)
+        _put(nodes, {
+            "id": component_id, "kind": "component", "name": cid,
+            "module": component.get("module"), "decl_kind": component.get("kind"),
+            "docstring": component.get("title") or component.get("summary"),
+            "src_file": (component.get("source") or {}).get("file"),
+            "src_start": (component.get("source") or {}).get("start_line"),
+            "src_end": (component.get("source") or {}).get("end_line"),
+            "signature": None, "is_external": 0, "props": json.dumps(props), "rank": None,
+        }, force=True)
+        for decl_name in referenced:
+            edges.append((f"decl:{decl_name}", component_id, "COMPONENT_OF", json.dumps({
+                "evidence": "component declaration membership",
+                "source_declaration": decl_name,
+            })))
+    for relation in relations:
+        source = relation.get("source")
+        target = relation.get("target")
+        relation_type = relation.get("type")
+        if source not in ids or target not in ids:
+            raise ValueError(f"component relation has unknown endpoint: {source} -> {target}")
+        if not isinstance(relation_type, str) or not relation_type:
+            raise ValueError("component relation type must be a nonempty string")
+        evidence_kind = relation.get("evidence_kind")
+        if evidence_kind not in {"compiler", "capture_metadata", "authored"}:
+            raise ValueError(f"component relation {source}->{target} has unknown evidence_kind")
+        evidence = relation.get("evidence")
+        if not isinstance(evidence, dict):
+            raise ValueError(f"component relation {source}->{target} lacks evidence metadata")
+        if evidence_kind == "compiler":
+            source_decl = evidence.get("source_declaration")
+            target_decl = evidence.get("target_declaration")
+            edge_type = evidence.get("edge_type")
+            if not isinstance(source_decl, str) or not isinstance(target_decl, str):
+                raise ValueError(f"compiler component relation {source}->{target} lacks declaration endpoints")
+            if edge_type not in {"USES_IN_TYPE", "USES_IN_PROOF", "IMPORTS"}:
+                raise ValueError(f"compiler component relation {source}->{target} has invalid edge type")
+            if (f"decl:{source_decl}", f"decl:{target_decl}", edge_type) not in captured_edge_keys:
+                raise ValueError(
+                    f"compiler component relation {source}->{target} does not match captured "
+                    f"{edge_type}: {source_decl} -> {target_decl}"
+                )
+        props = dict(relation)
+        props.pop("source", None)
+        props.pop("target", None)
+        edges.append((f"component:{source}", f"component:{target}",
+                      "COMPONENT_RELATION", json.dumps(props)))
+    return {"components": len(components), "relations": len(relations), "issues": []}
 
 
 def _read_frontmatter(path):
@@ -441,6 +550,10 @@ def main(argv=None):
     ap.add_argument("--bib", default=None)
     ap.add_argument("--bricks", default=None, help="canonical Brick directory; empty disables")
     ap.add_argument("--ctrllib", default=None, help="Lean source root for freshness/coverage")
+    ap.add_argument("--source-root", default=None, help="immutable source snapshot for freshness/coverage")
+    ap.add_argument("--components", default=None, help="source-backed component hierarchy JSON")
+    ap.add_argument("--compact-index", action="store_true",
+                    help="omit repeated premise/tree payloads from nodes; edges and source capture remain complete")
     ap.add_argument("--db", default=str(store.db_path_default()))
     args = ap.parse_args(argv)
     default_capture = Path(args.extractor).resolve() == (DATA_DIR / 'declarations.json').resolve()
@@ -455,26 +568,36 @@ def main(argv=None):
         if not Path(path).is_file():
             print(f"error: missing input {label}: {path}", file=sys.stderr)
             return 2
+    if args.components and not Path(args.components).is_file():
+        print(f"error: missing input --components: {args.components}", file=sys.stderr)
+        return 2
+    if args.source_root and not Path(args.source_root).is_dir():
+        print(f"error: missing input --source-root: {args.source_root}", file=sys.stderr)
+        return 2
 
     nodes, edges = {}, []
     parse_dot(args.dot, nodes, edges)
     try:
-        parse_declarations(args.extractor, nodes, edges)
+        parse_declarations(args.extractor, nodes, edges, compact=args.compact_index)
+        component_report = parse_components(args.components, nodes, edges)
     except ValueError as e:
         print(f"error: {e}", file=sys.stderr)
         return 2
+    if not args.components:
+        component_report = {'components': 0, 'relations': 0, 'issues': []}
     parse_pages(args.vault, nodes, edges)
     parse_bricks(args.vault, _bib_entries(args.bib), nodes, edges)
     catalogue_report = {'bricks': 0, 'issues': []}
     if args.bricks:
         catalogue_report = catalogue.parse_catalogue(args.bricks, args.bib, nodes, edges)
     spec = dict(dot=args.dot, extractor=args.extractor, vault=args.vault,
-                bibliography=args.bib, bricks=args.bricks, ctrllib=args.ctrllib)
+                bibliography=args.bib, bricks=args.bricks, ctrllib=args.ctrllib,
+                source_root=args.source_root, components=args.components)
     spec = {key: str(Path(value).resolve()) if value else '' for key, value in spec.items()}
     # Compare Lean sources to extraction even if someone rebuilds SQLite alone.
     payload = {'spec': spec, 'files': input_state.snapshot(spec),
                'issues': input_state.extraction_issues(spec, nodes) + catalogue_report['issues'],
-               'catalogue': catalogue_report}
+               'catalogue': catalogue_report, 'components': component_report}
     rank(nodes, edges)
     write_db(args.db, nodes, edges, payload)
 
@@ -482,12 +605,13 @@ def main(argv=None):
     print(
         f"nodes: {nk.get('module', 0)} module / "
         f"{nk.get('declaration', 0)} decl ({ext} external) / "
+        f"{nk.get('component', 0)} component / "
         f"{nk.get('wiki_page', 0)} wiki / "
         f"{nk.get('brick', 0)} brick / {nk.get('source', 0)} source  -> {args.db}"
     )
     print("edges: " + " / ".join(f"{ek.get(t, 0)} {t}" for t in
           ("IMPORTS", "USES_IN_TYPE", "USES_IN_PROOF", "DECLARED_IN", "PAIRED_WITH",
-           "BRICK_OF", "CITES")))
+          "BRICK_OF", "CITES", "COMPONENT_OF", "COMPONENT_RELATION")))
     return 0
 
 

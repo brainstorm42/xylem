@@ -76,7 +76,7 @@ def main() -> int:
             tools = read_message(process.stdout)["result"]["tools"]
             assert [tool["name"] for tool in tools] == ["xylem_query"]
             operations = tools[0]["inputSchema"]["properties"]["operation"]["enum"]
-            assert set(operations) == {"status", "search", "dependencies", "dependents", "path", "similar", "context", "explain", "impact", "discover"}
+            assert set(operations) == {"status", "search", "dependencies", "dependents", "path", "similar", "context", "explain", "impact", "discover", "overview", "components"}
             write_message(process.stdin, {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "xylem_query", "arguments": {"operation": "status"}}})
             status = tool_payload(read_message(process.stdout))
             assert status["ok"] is True

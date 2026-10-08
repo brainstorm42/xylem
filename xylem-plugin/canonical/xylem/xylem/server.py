@@ -212,7 +212,7 @@ def _status():
 @mcp.tool()
 def xylem_query(
     operation: Literal["status", "search", "dependencies", "dependents", "path", "similar",
-                       "context", "explain", "impact", "discover"],
+                       "context", "explain", "impact", "discover", "overview", "components"],
     query_text: str | None = None,
     target: str | None = None,
     depth: int | None = None,
@@ -220,6 +220,7 @@ def xylem_query(
     all_kinds: bool = False,
     cross_module_only: bool = False,
     edge_scope: Literal["all", "type", "proof", "imports"] = "all",
+    surface: Literal["solution", "challenge", "shared"] | None = None,
 ) -> dict:
     """Query Xylem without writes.
 
@@ -235,6 +236,21 @@ def xylem_query(
     """
     if operation == "status":
         return _status()
+    if operation in ("overview", "components"):
+        conn = _conn()
+        try:
+            if operation == "overview":
+                data = navigation.overview(conn, surface, limit)
+            elif query_text:
+                data = navigation.component_zoom(conn, query_text, limit)
+            else:
+                data = navigation.overview(conn, surface, limit)
+        except ValueError as error:
+            return _error(operation, str(error))
+        finally:
+            conn.close()
+        return {"ok": True, "operation": operation, "data": data,
+                "index_warning": store.freshness_warning(DB_PATH, query._build_inputs())}
     if not query_text:
         return _error(operation, "query_text is required")
     if depth is not None and depth < 0:

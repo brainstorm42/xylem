@@ -5,5 +5,6 @@
 | --- | --- | --- |
 | [CompactBounds](compact-bounds/explanation-hS.md) | Exact statement → compactness/positivity explanation → CLI/MCP | Leading proposition boundaries and five-binder parent statement; dependency data unavailable |
 | [Ctrllib point mass](ctrllib-e2e/README.md) | Seven-binder statement → five-item context → inverse path → mathematical explanation | Selected capture with partial coverage and genuine premise relationships |
+| [Pinned percolation](percolation-e2e/README.md) | Full dual-surface capture → source-module regions + trace-backed subarguments → CLI/MCP zoom/path | 23,545 declarations, 253 indexed components (228 source regions + 13 trace-backed steps + 12 authored), structural proof trace; semantic review pending |
 
 [INDEX.json](INDEX.json) provides the machine-readable index. Graph queries pair result items with their dependency-data status. Statement rendering keeps exact text and formal acceptance unassessed.

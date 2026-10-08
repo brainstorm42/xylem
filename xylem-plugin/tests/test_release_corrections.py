@@ -13,6 +13,7 @@ import json
 import re
 from pathlib import Path
 import sqlite3
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -177,6 +178,36 @@ class FreshnessAdvice(unittest.TestCase):
             changed=current_warning(conn)
             self.assertIn('selected inputs changed:',changed); self.assertIn('regeneration first',changed)
             conn.close()
+
+
+class CandidatePackaging(unittest.TestCase):
+    def test_finalizer_rejects_stale_manifest_without_reporting_pass(self):
+        repo = ROOT.parent
+        source = repo / 'provenance/corrected-release-manifest.json'
+        stale = json.loads(source.read_text())
+        stale['files'][0]['sha256'] = '0' * 64
+        with tempfile.TemporaryDirectory() as temp:
+            manifest = Path(temp) / 'stale-manifest.json'
+            archive = Path(temp) / 'candidate.tar.gz'
+            manifest.write_text(json.dumps(stale, indent=2) + '\n')
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(repo / 'provenance/build_candidate_manifest.py'),
+                    '--root',
+                    str(repo),
+                    '--output',
+                    str(manifest),
+                    '--finalize-archive',
+                    str(archive),
+                ],
+                cwd=repo,
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertNotIn('"status": "PASS"', result.stdout)
+            self.assertFalse(archive.exists())
 
 
 if __name__=='__main__':

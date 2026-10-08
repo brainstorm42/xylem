@@ -31,6 +31,11 @@ For another supported dataset, copy the config and set `relative_to` to `config`
 
 The canonical BrickConverter remains a statement/document adapter. It retains exact captured Lean text, uses expression trees when supplied, and falls back to exact text for unsupported or tree-free fragments. It does not translate proof terms or certify source equivalence. The bundled CompactBounds projection intentionally has no expression trees, so its reproducible output is exact fallback rather than a semantic notation claim.
 
+The MCP also exposes read-only `overview` and `components` operations when a
+configured dataset supplies a validated component overlay. These return
+source-backed component metadata and exact declaration zooms; authored
+interpretation remains visibly separate from compiler evidence.
+
 ## Dependencies and optional formal checks
 
 The direct runtime pins are Python 3.10+, `PyYAML==6.0.3`, and `mcp==2.2.0`. The observed direct package metadata identifies both Python packages as MIT-licensed. `pytest` is only needed for the upstream runtime test suites. Formal `brickconverter check`/`check-statement` additionally require an existing Lean/Ctrllib environment and a user-supplied authorized capture source; those commands are not part of the offline tiny-graph smoke test.

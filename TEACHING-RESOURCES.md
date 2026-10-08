@@ -36,6 +36,18 @@ Learn how mathematical models connect to feedback, trajectories and design choic
 
 **Practical:** [BSD-3-Clause](https://github.com/python-control/python-control/blob/main/LICENSE). Local Python computation uses NumPy, SciPy and Matplotlib; some routines also use Slycot. Core use has no LLM or paid API requirement. Source checked: [September 29, 2026](https://github.com/python-control/python-control/commit/b4cf7360138985f84afe299337ef9ee6c25e9c38).
 
+### Ctrllib mechanics and passivity
+
+**Type:** repository-local, machine-checked reading path for manipulator energy and coordinated passivity
+
+Use this path to connect a generic manipulator equation to the coordinated-space identity in Giordano, Ott and Albu-Schäffer (2019). The paper's §II.C Eq. (4) is the generic `M v̇ + C v = u` starting point. The Ctrllib entry point is [`Ctrllib.manipulator_power_identity`](ctrllib/Ctrllib/ManipulatorEnergy.lean#L174-L190), which takes the richer instantaneous equation `M a + C v + g + D v = tau + Jᵀ f` and derives its velocity-power balance. [`Ctrllib.manipulatorEnergy_hasDerivAt`](ctrllib/Ctrllib/ManipulatorEnergy.lean#L192-L216) extends that calculation to a local storage derivative, while [`Ctrllib.manipulatorEnergy_deriv_le_power`](ctrllib/Ctrllib/ManipulatorEnergy.lean#L218-L243) adds the positive-semidefinite damping premise.
+
+For the exact proof step that motivated the coordinated-control discussion, the paper's §III.B Eq. (23) is the printed quadratic cancellation used in the later stability argument. [`Ctrllib.transported_passivity_identity`](ctrllib/Ctrllib/PassivityTransport.lean#L85-L93) proves the transformed identity, and [`Ctrllib.circum_passivity_identity`](ctrllib/Ctrllib/CircumcentroidalPassivity.lean#L161-L177) is the concrete 9-dimensional reduced-block statement matching that equation. The paper does not call this a named “passivity theorem”; the release uses “passivity” for the matrix identity and labels the source step as part of the paper's stability proof. The release also retains [`Ctrllib.GiordanoErrata`](ctrllib/Ctrllib/GiordanoErrata.lean#L1-L15), whose small theorems witness two separately documented sign/block-order inconsistencies without claiming authorial intent.
+
+**Primary source:** [Giordano, Ott and Albu-Schäffer, *Coordinated Control of Spacecraft's Attitude and End-Effector for Space Robots* (2019), DOI 10.1109/LRA.2019.2899433](https://doi.org/10.1109/LRA.2019.2899433), with an [author-hosted open record](https://elib.dlr.de/127691/) and [PDF](https://elib.dlr.de/127691/1/root.pdf).
+
+**Scope:** the Ctrllib declarations are generic, finite-dimensional and local: they consume derivative and dynamics witnesses and do not establish a robot-specific zero-gravity model, ODE existence, parameters or controller implementation. The concrete passivity theorem is an exact formal counterpart of the paper's eq. 23 quadratic-form claim, under the stated inertia symmetry and transform construction; it is not a claim that every displayed equation in the paper is consistent. A quick source-first reading route is to open `ManipulatorEnergy.lean`, then `PassivityTransport.lean`, then `CircumcentroidalPassivity.lean`, and compare the theorem statements with the paper's eqs. 19–23.
+
 ### Penrose and Bloom
 
 **Type:** mathematical diagram and interaction libraries

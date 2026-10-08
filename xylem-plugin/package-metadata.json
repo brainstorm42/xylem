@@ -17,7 +17,8 @@
     "review_skill": "skills/review-proof-explanation/SKILL.md",
     "canonical_runtime_origin": "canonical/ORIGIN.md",
     "canonical_mcp_bridge": "bridge/emit_mcp_config.py and bridge/launch_canonical_xylem.py",
-    "canonical_converter_bridge": "bridge/launch_canonical_converter.py"
+    "canonical_converter_bridge": "bridge/launch_canonical_converter.py",
+    "percolation_e2e": "examples/percolation-e2e/xylem-e2e-config.json"
   },
   "offline_first_use": {
     "python": "tested 3.12.13 and 3.12.14; declared runtime >=3.10",

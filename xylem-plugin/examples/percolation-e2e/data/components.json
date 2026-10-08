@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/anthropics/formal-math",
+  "source_revision": "795efb86f191735c5481675763537cfb4ff37e55",
+  "capture_manifest": "capture-manifest.json",
+  "status_vocabulary": {
+    "formal_status": "compiler_indexed means the exact declaration and its captured premise rows came from a pinned Lean elaboration; it does not certify explanation quality.",
+    "interpretation_status": "authored_pending_review means the short prose is an index overlay awaiting human mathematical review.",
+    "evidence_status": "compiler_edge means the relation is backed by a captured USES_IN_TYPE or USES_IN_PROOF row; authored_hierarchy is an overlay relation only."
+  },
+  "components": [
+    {
+      "id": "csh-interface",
+      "title": "Finite-observer CSH interface",
+      "surface": "solution",
+      "role": "interface",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_source_range",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.cshHolds"],
+      "summary": "Packages the CSHHolds proposition for a finite vertex type, strict edge weights, an owner and avoided set, decoys, and distinct observer points.",
+      "assumptions": [
+        "[Fintype V]",
+        "∀ e, 0 < w e ∧ w e < 1",
+        "x ∉ Y, o ∉ insert x Y, v ∉ insert x Y, o ≠ v",
+        "D.Nodup and every decoy avoids the owner, avoided set, and observers"
+      ],
+      "outputs": ["Percolation.Continuity.CSH.CSHHolds w x Y D o v"],
+      "limits": [
+        "Strictness and distinctness are assumptions of this interface and its constructors; they are not silently inferred from the CSHHolds result."
+      ]
+    },
+    {
+      "id": "csh-uniform-constructor",
+      "title": "Uniform finite-observer CSH constructor",
+      "surface": "solution",
+      "role": "uniform_constructor",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.cshAll"],
+      "summary": "Turns strict finite edge weights and the quantified distinctness/avoidance data into the uniform CSHHolds proposition required by the continuity bridge.",
+      "assumptions": [
+        "∀ e : Sym2 (Fin n), 0 < w e ∧ w e < 1",
+        "o ≠ v, x ∉ Y, o ≠ x, v ≠ x, o ∉ Y, v ∉ Y",
+        "D.Nodup and every d ∈ D avoids x, Y, o, and v"
+      ],
+      "outputs": ["∀ n w and admissible finite data, CSHHolds w x (↑Y) D o v"],
+      "limits": ["The index records the theorem's exact binders and proof uses; it does not restate the internal combinatorial proof in prose."]
+    },
+    {
+      "id": "additive-gluing-interface",
+      "title": "CSH to additive gluing",
+      "surface": "solution",
+      "role": "bridge",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.additiveGluing_of_csh"],
+      "summary": "Consumes a uniform CSH hypothesis and returns the formal AdditiveGluing proposition.",
+      "assumptions": ["A uniform hCSH with the exact finite-size, strict-weight, distinctness, and decoy hypotheses in the declaration type."],
+      "outputs": ["Percolation.Continuity.Statements.AdditiveGluing"],
+      "limits": ["The statement's AdditiveGluing output is not identified here with a stronger multiplicative or near-one statement."]
+    },
+    {
+      "id": "csh-to-continuity",
+      "title": "CSH to all-dimensional continuity",
+      "surface": "solution",
+      "role": "bridge",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.percolationContinuity_of_csh"],
+      "summary": "The CSH bridge takes a uniform hCSH and dimension d ≥ 2 and returns the formal PercolationContinuity proposition.",
+      "assumptions": ["hCSH has the exact universal finite graph interface; d : ℕ and 2 ≤ d."],
+      "outputs": ["Percolation.Literature.PercolationContinuity d"],
+      "limits": ["The indexed theorem result is a proposition; this component does not claim that the source prose supplies an independently reviewed mathematical explanation."]
+    },
+    {
+      "id": "additive-to-near-one",
+      "title": "Additive gluing to continuity bridge",
+      "surface": "solution",
+      "role": "bridge",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.percolationContinuity_of_additiveGluing"],
+      "summary": "Consumes the formal AdditiveGluing proposition and returns PercolationContinuity; its captured proof also uses the near-one bridge.",
+      "assumptions": ["h : Percolation.Continuity.Statements.AdditiveGluing; d : ℕ; 2 ≤ d."],
+      "outputs": ["Percolation.Literature.PercolationContinuity d"],
+      "limits": ["The component name describes the declaration interface, while the proof-use edge to near-one is retained separately and is not flattened into a narrative step."]
+    },
+    {
+      "id": "near-one-conjecture3-bridge",
+      "title": "Near-one gluing and Conjecture 3 bridge",
+      "surface": "solution",
+      "role": "definition_bridge",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edge",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.nearOneGluing_iff_conjecture3"],
+      "summary": "Records the exact Iff between the formal NearOneGluing statement and the literature Conjecture 3 proposition.",
+      "assumptions": [],
+      "outputs": ["NearOneGluing ↔ KozmaNitzan2024_conjecture3"],
+      "limits": ["The source declaration is Iff.rfl/definitionally aligned; that is not independent evidence that a literature statement corresponds to the formalization." ]
+    },
+    {
+      "id": "near-one-to-continuity",
+      "title": "Near-one gluing to continuity",
+      "surface": "solution",
+      "role": "bridge",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.percolationContinuity_of_nearOneGluing"],
+      "summary": "Consumes NearOneGluing and d ≥ 2 and returns PercolationContinuity; the captured proof explicitly uses the Kozma–Nitzan theorem-6 endpoint.",
+      "assumptions": ["hX : Percolation.Continuity.Statements.NearOneGluing; d : ℕ; 2 ≤ d."],
+      "outputs": ["Percolation.Literature.PercolationContinuity d"],
+      "limits": ["The index does not infer a full literature-to-formal correspondence from the name or citation alone."]
+    },
+    {
+      "id": "kozma-conjecture3",
+      "title": "CSH proof of formal Conjecture 3",
+      "surface": "solution",
+      "role": "literature_statement",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.kozmaNitzan_conjecture3_holds"],
+      "summary": "The formal theorem concludes the exact KozmaNitzan2024_conjecture3 proposition and its captured proof uses cshAll and conjecture3_of_csh.",
+      "assumptions": [],
+      "outputs": ["Percolation.Literature.KozmaNitzan2024_conjecture3"],
+      "limits": ["A theorem in the Lean source is not by itself a human-reviewed account of the intended published theorem."]
+    },
+    {
+      "id": "kozma-thm6-endpoint",
+      "title": "Kozma–Nitzan theorem-6 endpoint",
+      "surface": "solution",
+      "role": "literature_endpoint",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": [
+        "solution::Percolation.Literature.KozmaNitzan2024_thm6_holds",
+        "solution::Percolation.Literature.KozmaNitzan2024_thm6_holds_of"
+      ],
+      "summary": "Indexes the formal theorem-6 proposition and the of-slabCritical route that supplies it under its exact hypotheses.",
+      "assumptions": ["The of-slabCritical declaration takes hslab and θ_slab_criticalProb_zd_eq_zero."],
+      "outputs": ["Percolation.Literature.KozmaNitzan2024_thm6"],
+      "limits": ["The formal endpoint is not a claim that every source-level theorem-6 interpretation has been independently checked." ]
+    },
+    {
+      "id": "all-dimensions-endpoint",
+      "title": "All-dimensional continuity endpoint",
+      "surface": "solution",
+      "role": "formal_endpoint",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::Percolation.Continuity.CSH.percolationContinuity_allDimensions"],
+      "summary": "The formal allDimensions theorem concludes PercolationContinuity d for d ≥ 2 and is the direct upstream endpoint used by the Solution surface theorem.",
+      "assumptions": ["d : ℕ; 2 ≤ d."],
+      "outputs": ["Percolation.Literature.PercolationContinuity d"],
+      "limits": ["This is the exact formal endpoint; component prose does not assert that the theorem is mathematically useful without human review."]
+    },
+    {
+      "id": "public-solution-theorem",
+      "title": "Solution public theorem surface",
+      "surface": "solution",
+      "role": "public_surface",
+      "formal_status": "compiler_indexed",
+      "evidence_status": "exact_declaration_signature_and_compiler_edges",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["solution::BondPercolation.percolation_continuity", "solution::BondPercolation.percolation_continuity_Z3"],
+      "summary": "The separately elaborated Solution surface exports the BondPercolation continuity theorem and its d = 3 corollary.",
+      "assumptions": ["d : ℕ; 2 ≤ d for the general theorem."],
+      "outputs": ["BondPercolation.PercolationContinuity d", "BondPercolation.PercolationContinuity 3"],
+      "limits": ["The Solution and Challenge surfaces are indexed separately because their public names collide in Lean."]
+    },
+    {
+      "id": "public-challenge-theorem",
+      "title": "Challenge public theorem surface",
+      "surface": "challenge",
+      "role": "challenge_surface",
+      "formal_status": "compiler_indexed_with_sorryAx",
+      "evidence_status": "separate_challenge_elaboration",
+      "interpretation_status": "authored_pending_review",
+      "declarations": ["challenge::BondPercolation.percolation_continuity", "challenge::BondPercolation.percolation_continuity_Z3"],
+      "summary": "The separately elaborated Challenge surface preserves the upstream exercise statements and is not conflated with the proved Solution surface.",
+      "assumptions": ["d : ℕ; 2 ≤ d for the general theorem."],
+      "outputs": ["BondPercolation.PercolationContinuity d", "BondPercolation.PercolationContinuity 3"],
+      "limits": ["The fresh Challenge build emitted two sorry warnings; the capture manifest records sorryAx occurrences. This component is not evidence that the Challenge declarations prove the Solution theorem."]
+    }
+  ],
+  "relations": [
+    {
+      "source": "all-dimensions-endpoint",
+      "target": "csh-uniform-constructor",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_allDimensions", "target_declaration": "solution::Percolation.Continuity.CSH.cshAll", "edge_type": "USES_IN_PROOF"},
+      "note": "Captured opaque-proof-body use; not an authored reconstruction."
+    },
+    {
+      "source": "all-dimensions-endpoint",
+      "target": "csh-to-continuity",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_allDimensions", "target_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_of_csh", "edge_type": "USES_IN_PROOF"},
+      "note": "Captured opaque-proof-body use; the graph preserves the second premise of the endpoint proof."
+    },
+    {
+      "source": "csh-uniform-constructor",
+      "target": "csh-interface",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.cshAll", "target_declaration": "solution::Percolation.Continuity.CSH.cshHolds", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "csh-to-continuity",
+      "target": "additive-gluing-interface",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_of_csh", "target_declaration": "solution::Percolation.Continuity.CSH.additiveGluing_of_csh", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "csh-to-continuity",
+      "target": "additive-to-near-one",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_of_csh", "target_declaration": "solution::Percolation.Continuity.percolationContinuity_of_additiveGluing", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "additive-to-near-one",
+      "target": "near-one-to-continuity",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.percolationContinuity_of_additiveGluing", "target_declaration": "solution::Percolation.Continuity.percolationContinuity_of_nearOneGluing", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "near-one-to-continuity",
+      "target": "near-one-conjecture3-bridge",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.percolationContinuity_of_nearOneGluing", "target_declaration": "solution::Percolation.Continuity.nearOneGluing_iff_conjecture3", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "near-one-to-continuity",
+      "target": "kozma-thm6-endpoint",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.percolationContinuity_of_nearOneGluing", "target_declaration": "solution::Percolation.Literature.KozmaNitzan2024_thm6_holds", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "kozma-conjecture3",
+      "target": "csh-uniform-constructor",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::Percolation.Continuity.CSH.kozmaNitzan_conjecture3_holds", "target_declaration": "solution::Percolation.Continuity.CSH.cshAll", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "public-solution-theorem",
+      "target": "all-dimensions-endpoint",
+      "type": "compiler_dependency",
+      "evidence_kind": "compiler",
+      "evidence": {"source_declaration": "solution::BondPercolation.percolation_continuity", "target_declaration": "solution::Percolation.Continuity.CSH.percolationContinuity_allDimensions", "edge_type": "USES_IN_PROOF"}
+    },
+    {
+      "source": "public-solution-theorem",
+      "target": "public-challenge-theorem",
+      "type": "surface_collision",
+      "evidence_kind": "capture_metadata",
+      "evidence": {"capture_manifest": "capture-manifest.json", "surface_ids": ["solution", "challenge"], "reason": "colliding BondPercolation names cannot coexist in one Lean environment"},
+      "note": "Authored/index identity relation only; no proof equivalence is inferred."
+    }
+  ]
+}

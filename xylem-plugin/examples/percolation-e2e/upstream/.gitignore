@@ -1,0 +1,7 @@
+/.lake/
+**/.lake/
+/.cache/
+*.olean
+*.ilean
+*.trace
+/build.log

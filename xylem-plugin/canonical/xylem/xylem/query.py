@@ -2,7 +2,7 @@
 """Graph-native query CLI over the xylem store. Subcommands:
 dependents (alias statement_dependents), dependencies (alias
 statement_dependencies), hubs, impact, path, orphans, search, unresolved,
-bricks, similar. status. --json on each. dependents/dependencies/impact/path print a stderr
+bricks, similar, overview, components. status. --json on each. dependents/dependencies/impact/path print a stderr
 caveat: extraction covers the selected local graph as of the last rebuild;
 the extractor's internal-detail policy determines indexed coverage and external
 stubs are not expanded.
@@ -22,9 +22,9 @@ DEP = store.DEPENDENCY_EDGE_TYPES
 # proof uses as well as declaration types.
 DEP_CAVEAT = (
     "note: dependency edges cover the selected local extraction as of the last "
-    "extract; the extractor's internal-detail policy determines indexed "
-    "coverage and external stubs are not expanded. Edges reflect the last extract, so "
-    "rebuild after changing Ctrllib."
+    "extract; the extractor's capture policy determines indexed coverage and "
+    "external stubs are not expanded. Edges reflect the last capture, so rebuild "
+    "after changing the source or capture artifact."
 )
 
 
@@ -279,6 +279,37 @@ def cmd_similar(conn, args):
     return 0
 
 
+def cmd_components(conn, args):
+    try:
+        if args.name:
+            result = navigation.component_zoom(conn, args.name, args.limit)
+        else:
+            result = navigation.overview(conn, args.surface, args.limit)
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    print(json.dumps(result, indent=2, ensure_ascii=False) if args.json else json.dumps(result, ensure_ascii=False))
+    return 0
+
+
+def cmd_overview(conn, args):
+    try:
+        result = navigation.overview(conn, args.surface, args.limit)
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    if args.json:
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+    else:
+        print(f"surface: {result['surface'] or 'all'}")
+        print(f"components: {result['total_components']}")
+        for item in result["items"]:
+            print("  ".join(str(item.get(key) or "") for key in
+                              ("id", "role", "formal_status", "interpretation_status", "summary")))
+        print(result["status_note"])
+    return 0
+
+
 def cmd_navigation(conn, args):
     """Use the same structured result on CLI and MCP."""
     if args.cmd == "impact" and not args.details:
@@ -415,6 +446,19 @@ def build_parser():
         if name == "explain":
             p.add_argument("target")
         p.set_defaults(func=cmd_navigation)
+
+    p = sub.add_parser("overview", help="list the indexed source-backed proof components")
+    p.add_argument("--surface", choices=("solution", "challenge", "shared"), default=None)
+    p.add_argument("--limit", type=int, default=100)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_overview)
+
+    p = sub.add_parser("components", help="list components or zoom into one exact component")
+    p.add_argument("name", nargs="?", default=None)
+    p.add_argument("--surface", choices=("solution", "challenge", "shared"), default=None)
+    p.add_argument("--limit", type=int, default=100)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_components)
 
     p = sub.add_parser("path", help=f"shortest A->B ({dep_help})")
     p.add_argument("a"); p.add_argument("b")

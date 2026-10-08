@@ -1,0 +1,769 @@
+% summary.tex -- a guide to the Lean formalization in percolation/ of anthropics/formal-math.
+% Convention for this repository: one summary.tex per project, article class, sections
+%   1 Introduction and history / 2 Main results (each with its Lean name) / 3 Proof sketch /
+%   4 Guide to the formalization / 5 Limitations; references.bib = the project's references.bib
+%   plus the entries cited only here.  The warrant for every theorem is the Lean development;
+%   this text is a reader's guide to it and has not been independently refereed.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.86in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,booktabs,array,xcolor}
+\usepackage[obeyspaces,spaces,hyphens]{url}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!40!black,citecolor=green!35!black,urlcolor=blue!55!black,pdftitle={theta(p_c)=0 for Bernoulli bond percolation on Z^d, d>=2: a guide to the Lean formalization},pdfauthor={Justin Leder}]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage[small,compact]{titlesec}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% notation
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\Zd}{\mathbb{Z}^d}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\pc}{p_{\mathrm c}}
+\newcommand{\con}{\leftrightarrow}
+\newcommand{\ncon}{\nleftrightarrow}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\eC}{\mathcal{C}}
+\newcommand{\Sur}{\operatorname{Sur}}
+\newcommand{\Marg}{\operatorname{Marg}}
+\newcommand{\slf}{\operatorname{sl}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CSH}{\mathrm{CSH}}
+\newcommand{\GEN}{\mathrm{GEN}}
+% Lean identifiers and file paths (line-breakable typewriter)
+\DeclareUrlCommand\lean{\def\UrlFont{\ttfamily\upshape}}
+
+% allow \lean identifiers to break also after underscores and capitals-free long runs
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\_\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z}
+\makeatother
+\emergencystretch=1.5em
+\makeatletter\g@addto@macro\normalsize{\setlength\abovedisplayskip{6.5pt plus 2pt minus 3pt}\setlength\belowdisplayskip{6.5pt plus 2pt minus 3pt}%
+\setlength\abovedisplayshortskip{1pt plus 2pt}\setlength\belowdisplayshortskip{4pt plus 2pt minus 2pt}}\makeatother
+\setlist{itemsep=0pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+\setlength{\textfloatsep}{12pt plus 2pt minus 3pt}
+
+\title{\vspace{-2.2em}\texorpdfstring{$\theta(\pc)=0$}{theta(pc)=0} for Bernoulli bond percolation on \texorpdfstring{$\Zd$}{Zd}\\ in all dimensions \texorpdfstring{$d\ge 2$}{d>=2}:\\[3pt]
+\large a guide to the Lean formalization}
+\author{Justin Leder}
+\date{\vspace{-0.3em}August 2026\vspace{-0.8em}}
+
+\begin{document}
+\maketitle
+
+\begingroup\renewcommand\thefootnote{}\footnotetext{%
+\emph{Provenance and review status.}
+The Lean sources of this development---definitions, statements and proofs, together with the statement file \texttt{Challenge.lean}, its
+proved twin \texttt{Solution.lean} and the metadata---were written by an AI system (Anthropic's Claude models) working under my direction;
+no human wrote or edited the Lean code, and the first drafts of this guide were produced in the same way.  Correctness rests on mechanical
+checking: the Lean~4 kernel accepts every file with no \texttt{sorry} outside the two deliberate placeholders of \texttt{Challenge.lean}, no
+added axioms and no unsafe code, and the main theorems depend only on the standard axioms \texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}; the compared theorems are additionally replayed in the independent \texttt{nanoda} kernel by the Lean comparator (see
+\texttt{AUDIT.md}).  Neither the development nor this guide has yet been refereed by human mathematicians or by anyone independent of me; the
+only review so far was carried out by AI systems.  Mechanical checking does not cover whether the formal statements express the intended
+mathematics: readers should satisfy themselves that \texttt{Challenge.lean} states the theorem of \cref{s:results} (box ``Statements to
+audit'').}\endgroup
+
+\begin{abstract}
+\noindent
+This is a reader's guide to a Lean~4/Mathlib formalization proving that the percolation probability of nearest-neighbour Bernoulli bond
+percolation on $\Zd$ vanishes at the critical point, $\theta(\pc)=0$, for every $d\ge2$; the cases $3\le d\le10$, in particular $\ZZ^3$, were
+open.  The route is the reduction of Kozma and Nitzan (2024), who conjectured a family of
+``gluing'' inequalities for percolation on arbitrary finite weighted graphs and proved that the weakest of them, their Conjecture~3,
+implies $\theta(\pc)=0$ on $\Zd$ for all $d\ge2$.  The development proves Conjecture~3 through a stronger additive gluing
+inequality---if $\PP(a\con b)\ge1-t$ for every $a\in A$ then $\PP(o\con b)\ge\PP(o\con A)-t$---which is in turn derived from a new
+family of conditioned covariance inequalities for increasing functions of a single open cluster, indexed by finite lists of auxiliary
+vertices and proved by induction on the list; its first member is the Harris inequality.  Kozma--Nitzan's Theorem~6 and every
+classical input are re-proved inside the library, so the final statement has no hypothesis other than $d\ge2$.  The warrant for every claim
+is the Lean development, not this text.
+\end{abstract}
+
+%=====================================================================================================
+\section{Introduction}\label{s:intro}
+
+\subsection{The model and the question}\label{ss:model}
+Bernoulli bond percolation on $\Zd$, introduced by Broadbent and Hammersley \citep{BroadbentHammersley1957}, declares every
+nearest-neighbour edge of $\Zd$ \emph{open} with probability $p\in[0,1]$, independently; $\PP_p$ is the product measure and $C_0$ the
+set of vertices joined to the origin by open paths.  The \emph{percolation probability} is $\theta(p):=\PP_p(|C_0|=\infty)$ and the
+\emph{critical probability} $\pc=\pc(\Zd):=\inf\{p:\theta(p)>0\}$ satisfies $0<\pc<1$ for $d\ge2$
+\citep[Theorem~(1.10)]{GrimmettPercolation1999}.  Since $\theta$ is non-decreasing, vanishes on $[0,\pc)$, and is continuous on
+$(\pc,1]$ \citep{VandenBergKeane1984}, \citep[Theorem~(8.8)]{GrimmettPercolation1999}---the last fact resting on the uniqueness of the
+infinite cluster \citep{AizenmanKestenNewmanCMP1987,BurtonKeane1989}---$\theta$ is continuous on $[0,1]$ if and only if
+\begin{equation}\label{eq:continuity}
+ \theta(\pc)=0,
+\end{equation}
+i.e.\ if and only if there is almost surely no infinite cluster at the critical point \citep[\S8.3]{GrimmettPercolation1999}.
+That \eqref{eq:continuity} holds for every $d\ge2$ is conjectured---``open since at least the 80s'' \citep[p.~1]{KozmaNitzan2024}---and
+recorded as open in \citep[pp.~14, 202--203]{GrimmettPercolation1999}, \citep[Conjecture~1]{DuminilCopin2018ICM}.  This guide describes a formal proof of \eqref{eq:continuity} for all $d\ge2$.
+
+\subsection{What was known}\label{ss:history}
+\emph{Two dimensions.}  Harris \citep{HarrisPCPS1960} proved $\theta(\tfrac12)=0$ on $\ZZ^2$ and Kesten \citep{KestenCMP1980} proved
+$\pc(\ZZ^2)=\tfrac12$, building on Russo \citep{Russo1978} and Seymour--Welsh \citep{SeymourWelsh1978}; together these give
+\eqref{eq:continuity} for $d=2$.  Harris' paper also contains the correlation inequality that bears his name (in general form
+Fortuin--Kasteleyn--Ginibre \citep{FortuinKasteleynGinibreCMP1971}), which with the van den Berg--Kesten inequality \citep{VandenBergKesten1985}
+is the basic tool of the subject.  \emph{Sharpness}---exponential decay of the cluster radius for $p<\pc$, due to Menshikov
+\citep{Menshikov1986} and Aizenman--Barsky \citep{AizenmanBarsky1987}, with short proofs by Duminil-Copin--Tassion
+\citep{DuminilCopinTassionCMP2016,DuminilCopinTassionEM2016}---does not decide \eqref{eq:continuity}.
+\emph{High dimensions.}  Aizenman--Newman \citep{AizenmanNewman1984} introduced the triangle condition and Barsky--Aizenman
+\citep{BarskyAizenman1991} showed that it implies \eqref{eq:continuity}; Hara--Slade \citep{HaraSlade1990} verified it by the lace expansion in
+high dimension ($d\ge19$ \citep[Thm.~2.7]{HaraSlade1994}), and Fitzner--van der Hofstad \citep{FitznerVanDerHofstad2017} reached $d\ge11$.
+Thus \eqref{eq:continuity} was known for $d=2$ and $d\ge11$ and open for $3\le d\le10$.
+\emph{Restricted geometries.}  Barsky--Grimmett--Newman \citep{BarskyGrimmettNewman1991} proved by a block argument at fixed $p$ that a
+half-space does not percolate at its critical point, which by Grimmett--Marstrand \citep{GrimmettMarstrand1990} equals $\pc(\Zd)$, so
+$\theta_{\HH}(\pc)=0$ \citep[Thms.~(7.2), (7.35)]{GrimmettPercolation1999}; Duminil-Copin--Sidoravicius--Tassion
+\citep{DuminilCopinSidoraviciusTassion2016} proved that slabs $\ZZ^2\times\{0,\dots,k\}$ do not percolate at their own critical points.  As
+Kozma and Nitzan stress \citep[\S1]{KozmaNitzan2024}, in the block arguments the step from a finite-size criterion back to percolation needs an
+extra feature (the half-space, or an increase of $p$); that step in $\Zd$ itself, at fixed $p$, was missing.
+
+\subsection{The Kozma--Nitzan reduction}\label{ss:KN}
+Kozma and Nitzan \citep{KozmaNitzan2024} proposed to supply the missing step by an inequality for percolation on \emph{finite} graphs
+with arbitrary edge probabilities.  For such a graph, vertices $o,b$ and a vertex set $A$, with $\{o\con A\}$ the event that $o$ is
+joined to some vertex of $A$, their Conjecture~1 \citep[p.~3]{KozmaNitzan2024} is
+\begin{equation}\label{eq:KN1}
+ \PP(o\con b)\ \ge\ \PP(o\con A)\cdot\min_{a\in A}\PP(a\con b),
+\end{equation}
+of which they write: ``We were not able to prove or disprove this conjecture.  Our belief that it holds is based on some (admittedly
+restricted) numerical evidence and on some simple cases where we were able to prove it.''  They prove a stronger ``pre-FKG'' form for $|A|=2$, for
+several configurations with $|A|=3$, and for $o$ close to $A$ \citep[Theorems~1--5]{KozmaNitzan2024}; they formulate variants (Conjecture~2;
+Conjecture~4 for monotone functions of the cluster \citep[p.~32]{KozmaNitzan2024}); and they isolate the weakest statement of the family,
+Conjecture~3 \citep[p.~15]{KozmaNitzan2024}:
+\emph{for every $\varepsilon>0$ there is $\delta>0$ such that, for any finite weighted graph and any $A,o,b$, $\PP(o\con A)>1-\delta$ and
+$\PP(a\con b)>1-\delta$ for all $a\in A$ imply $\PP(o\con b)>1-\varepsilon$.}  The content is that $\delta$ does not depend on $|A|$ (for bounded
+$|A|$ the union bound gives $\delta=\varepsilon/(|A|+1)$).  Their main theorem is the reduction
+\citep[Theorem~6]{KozmaNitzan2024}: \emph{if Conjecture~3 holds, then $\theta(\pc)=0$ on $\Zd$ for every $d\ge2$}, proved by a
+one-step renormalisation at fixed $p$ (\cref{ss:thm6}).  The paper is an arXiv preprint (v1, January 2024); Gladkov
+\citep[\S1]{Gladkov2024} reports the conjectured inequality as open, and we are not aware of a proof in print of any of Conjectures~1--4
+beyond the cases above.
+
+\subsection{What the formalization adds, and what it does not}\label{ss:adds}
+The development proves Conjecture~3 (\cref{cor:conj3}) through the \emph{additive gluing inequality} (\cref{thm:AG}): if
+$\PP(a\con b)\ge1-t$ for all $a\in A$ then $\PP(o\con b)\ge\PP(o\con A)-t$---weaker than \eqref{eq:KN1}, since
+$\PP(o\con A)(1-t)\ge\PP(o\con A)-t$, and stronger than Conjecture~3 (take $t=\delta=\varepsilon/2$).  Additive gluing is derived from a family
+of conditioned covariance inequalities for increasing functions of a single open cluster, the \emph{conditioned slack hierarchy}
+(\cref{thm:CSH}), the one new object; its level-zero, unconditioned member is the Harris inequality.  Kozma--Nitzan's Theorem~6 with everything
+it invokes, and every correlation inequality used, are re-proved inside the library, so the formal statement carries no hypothesis other than
+$2\le d$.  Our contribution is the finite-graph inequality; the reduction, and the insight that an inequality uniform in $|A|$ is what the
+renormalisation approach requires, are Kozma and Nitzan's.
+
+\emph{Not claimed.}  Conjectures~1 \eqref{eq:KN1}, 2 and 4 are neither proved nor stated in the release (the three-relay case of
+\eqref{eq:KN1} is proved, \cref{rem:mult}).  Nothing is proved about the rate at which $\theta(p)\to0$, critical exponents or the value of
+$\pc$; nothing new about site percolation, other lattices, or slabs (the slab theorem of \citep{DuminilCopinSidoraviciusTassion2016} is
+formalised as a literature input only).  Continuity of $\theta$ on $[0,1]$, classically equivalent to \eqref{eq:continuity}, is not part of
+the formal statement.  No lace expansion, triangle condition or numerics are used.
+
+\subsection{How to read this guide, and what to verify}\label{ss:howto}
+The repository\footnote{\url{https://github.com/anthropics/formal-math/tree/main/percolation}} is laid out as a Palomar submission: a
+statement file \texttt{Challenge.lean} importing only Mathlib, which defines the lattice, the measure, $\theta$, $\pc$ and the
+proposition \texttt{PercolationContinuity d} and states two theorems with placeholder proofs; its twin \texttt{Solution.lean}, proving
+the same theorems from the library \texttt{Percolation}; the comparator configuration \texttt{comparator.json}; and \texttt{AUDIT.md},
+which lists what was mechanically checked and how to reproduce it.  To decide \emph{whether} the theorem is proved: read \texttt{Challenge.lean} (\cref{s:results}, box), run the build and comparator
+as in \texttt{README.md}, inspect the axiom listing.  To see \emph{how}: read \cref{s:sketch} with the docstrings it names and \cref{s:guide}.
+Where this text and a Lean statement differ, the Lean statement is what has been proved.
+
+%=====================================================================================================
+\section{Main results}\label{s:results}
+
+\emph{Notation.}  A \emph{finite weighted graph} is a finite set $V$ with a weight $w_e\in[0,1]$ on every unordered pair $e$ of distinct
+vertices (weight $0$ = absent edge); $\PP=\PP_w$ makes each pair $e$ open with probability $w_e$ independently (in Lean, $V=\mathrm{Fin}\,n$,
+\lean{prodBernoulli w}).  $C_u$ is the vertex set of the open cluster of $u$, $\eC_u$ the set of open pairs inside it (the \emph{edge
+cluster}); $\{u\con v\}=\{v\in C_u\}$ (\lean{openConn u v}), $\{u\con A\}=\bigcup_{a\in A}\{u\con a\}$; ``increasing'' means monotone for
+inclusion, and increasing functions of the edge cluster $\eC_x$ include those of the vertex cluster $C_x=\{x\}\cup V(\eC_x)$;
+$\E[\xi;B]:=\E[\xi\one_B]$ for an event $B$.
+
+\begin{theorem}[$\theta(\pc)=0$ in all dimensions]\label{thm:main}
+For every integer $d\ge2$, nearest-neighbour Bernoulli bond percolation on $\Zd$ satisfies $\theta(\pc)=0$, where
+$\theta(p)=\PP_p(|C_0|=\infty)$ and $\pc=\inf\bigl(\{p\in[0,1]:\theta(p)>0\}\cup\{1\}\bigr)$.
+\emph{Lean:} \lean{Percolation.Continuity.CSH.percolationContinuity_allDimensions} (for all $d$, $2\le d\to{}$\lean{PercolationContinuity d})
+in \lean{Percolation/Continuity/MainTheorem.lean}, where \lean{PercolationContinuity d := theta (zdGraph d) 0 (criticalProbI d) = 0}
+(\lean{Percolation/Literature/CriticalContinuity.lean}).  Comparator-checked form over Mathlib-only definitions:
+\lean{BondPercolation.percolation_continuity} in \lean{Solution.lean}, against \lean{Challenge.lean}.  The case $d=3$, $\theta(\pc(\ZZ^3))=0$, is
+\lean{CSH.percolationContinuity_three}, comparator-checked as \lean{BondPercolation.percolation_continuity_Z3}.\label{cor:Z3}
+\end{theorem}
+The `$\cup\{1\}$' only fixes the degenerate case $\theta\equiv0$; that this $\pc$ equals $\sup\{p:\theta(p)=0\}$, and the equivalence with
+continuity of $\theta$ on $[0,1]$, are standard and \emph{not} part of the formal statement.
+
+\begin{theorem}[additive gluing]\label{thm:AG}
+Let $G$ be a finite weighted graph, $A$ a set of vertices, $o,b$ vertices and $t\ge0$.  If $\PP(a\con b)\ge1-t$ for every $a\in A$, then
+\begin{equation}\label{eq:AG}
+ \PP(o\con b)\ \ge\ \PP(o\con A)-t;\qquad\text{equivalently, for }A\neq\emptyset,\quad
+ \PP(o\ncon b)\le\PP(o\ncon A)+\max_{a\in A}\PP(a\ncon b).
+\end{equation}
+\emph{Lean:} \lean{CSH.additiveGluing_holds : Statements.AdditiveGluing} (\lean{MainTheorem.lean}; statement in
+\lean{Continuity/Statements.lean}).
+\end{theorem}
+For $|A|=1$ this is the union bound; the content is that it does not deteriorate with $|A|$.
+
+\begin{corollary}[Kozma--Nitzan's Conjecture~3]\label{cor:conj3}
+For every $\varepsilon>0$ there is $\delta>0$ \textup($\delta=\varepsilon/2$\textup) such that for every finite weighted graph, every $A$ and
+all $o,b$: $\PP(o\con A)>1-\delta$ and $\PP(a\con b)>1-\delta$ for all $a\in A$ imply $\PP(o\con b)>1-\varepsilon$.
+\emph{Lean:} \lean{CSH.kozmaNitzan_conjecture3_holds : KozmaNitzan2024_conjecture3} (\lean{MainTheorem.lean}); the statement, typed from
+\citep[p.~15]{KozmaNitzan2024} in \lean{Literature/KozmaNitzanReduction.lean}, coincides with \lean{Statements.NearOneGluing} by
+\lean{Iff.rfl} (\lean{nearOneGluing_iff_conjecture3}, \lean{Continuity/OfGluing.lean}).
+\end{corollary}
+
+\emph{The hierarchy: what the next definition encodes.}  For an increasing $f$ and any vertex $u$ the Harris inequality gives
+$\Cov(f(\eC_x),\one\{u\in C_x\})\ge0$: nonnegative \emph{slack} between $f$ and ``the cluster of the \emph{owner} $x$ reaches $u$''.  The
+hierarchy compares the slack seen at two \emph{observers}: at level~$0$ it says that the slack at $o$ is at least the fraction $\tau$ of the
+slack at $v$, $\tau$ being the conditional probability that $o$ hangs on the cluster of $v$.  When \cref{ss:reduction} removes relays one at a
+time, each removed vertex survives as a \emph{decoy} $z_j$ which has already explained the part $c_j(u)\times(\text{slack at }z_j)$ of the slack
+at $u$; the level forms $\slf^j$ below subtract these parts, decoy by decoy, before the comparison is made.  The induction proving the hierarchy
+(\cref{ss:csh}) runs in the complement of the cluster of an \emph{avoided set} $Y$, which is why the covariances are conditioned on
+$\{x\ncon Y\}$ (the constants $c_j,\tau$ are nevertheless computed under $\PP$, \cref{rem:global}).  We write $\CSH(Y;x;Z;o,v)$ for the
+assertion of \cref{thm:CSH} for the datum with avoided set $Y$, owner $x$, decoy list $Z$ and observers $o,v$ (in Lean \lean{CSHHolds w x Y D o v}).
+
+\begin{definition}[datum, constants, level forms]\label{def:datum}
+Let $V$ be finite with weights in $(0,1)$ on \emph{all} pairs (in Lean, on every element of \lean{Sym2 V}; diagonal pairs never matter).
+A \emph{datum} is an \emph{owner} $x\in V$, an \emph{avoided set} $Y\subseteq V\setminus\{x\}$, a list $Z=(z_1,\dots,z_\ell)$ of distinct
+\emph{decoys} ($\ell$ is the \emph{level}) and two distinct \emph{observers} $o,v$, the named vertices $x,o,v,z_1,\dots,z_\ell$ pairwise distinct
+and outside $Y$.  Put $\nu:=\PP(\,\cdot\mid x\ncon Y)$, $Y_j:=\{x\}\cup Y\cup\{z_1,\dots,z_{j-1}\}$ ($1\le j\le \ell+1$), and define the
+\emph{decoy constants} and the \emph{observer constant}
+\begin{equation}\label{eq:constants}
+ c_j(u):=\PP\bigl(u\in C_{z_j}\bigm|z_j\ncon Y_j\bigr)\ \ (1\le j\le \ell),\qquad \tau:=\PP\bigl(o\in C_v\bigm|v\ncon Y_{\ell+1}\bigr),
+\end{equation}
+computed under $\PP$, not $\nu$.  For a real function $\varphi$ on $V$ the \emph{level forms} are $\slf^0[\varphi]:=\varphi$,
+\begin{equation}\label{eq:sl}
+ \slf^j[\varphi](u):=\slf^{j-1}[\varphi](u)-c_j(u)\,\slf^{j-1}[\varphi](z_j)\ \ (1\le j\le \ell),\qquad
+ \Marg[\varphi]:=\slf^\ell[\varphi](o)-\tau\,\slf^\ell[\varphi](v).
+\end{equation}
+\emph{Lean:} \lean{CSH.avoidConst}, \lean{decoyList}, \lean{obsConst}, \lean{slForm}, \lean{cshMarg} in \lean{Continuity/CSH/Defs.lean}.
+\end{definition}
+
+\begin{theorem}[the conditioned slack hierarchy]\label{thm:CSH}
+For a datum as above and an increasing real function $f$ of sets of pairs, let
+$\kappa_f(u):=\Cov_\nu\bigl(f(\eC_x),\one\{u\in C_x\}\bigr)$, $u\in V$.  Then
+\begin{equation}\label{eq:CSH}
+ \Marg[\kappa_f]\ \ge\ 0 .
+\end{equation}
+At level $0$ this reads
+\begin{equation}\label{eq:level0}
+ \Cov_\nu\bigl(f(\eC_x),\one\{o\in C_x\}\bigr)\ \ge\ \PP\bigl(o\in C_v\bigm|v\ncon\{x\}\cup Y\bigr)\cdot\Cov_\nu\bigl(f(\eC_x),\one\{v\in C_x\}\bigr),
+\end{equation}
+and at level $1$ with $Y=\emptyset$ it reads $\kappa_f(o)-c(o)\kappa_f(z)\ge\tau\,[\kappa_f(v)-c(v)\kappa_f(z)]$ with
+$c(u)=\PP(u\in C_z\mid z\ncon x)$, $\tau=\PP(o\in C_v\mid v\ncon\{x,z\})$.
+\emph{Lean:} \lean{CSH.cshHolds}, concluding \lean{CSHHolds w x Y D o v} (\lean{MainTheorem.lean}; Lean's \lean{D} is the decoy list $Z$;
+\lean{CSHHolds}, \lean{cshMargin} in \lean{CSH/Defs.lean}).  The formal margin is \eqref{eq:CSH} times $\PP(x\ncon Y)^2>0$, each conditional covariance being carried in the
+polynomial form $\PP(x\ncon Y)\E[f(\eC_x);x\ncon Y,x\con u]-\E[f(\eC_x);x\ncon Y]\PP(x\ncon Y,x\con u)$ (\lean{CSH.covD}); \lean{CSH.cshAll}
+repackages the hypotheses over \lean{Fin n}.
+\end{theorem}
+For $Y=\emptyset$ and $f=\one\{v\in\cdot\,\}$, \eqref{eq:level0} is the Harris inequality: with $q:=\PP(x\con v)$ one has
+$\kappa_f(o)=\PP(o,v\in C_x)-q\,\PP(o\in C_x)$, $\kappa_f(v)=q(1-q)$ and $\tau\kappa_f(v)=q\,\PP(o\in C_v,\,v\ncon x)$ (the factor
+$1-q=\PP(v\ncon x)$ cancels against the conditioning in $\tau$), so that by $\{o\con\{x,v\}\}=\{o\in C_x\}\sqcup\{o\in C_v,\,v\ncon x\}$ the
+inequality $\kappa_f(o)\ge\tau\kappa_f(v)$ reads $\PP(o\con\{x,v\},\,x\con v)\ge q\,\PP(o\con\{x,v\})$.  In general \eqref{eq:level0} says that, given that the owner avoids $Y$, the
+correlation of $f$ with ``the owner reaches $o$'' is at least the part of its correlation with ``the owner reaches $v$'' that is transported
+from $v$ to $o$ at the price $\tau$.
+
+\begin{table}[t]
+\newsavebox{\auditbox}\begin{lrbox}{\auditbox}\begin{minipage}{0.955\textwidth}\footnotesize
+\textbf{Statements to audit.}  The kernel certifies that \lean{Solution.lean} proves the two theorems of \lean{Challenge.lean}; it does
+not certify that they say ``$\theta(\pc)=0$ on $\Zd$''.  \lean{Challenge.lean} (namespace \lean{BondPercolation}) contains eleven definitions, one
+lemma and the two theorem statements, listed here in full (the definitions are verbatim copies of the library's; the comparator requires
+\lean{Solution.lean} to use identical ones).  A reader should check:
+\begin{enumerate}[leftmargin=1.6em,itemsep=0pt,topsep=2pt]
+\item \lean{Site d} $=$ functions \lean{Fin d} $\to\ZZ$; \lean{zdGraph d := SimpleGraph.hasse (Site d)}, adjacency $=$ covering relation of
+ the coordinatewise order, i.e.\ $x\sim y$ iff $y=x\pm e_i$.  \emph{Check:} this is the nearest-neighbour graph
+ (\lean{Pi.covBy_iff_exists_right_eq}, \lean{Order.covBy_iff_add_one_eq}).
+\item \lean{BondConfig V := Set (Sym2 V)} (a configuration is its set of open pairs) and
+ \lean{bondPercolation G p := ProbabilityTheory.setBernoulli G.edgeSet p}: edges of $G$ open independently with probability $p$, non-edges
+ a.s.\ closed.  \emph{Check:} this is $\PP_p$.
+\item \lean{openGraph}\ $\omega$ \lean{:= SimpleGraph.fromEdgeSet}\ $\omega$; \lean{openCluster}\ $\omega$\ \lean{x} $=$ the set of $y$ with
+ \lean{(openGraph}\ $\omega$\lean{).Reachable x y}; \lean{percolatesAt x} $=$ the set of $\omega$ with \lean{(openCluster}\ $\omega$\ \lean{x).Infinite}.
+ \emph{Check:} $\{|C_0|=\infty\}$ as a set of vertices.
+\item \lean{theta G x p := (bondPercolation G p).real (percolatesAt x)}, a real number.
+\item \lean{criticalProb G x} $=$ \lean{sInf} of $\{p\in\RR:\exists h\colon p\in[0,1],\ 0<{}$\lean{theta G x <p,h>}$\}\cup\{1\}$; the lemma
+ \lean{criticalProb_mem_Icc} ($0\le\pc\le1$); \lean{criticalProbI d}, the same number as a point of $[0,1]$.  \emph{Check:} the $\cup\{1\}$
+ convention; that the infimum form is the intended $\pc$.
+\item \lean{PercolationContinuity d := theta (zdGraph d) 0 (criticalProbI d) = 0}.  \emph{Check:} $\theta$ at the origin.
+\item the theorems \lean{percolation_continuity (d) (hd : 2 <= d) : PercolationContinuity d} and \lean{percolation_continuity_Z3 : PercolationContinuity 3}
+ (placeholder proofs in \lean{Challenge.lean}, proofs in \lean{Solution.lean}); these two names are what \lean{comparator.json} compares.
+ \emph{Check:} the hypothesis $2\le d$ (for $d=1$ the statement is false).
+\end{enumerate}
+\texttt{AUDIT.md} records \texttt{\#print axioms} (\texttt{[propext, Classical.choice, Quot.sound]} for all seven main theorems), the
+\texttt{sorry} count (2, in \lean{Challenge.lean} by design), the absence of \texttt{axiom} declarations, and the comparator run.
+\end{minipage}\end{lrbox}\noindent\fbox{\usebox{\auditbox}}
+\end{table}
+
+%=====================================================================================================
+\section{Proof sketch}\label{s:sketch}
+
+\paragraph{Roadmap.}
+The proof has four steps, and it is easiest to read them from the lattice down to the finite graph.
+\emph{Step~1} (\cref{ss:thm6}) is Kozma and Nitzan's theorem: if the near-one gluing statement (Conjecture~3) holds on every finite weighted
+graph, then $\theta(\pc)=0$ on $\Zd$ for every $d\ge2$.  The mechanism is a renormalisation at \emph{fixed} $p$: an infinite cluster at $p$
+lets one grow, box by box and with conditional probability close to one at each step, an infinite cluster inside a two-dimensional slab of
+$\Zd$, gluing being exactly what carries the cluster from one box into the next; but no slab percolates at $\pc$.  This step is re-proved in
+the library and nothing in it is new.  \emph{Step~2} (\cref{ss:conj3}) observes that Conjecture~3 follows at once from the additive gluing
+inequality \eqref{eq:AG}.  \emph{Step~3} (\cref{ss:reduction}) derives additive gluing from the conditioned slack hierarchy: gluing through
+a set $A$ of relays is proved by removing the relays one at a time, and what makes the induction close is a \emph{transfer} inequality
+comparing a covariance seen from one observer with the same covariance seen from another; the removed relays do not disappear but survive as
+``decoys'' whose influence is discounted, and the transfer inequality with $\ell$ decoys is precisely level $\ell$ of the hierarchy.
+\emph{Step~4} (\cref{ss:csh}), the heart of the work, proves the hierarchy by induction on the level: conditioning on the cluster of the
+avoided set splits the margin into a ``horizontal'' part, controlled by the Harris inequality, a negative-correlation inequality of
+van den Berg--H\"aggstr\"om--Kahn and a new two-source inequality, plus one term per decoy which is a margin of \emph{lower} level.  The
+simplest instance of level zero is the Harris inequality itself.  We present Step~4 before Step~3, because Step~3 consumes its notation.
+Schematically (each arrow is a theorem of the development; beside it, what it consumes):
+\begin{equation}\label{eq:chain}
+\fbox{\parbox{0.9\textwidth}{\small\raggedright
+ \textbf{$\theta(\pc)=0$ on $\Zd$ for all $d\ge2$}\quad(\cref{thm:main})\\[1pt]
+ \hspace*{1.2em}$\Big\Uparrow$\ \ \parbox[t]{0.82\textwidth}{\S\ref{ss:thm6}: Kozma--Nitzan Thm.~6, re-proved; consumes Harris--Kesten ($d=2$), uniqueness of the infinite cluster, Barsky--Grimmett--Newman}\\[3pt]
+ \textbf{Kozma--Nitzan Conjecture~3} on finite weighted graphs\quad(\cref{cor:conj3})\\[1pt]
+ \hspace*{1.2em}$\Big\Uparrow$\ \ \parbox[t]{0.82\textwidth}{\S\ref{ss:conj3}: take $t=\delta=\varepsilon/2$}\\[3pt]
+ \textbf{additive gluing} (AG)\quad(\cref{thm:AG})\\[1pt]
+ \hspace*{1.2em}$\Big\Uparrow$\ \ \parbox[t]{0.82\textwidth}{\S\ref{ss:reduction}: peeling of relays, (S5D)$\Rightarrow$(S5)$\Rightarrow$(GEN)$\Rightarrow$(AG-loc); consumes vdBHK Thm.~1.3 and closure in the weights}\\[3pt]
+ \textbf{conditioned slack hierarchy} (CSH), all levels\quad(\cref{thm:CSH})\\[1pt]
+ \hspace*{1.2em}$\Big\Uparrow$\ \ \parbox[t]{0.82\textwidth}{\S\ref{ss:csh}: induction on the level; consumes the Gibbs sampler of vdBHK \S2, Gladkov's tree-Harris inequality, Ahlswede--Daykin}\\[3pt]
+ \textbf{level $0$}, whose simplest instance is the Harris inequality; consumes Harris and vdBHK Thm.~1.4}}
+\end{equation}
+The labels are those of the Lean docstrings, each defined where it is first displayed: (S5) is a \emph{surplus-transfer} inequality between two
+observers, (S5D) the same with decoys, (GEN) a first-relay lower bound for a general increasing functional and (AG-loc) its indicator case, a
+localised union bound (\cref{ss:reduction}); (T), (U), (H) and Hpart are the three steps and the horizontal term of \cref{ss:csh}.  Every
+subsection follows the pattern \emph{Goal / Idea / The inequality / Why it holds / In Lean}.
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{From Conjecture 3 to \texorpdfstring{$\theta(\pc)=0$}{theta(pc)=0}: the theorem of Kozma and Nitzan (Step 1)}\label{ss:thm6}
+\emph{Goal.}  Conjecture~3 $\Rightarrow$ $\theta(\pc)=0$ on $\Zd$ for every $d\ge2$ \citep[Theorem~6]{KozmaNitzan2024}.
+\emph{Idea.}  Suppose $\theta(p)>0$.  Then large boxes are joined to far-away targets with probability close to one, and gluing says that such
+near-certain connections can be chained \emph{without losing probability at each link}, however many candidate link points there are.  Chaining
+them along a planar grid of boxes builds, at the same $p$, an infinite cluster confined to a thick two-dimensional slab; applied at $p=\pc$ this
+contradicts the fact that slabs, which sit inside a half-space, do not percolate at $\pc(\Zd)$.  For $d=2$ the conclusion is classical.
+Nothing in this step is new; we follow \citep[\S4]{KozmaNitzan2024} and record where the formal route differs from print.
+
+\emph{The statement} is the implication \lean{KozmaNitzan2024_thm6} (\lean{Literature/KozmaNitzanReduction.lean}), proved as
+\lean{KozmaNitzan2024_thm6_holds} (\lean{KozmaNitzanTheorem6SlabCritical.lean}).  \emph{Why it holds.}
+\emph{$d=2$:} Harris' $\theta(\tfrac12)=0$ and Kesten's $\pc(\ZZ^2)=\tfrac12$ (\lean{percolationContinuity_two}, \lean{CriticalContinuity.lean};
+\lean{harris_theta_half_holds}, \lean{kesten_criticalProb_Z2_holds}); the library gets $\theta(\tfrac12)=0$ from RSW estimates
+\citep{Russo1978,SeymourWelsh1978} as in \citep[Ch.~3]{BollobasRiordanPercolation2006} and $\pc\le\tfrac12$ by self-duality
+\citep[Thm.~(11.11)]{GrimmettPercolation1999} with sharpness in the form of \citep{DuminilCopinTassionEM2016} (\lean{perc_sharpness_holds}).
+\emph{$d\ge3$:} with $S_k=\{0\le x_1\le k\}$ the slab and $\HH=\{x_1\ge0\}$, (a)~\emph{if Conjecture~3 holds and $\theta(p)>0$ then some slab
+percolates at the same $p$} (\lean{KozmaNitzan2024_slabPercolation_holds}, \lean{KozmaNitzanTheorem6OfSlab.lean}); (b)~\emph{no slab percolates at
+$\pc(\Zd)$} (\lean{theta_slab_criticalProb_zd_eq_zero_holds}); (a) at $p=\pc$ contradicts (b).
+
+\looseness=-1 \emph{Half (b):} $\theta_{S_k}(\pc)\le\theta_\HH(\pc)$ by monotonicity in the graph (\lean{theta_induce_mono_holds}), and $\theta_\HH(\pc(\Zd))=0$ is
+\citep[Thm.~1.1]{BarskyGrimmettNewman1991} in the form \citep[Thm.~(7.35)]{GrimmettPercolation1999} (\lean{BarskyGrimmettNewman1991_holds},
+\lean{HalfSpaceProofs.lean}), proved for all $d\ge3$ by the block construction of \citep[\S7.3, Lemmas~(7.36), (7.52)]{GrimmettPercolation1999}
+(\lean{BGNd.lemma_7_36C}, \lean{theta_pos_tall}, \lean{theta_pos_flat}): if $\theta_\HH(\pc)>0$, bricks on $\partial\HH$ would be ``good'' with
+probability above a universal threshold, hence (finitely many edges) also at some $p'<\pc$, forcing $\theta(p')>0$.  \emph{Deviation:}
+\citep[p.~25]{KozmaNitzan2024} and \citep[(7.38)]{GrimmettPercolation1999} take (b) from the Aizenman--Grimmett strict inequality $\pc(S_k)>\pc$
+\citep{AizenmanGrimmett1991}; the formal proof avoids it (a.s.\ no open cluster of $\HH$ is both infinite and of bounded height,
+\lean{BGNd.measure_percolatesVia_inter_heightLE_eq_zero}).  The slab theorem of \citep{DuminilCopinSidoraviciusTassion2016} is formalised
+(\lean{DuminilCopinSidoraviciusTassion2016_holds}) but off the main path.
+
+\looseness=-1 \emph{Half (a):} fix $d\ge3$ and $p$ with $\theta(p)>0$.  Conjecture~3 enters only through the \emph{target lemma} \citep[Lemma~10]{KozmaNitzan2024}
+(\lean{KozmaNitzan.targetLemma}, \lean{KozmaNitzanTargetLemma.lean}): for every $\varepsilon$ there is $\delta$ such that, in any finite weighted graph
+containing a copy $\Lambda$ of a lattice box with sub-box $\Lambda_0$ and a ``target'' $\mathsf T\subseteq\Lambda$ reachable from every point near
+$\Lambda_0$ through a scaled \emph{hittable geometry} \citep[p.~16]{KozmaNitzan2024} (a region and a face such that, at this $p$, a large box is joined to
+the scaled face inside the scaled region with probability tending to one), $\PP(o\con\Lambda_0)>1-\delta$ implies $\PP(o\con\mathsf T)>1-\varepsilon$ for all $o\notin\Lambda$.  The
+proof explores the cluster of $o$ inwards until a shell of $\Lambda_0$ is crossed by many branches, attaches \emph{seeds} (bounded open edge sets at selected contact points \citep[p.~19]{KozmaNitzan2024}), uses
+\emph{local uniqueness} in mesoscopic boxes to funnel everything into one cluster, contracts the revealed configuration to a finite graph, and applies
+Conjecture~3 there with $\mathsf T$ wired to a point.  Inputs: the square-root trick \citep[(11.14)]{GrimmettPercolation1999} (\lean{sqrt_trick_holds})
+and local uniqueness \citep[Lemma~7]{KozmaNitzan2024}, which Kozma and Nitzan take from Cerf \citep{Cerf2015} while noting that uniqueness of the
+infinite cluster suffices; the library takes that route, re-proving uniqueness \citep{AizenmanKestenNewmanCMP1987,BurtonKeane1989},
+\citep[Thm.~(8.1)]{GrimmettPercolation1999} (\lean{Grimmett1999_numInfiniteClusters_le_one_holds}).  Then come the \emph{corridor lemma}
+\citep[Lemmas~11--12]{KozmaNitzan2024} (\lean{KozmaNitzanCorridor.lean}) and the renormalisation \citep[pp.~25--31]{KozmaNitzan2024}
+(\lean{KozmaNitzanScheme}, \lean{-Steps}, \lean{-Theorem6.lean}): an exploration of macroscopic sites of $\ZZ^2\hookrightarrow\Zd$ inside the region
+$L_r=\ZZ^2\times[-5r,5r]^{d-2}$, each examined site being good with conditional probability $>1-\varepsilon$ given the past \citep[(33)]{KozmaNitzan2024}
+(\lean{KozmaNitzan.KSch.fail_bound}).  \emph{Deviation:} where \citep[p.~25]{KozmaNitzan2024} conclude by domination of a supercritical site
+process (``we skip the details''), the library runs an explicit Peierls contour estimate with $\varepsilon\le2^{-32}$ (\lean{DualContours.lean},
+\lean{HistorySiteRenormalization.lean}), obtaining an infinite cluster in $L_r$, hence in the slab $S_{10r}$ (\lean{KozmaNitzan.exists_slab_theta_pos_of_three_le}).
+Conjecture~3 is applied only to finite graphs built from finitely many boxes with edges contracted or deleted.
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{From additive gluing to Conjecture 3 (Step 2)}\label{ss:conj3}
+\emph{Goal.}  \cref{thm:AG} $\Rightarrow$ \cref{cor:conj3}.  \emph{Why.}  Put $\delta=\varepsilon/2$; under the hypotheses of Conjecture~3,
+\eqref{eq:AG} with $t=\varepsilon/2$ gives $\PP(o\con b)\ge\PP(o\con A)-\varepsilon/2>1-\varepsilon$.  \emph{In Lean:} \lean{additiveGluingSuffices_proof}
+(\lean{AdditiveGluing/Suffices.lean}), \lean{CSH.conjecture3_of_csh}.
+\emph{Illustration} (not part of the development).  On the $4$-cycle $o\,a_1\,b\,a_2$ with all weights $\tfrac12$ and $A=\{a_1,a_2\}$, enumeration of
+the $16$ configurations gives $\PP(o\con A)=\tfrac34$, $\PP(a_i\con b)=\tfrac9{16}$, $\PP(o\con b)=\tfrac7{16}$; \eqref{eq:AG} with $t=\tfrac7{16}$ reads
+$\tfrac7{16}\ge\tfrac34-\tfrac7{16}=\tfrac5{16}$.
+
+We now turn to the finite-graph inequalities themselves: first the hierarchy (Step~4), then the derivation of additive gluing from it (Step~3).
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{The conditioned slack hierarchy (Step 4)}\label{ss:csh}
+\emph{Goal.}  \cref{thm:CSH}: for every datum and every increasing $f$, $\Marg[\kappa_f]\ge0$.  Throughout \S\S\ref{ss:csh}--\ref{ss:reduction} all
+weights lie in $(0,1)$, so every event ``$u$ is joined to no vertex of a given set not containing $u$'' has positive probability; the lattice symbols
+$p,d,k,S_k$ of \S\S\ref{s:intro}--\ref{ss:thm6} do not occur.  The symbols used more than once are:
+\par\smallskip\noindent{\small
+\begin{tabular}{@{}>{\raggedright}p{0.31\textwidth}>{\raggedright}p{0.49\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}@{}}\toprule
+symbol & meaning & defined\\\midrule
+$x$;\ $Y$;\ $\nu=\PP(\cdot\mid x\ncon Y)$ & owner; avoided set; the conditional measure & Def.~\ref{def:datum}\\
+$z_1,\dots,z_\ell$;\ $c_j$;\ $Y_j$;\ $X$ & decoys (level $\ell$); decoy constants; $\{x\}\cup Y\cup\{z_1,\dots,z_{j-1}\}$; marker set $\{x,z_1,\dots,z_\ell\}$ & Def.~\ref{def:datum}, \eqref{eq:constants}, \eqref{eq:U1}\\
+$o,v$;\ $\tau$ & observers; observer constant $\PP(o\in C_v\mid v\ncon X\cup Y)$ ($v$ avoids everything in play) & Def.~\ref{def:datum}, \eqref{eq:constants}\\
+$\Marg[\varphi]$ & the level form ``discount the decoys, then value at $o$ minus $\tau\times$ value at $v$'' & \eqref{eq:sl}\\
+$\kappa_f(u)=\Cov_\nu(f(\eC_x),\one\{u\in C_x\})$ & conditioned covariance of $f$ with ``the owner reaches $u$'' & Thm.~\ref{thm:CSH}\\
+$U=V\setminus C_Y$;\ $\pi$;\ $\PP_U$;\ $h_u(U)$, $\tau(U)$ & the \emph{world} (vertices outside the cluster of $Y$); its law under $\nu$; percolation on the graph induced on $U$; world covariance with ``$u\con X$'', world price & (T), \eqref{eq:U}, (H)\\
+$N\subseteq U$;\ $\langle\psi\rangle^U_N$ & source set; ``explore $C_N$ inside $U$, evaluate $\psi$ on the rest'' & \eqref{eq:A2H}\\\bottomrule
+\end{tabular}}\par\smallskip
+
+\emph{Idea} (see also the paragraph before \cref{def:datum}).  Harris gives nonnegative slack $\Cov(f(\eC_x),\one\{u\in C_x\})\ge0$ at every
+vertex $u$; gluing needs more, namely that the slack seen at $o$ is at least the fraction $\tau$ of the slack seen at $v$, $\tau$ being the chance
+that $o$ hangs on $v$'s cluster, because that is what lets a connection be passed from $v$ to $o$ (level~$0$).  A relay $z$ removed in Step~3 has
+already explained the part $c(u)\times(\text{slack at }z)$ of the slack at $u$; level~$\ell$ says the transfer survives $\ell$ such discounts.  The
+induction works in the complement of the cluster of a vertex set $Y$, whence $\nu$; the constants $c_j,\tau$ are nevertheless global
+(\cref{rem:global}).
+
+\emph{Level $0$} is \eqref{eq:level0}: $\kappa_f(o)\ge\tau\,\kappa_f(v)$ with $\tau=\PP(o\in C_v\mid v\ncon\{x\}\cup Y)$.  The conditioning in $\tau$
+cannot be dropped: on the path $o\!-\!x\!-\!v$ with both weights $\tfrac12$, $Y=\emptyset$ and $f=\one\{v\in\cdot\,\}$, the two edges are independent, so
+$\kappa_f(o)=0$ while $\PP(o\con v)\,\kappa_f(v)=\tfrac14\cdot\tfrac14>0$; the conditioned price $\PP(o\in C_v\mid v\ncon x)$ is $0$.
+\emph{Illustration} (not part of the development).  On the triangle $\{x,o,v\}$ with all weights $\tfrac12$, $Y=\emptyset$, $f=\one\{v\in\cdot\,\}$,
+enumeration of the $8$ configurations gives $\kappa_f(o)=\tfrac7{64}$, $\kappa_f(v)=\tfrac{15}{64}$, $\tau=\tfrac13$, so the level-$0$ margin is
+$\tfrac7{64}-\tfrac13\cdot\tfrac{15}{64}=\tfrac1{32}>0$.
+
+\looseness=-1 \emph{Level $1$ with $Y=\emptyset$: the worked example.}  One decoy $z$; the statement is
+$\kappa_f(o)-c(o)\kappa_f(z)\ge\tau\,[\kappa_f(v)-c(v)\kappa_f(z)]$ with $c(u)=\PP(u\in C_z\mid z\ncon x)$, $\tau=\PP(o\in C_v\mid v\ncon\{x,z\})$ and plain
+covariances ($\nu=\PP$).  The mechanism of the whole proof is already visible here.  Put $X:=\{x,z\}$, $\mathcal E:=\{z\ncon x\}$,
+$\rho:=\PP(\cdot\mid\mathcal E)$ and, for a vertex set $K\not\ni x$, $\Phi(K):=\E\bigl[f(\eC_x)-f(\eC^{-K}_x)\bigr]$, where $\eC^{-K}_x\subseteq\eC_x$ is
+the owner's cluster in $G\setminus K$ (pairs meeting $K$ deleted); thus $\Phi\ge0$ and $\Phi$ is increasing in $K$.  Since
+$\{u\con X\}=\{u\in C_x\}\sqcup(\{u\in C_z\}\cap\mathcal E)$ and $\{z\in C_x\}$ is the complement of $\mathcal E$, one gets
+$\kappa_f(u)-c(u)\kappa_f(z)=\Cov(f(\eC_x),\one\{u\con X\})-\Cov\bigl(f(\eC_x),(\one\{u\in C_z\}-c(u))\one_{\mathcal E}\bigr)$, and the last
+covariance equals $\E[f(\eC_x)(\one\{u\in C_z\}-c(u))\one_{\mathcal E}]$ because its second argument has mean $0$ by the choice of $c$.
+Condition on $C_z=K$: on $\mathcal E$ the set $K$ misses $x$, and given $C_z=K$ the configuration off $K$ is a fresh percolation on
+$G\setminus K$ (the Markov property, \ref{K2} below), so $\E[f(\eC_x)\mid C_z=K]=\E f(\eC^{-K}_x)=\E f(\eC_x)-\Phi(K)$; the constant $\E f(\eC_x)$
+integrates to $0$ once more, and centring at $c(u)=\E_\rho\one\{u\in C_z\}$ turns what is left into a covariance:
+\begin{equation}\label{eq:U1}
+ \kappa_f(u)-c(u)\kappa_f(z)\;=\;\Cov\bigl(f(\eC_x),\one\{u\con X\}\bigr)+\PP(z\ncon x)\,\Cov_\rho\bigl(\Phi(C_z),\one\{u\in C_z\}\bigr).
+\end{equation}
+Taking \eqref{eq:U1} at $u=o$ minus $\tau$ times \eqref{eq:U1} at $u=v$, the level-one margin equals
+\begin{multline*}
+ \bigl[\Cov(f(\eC_x),\one\{o\con X\})-\tau\Cov(f(\eC_x),\one\{v\con X\})\bigr]\\[-2pt]
+ +\PP(z\ncon x)\bigl[\Cov_\rho(\Phi(C_z),\one\{o\in C_z\})-\tau\Cov_\rho(\Phi(C_z),\one\{v\in C_z\})\bigr].
+\end{multline*}
+The first bracket is nonnegative by the \emph{set} version \eqref{eq:K6} below of level~$0$, for the marker set $X$ (Harris and \ref{K2}(b)).
+The second bracket is exactly the level-$0$ margin of the datum with owner $z$, avoided set $\{x\}$, no decoys and the same observers, at the
+functional $\Phi$---its observer constant $\PP(o\in C_v\mid v\ncon\{z\}\cup\{x\})$ is again $\tau$---so it is nonnegative by level~$0$.  Thus
+level~$1$ at $Y=\emptyset$ already consumes level~$0$ with the \emph{non-empty} avoided set $\{x\}$ at a functional $\Phi$ that is not an
+indicator: the induction forces the hierarchy to be stated for all avoided sets and all increasing $f$ (the peeling of \cref{ss:reduction}
+independently needs $Y=R'\neq\emptyset$).  Once $Y\neq\emptyset$ the covariances live under $\nu$ and the computation above must be done
+conditionally on the cluster of $Y$: that is where the \emph{worlds} and the two-source inequality below come from; at $Y=\emptyset$ there is
+a single world, $\tau(U)=\tau$, and \eqref{eq:Htw} is an identity.
+
+\emph{General form.}  \Cref{def:datum} performs the $\ell$ discounts successively---the $j$-th decoy is conditioned to avoid the owner, $Y$ and the
+earlier decoys, which is what $Y_j$ records---and \cref{thm:CSH} asserts $\Marg[\kappa_f]\ge0$.  Two algebraic facts are used:
+$\Marg[\varphi]=\sum_u\lambda(u)\varphi(u)$ over $u\in\{o,v,z_1,\dots,z_\ell\}$ (\lean{CSH.cshMarg_eq_sum_single}), and, with $\Marg'$ the form of
+$z_2,\dots,z_\ell$ (same $c_2,\dots,c_\ell,\tau$),
+\begin{equation}\label{eq:cons}
+ \Marg[\varphi]=\Marg'[\varphi]-\varphi(z_1)\,\Marg'[c_1]
+\end{equation}
+(\lean{CSH.cshMarg_cons}).  Since $f\mapsto\Marg[\kappa_f]$ is linear and vanishes on constants, \eqref{eq:CSH} is a finite family of polynomial inequalities in the weights.
+
+\emph{Inputs.}  The proof of \cref{thm:CSH} uses four published inequalities, all re-proved in the library:
+\begin{enumerate}[label=\textup{(K\arabic*)},leftmargin=2.6em,itemsep=0pt,topsep=2pt]
+\item\label{K1} the Harris inequality \citep{HarrisPCPS1960}, \citep[Thm.~(2.4)]{GrimmettPercolation1999};
+\item\label{K2} conditional association \citep[Thms.~1.3--1.5, Remark~1]{VandenbergHaggstromKahn2005}: for vertex sets $V_1,V_2$, given
+ $\{V_1\ncon V_2\}$, (a)~two increasing functions of $\eC_{V_1}:=\bigcup_{s\in V_1}\eC_s$ are positively correlated, (b)~an increasing function
+ of $\eC_{V_1}$ and one of $\eC_{V_2}$ are \emph{negatively} correlated; and the Markov property of cluster exploration
+ \citep[Lemmas~2.3--2.4]{VandenbergHaggstromKahn2005} (off the explored cluster of $V_1$ the configuration is a fresh percolation);
+\item\label{K3} Gladkov's decision-tree Harris--Kleitman inequality \citep[Thm.~3.2]{Gladkov2024} (classical case
+ \citep{HarrisPCPS1960,Kleitman1966}): if a decision tree run on two independent configurations $(\omega_1,\omega_2)$ reveals a random set
+ $\mathcal S$ of coordinates, then $(\PP\otimes\PP)(\omega_1\in\mathsf A,\ \omega_1\!\to_{\mathcal S}\omega_2\in\mathsf B)\ge\PP(\mathsf A)\PP(\mathsf B)$
+ for increasing events $\mathsf A,\mathsf B$, $\omega_1\!\to_{\mathcal S}\omega_2$ being $\omega_1$ on $\mathcal S$ and $\omega_2$ elsewhere; for the
+ tree exploring the cluster $C_N$ of a set $N$, with exploration $\sigma$-algebra $\mathcal F_N$, this is $\Cov(\E[\xi\mid\mathcal F_N],\eta)\ge0$
+ for increasing $\xi,\eta$: Harris survives stopping along an exploration (\lean{DecisionTree.PrW_mul_PrW_le_Pr2W_treeHK},
+ \lean{TreeHarris.treeHarris_real}; also the kernel form of Gladkov--Zimin \citep[Ch.~5]{Gladkov2025Thesis}, \citep{GladkovZimin2024HK},
+ \lean{GladkovZiminKernel.lean});
+\item\label{K4} the Ahlswede--Daykin four functions theorem \citep{AhlswedeDaykin1978} (Mathlib's \lean{four_functions_theorem_univ}): for a
+ product measure $\sigma$ on $2^{U'}$, $\alpha(s)\beta(t)\le\gamma(s\cup t)\delta(s\cap t)$ for all $s,t$ implies
+ $\sigma[\alpha]\sigma[\beta]\le\sigma[\gamma]\sigma[\delta]$.
+\end{enumerate}
+Russo's formula, RSW and the BK inequality (in the library for $d=2$) are not used on this path.
+
+\emph{Why \cref{thm:CSH} holds: worlds, and three steps.}  Fix a datum and an increasing $f$.  Under $\nu$ explore the cluster $C_Y$ and let $U:=V\setminus C_Y$, the \emph{world}, with
+law $\pi$; on $\{x\ncon Y\}$ it contains $x$.  By the Markov property \ref{K2}, given $C_Y$ the configuration on $U$ is a fresh percolation on the graph
+induced on $U$ (pairs meeting $C_Y$ deleted); write $\PP_U,\Cov_U$ for it, and set a world functional of $U$ to $0$ when a vertex it names is not
+in $U$.  Let $\kappa^U(u):=\Cov_U(f(\eC_x),\one\{u\in C_x\})$ and let $\mathcal W[f]:=\E_\pi[\Marg[\kappa^U]]$ be the
+\emph{world part}: the margin computed inside each world, but with the \emph{global} constants $c_j,\tau$, then averaged.  The proof is an induction
+on the level $\ell$ (skeleton \lean{CSH.cshHolds_of_unfold}, \lean{AdditiveGluing/CSHInduction.lean}) in three steps: (T) reduces the margin to
+the world part; (U) splits the world part exactly into a horizontal term plus one lower-level margin per decoy; (H) shows the horizontal term is
+nonnegative.
+
+\looseness=-1 \textsc{(T) Telescoping.}  \emph{Goal:} if $\mathcal W[f']\ge0$ for every increasing $f'\ge0$, then \eqref{eq:CSH} holds for every increasing $f$.
+\emph{Idea:} conditioning on the world loses the part of the covariance carried by the world itself; that part is again a covariance of the same
+shape for a new increasing functional, so one can iterate, and the iteration converges because the world is resampled from scratch with positive
+probability.  \emph{Why:} given the world, $f(\eC_x)$ and $\one\{u\in C_x\}$ are functions of the percolation on $U$, so the law of total covariance under
+$\nu$ gives $\kappa_f(u)=\E_\pi[\kappa^U(u)]+\Cov_\nu\bigl(g(U),\PP_U(u\in C_x)\bigr)$ with $g(U):=\E_Uf(\eC_x)$, and two applications of the tower
+property ($g(U)$ is a function of $C_Y$, $\one\{u\in C_x\}$ of $\eC_x$) rewrite the last term as $\Cov_\nu((\mathcal Af)(\eC_x),\one\{u\in C_x\})$ with
+$(\mathcal Af)(\mathcal K):=\E_\nu[g(U)\mid\eC_x=\mathcal K]$.  The constants $c_j,\tau$ do not depend on $f$, so applying the linear form $\Marg$:
+the margin of $f$ is $\mathcal W[f]$ plus the margin of $\mathcal Af$.  Here $\mathcal A$ is the transition operator of the two-block Gibbs sampler
+alternately resampling $C_Y$ given $\eC_x$ and $\eC_x$ given $C_Y$; $\mathcal Af$ is again increasing (a larger $\eC_x$ leaves less room for $C_Y$,
+hence a larger world, and $g$ is increasing in $U$), and $\mathcal A^nf\to$ const since the chain regenerates with probability $\ge\prod(1-w_e)>0$
+over the pairs leaving $Y$ (the one use of $w_e<1$); iterating, the margin of $f$ is $\sum_{i<n}\mathcal W[\mathcal A^if]$ plus a term tending
+to $0$.  This is the scheme of \citep[proof of Thm.~2.1]{VandenbergHaggstromKahn2005} with Harris inside a world replaced by $\mathcal W\ge0$.
+\emph{In Lean:} \lean{CSH.cshMargin_nonneg_of_within} (\lean{CSH/LemmaT.lean}), from \lean{BHK2006_multiMarkerCov_nonneg_of_within}
+(\lean{Literature/TwoClusterGibbsCovariance.lean}).
+
+\looseness=-1 \textsc{(U) Unfolding.}  \emph{Goal:} an exact formula for $\mathcal W[f]$.  \emph{Idea:} inside a world, ``the owner reaches $u$'' differs from
+``$u$ is joined to the marker set $X$'' exactly by the events ``$u$ hangs on a decoy that misses the owner''; the level form was built so that these
+differences, decoy by decoy, reassemble into margins of the \emph{same} hierarchy with that decoy as the new owner.  \emph{The identity:} with
+$\mathcal E_j:=\{z_j\ncon Y_j\}$ and $\rho_j:=\PP(\cdot\mid\mathcal E_j)$,
+\begin{equation}\label{eq:U}
+\begin{split}
+ \mathcal W[f]\;&=\;\mathrm{Hpart}\;+\;\sum_{j=1}^{\ell}\frac{\PP(\mathcal E_j)}{\PP(x\ncon Y)}\,
+   \Marg^{(j)}\Bigl[u\mapsto\Cov_{\rho_j}\bigl(\Phi(C_{z_j}),\one\{u\in C_{z_j}\}\bigr)\Bigr],\\
+ \mathrm{Hpart}&:=\E_\pi\bigl[h_o(U)-\tau\,h_v(U)\bigr],\qquad h_u(U):=\Cov_U\bigl(f(\eC_x),\one\{u\con X\}\bigr),
+\end{split}
+\end{equation}
+where $\Marg^{(j)}$ is the form of $z_{j+1},\dots,z_\ell$ (same constants) and, for a vertex set $K$,
+\begin{equation}\label{eq:Phi}
+ \Phi(K):=\E\Bigl[\one\{x\ncon Y\text{ in }G\setminus K\}\bigl(f(\eC_x^{-C_Y^{-K}})-f(\eC_x^{-K})\bigr)\Bigr]
+\end{equation}
+($\eC_x^{-K}$, $C_Y^{-K}$: clusters computed in $G\setminus K$; in the first term only $C_Y^{-K}$ is deleted, not $K$): the mean excess of the
+owner's cluster after deleting only the cluster of $Y$ grown without $K$, over the owner's cluster after deleting $K$.  $\Phi\ge0$ because on
+$\{x\ncon Y$ in $G\setminus K\}$ the cluster $\eC_x^{-K}$ does not meet $C_Y^{-K}$ and therefore lies inside the cluster of the first term; $\Phi$ is increasing
+in $K$ because enlarging $K$ shrinks $C_Y^{-K}$ (so the first cluster grows) and shrinks $\eC_x^{-K}$ (\lean{CSH.phiFun_nonneg}, \lean{phiFun_mono}); at
+$Y=\emptyset$ it is the $\Phi$ of the worked example.  \emph{The point:} the $j$-th summand is $\PP(\mathcal E_j)/\PP(x\ncon Y)\ge0$
+times the margin of the datum (owner $z_j$, avoided set $Y_j$, decoys $z_{j+1},\dots,z_\ell$, same observers) at the functional $\Phi$---a datum of
+\emph{lower level} whose constants are literally $c_{j+1},\dots,c_\ell,\tau$---so the decoy terms are nonnegative by induction, and $\mathcal W[f]\ge0$
+reduces to $\mathrm{Hpart}\ge0$.  At level $\ell=1$ with $Y=\emptyset$ there is one world $U=V$, and \eqref{eq:U} is the decomposition of the worked example
+obtained from \eqref{eq:U1}.  \emph{Why \eqref{eq:U} holds.}  Fix a world $U$ and work under $\PP_U$.  Iterating the disjoint decomposition
+$\{u\con X_i\}=\{u\con X_{i-1}\}\sqcup(\{u\in C_{z_i}\}\cap\{z_i\ncon X_{i-1}\})$, $X_i=\{x,z_1,\dots,z_i\}$, along the recursion \eqref{eq:sl}, as in
+the derivation of \eqref{eq:U1}, gives the pointwise identity
+$\slf^\ell[\one\{\cdot\in C_x\}](u)=\one\{u\con X\}-\sum_j\one\{z_j\ncon X_{j-1}\}\,\slf^{(j)}[\one\{\cdot\in C_{z_j}\}-c_j](u)+\mathrm{const}$, where
+$\slf^{(j)}$ is the form of $z_{j+1},\dots,z_\ell$ (\lean{CSH.slForm_jn}); taking $\Cov_U(f(\eC_x),\cdot\,)$ (linear, zero on constants) and
+averaging over $\pi$, the first term yields Hpart.  For the $j$-th term, the $\pi$-average of a world covariance $\Cov_U(f(\eC_x),\psi)$ is
+$\E_\nu[(f(\eC_x)-g(U))\,\psi^U]$, $\psi^U$ being $\psi$ read in the world of the full configuration (Markov property at $C_Y$,
+\lean{CSH.markov_merge_Y}); a decoy swallowed by $C_Y$ is isolated in its world, so its term is constant there and integrates to $0$ against the
+residual (\lean{residual_orthogonal}), while a decoy outside $C_Y$ has the same cluster in the world as in $G$ and $\{z_j\ncon X_{j-1}$ in $U\}$
+becomes $\mathcal E_j$.  Conditioning finally on $C_{z_j}=K$ (Markov property at $C_{z_j}$; on $\mathcal E_j$, $K$ misses $x$ and $Y$), the residual
+times $\one\{x\ncon Y\}$ has conditional mean $-\Phi(K)$, the term $g$ producing the first half of \eqref{eq:Phi} (\lean{CSH.sum_phiIntegrand_eq}) and $f$
+the second; centring at $c_j(u')=\E_{\rho_j}\one\{u'\in C_{z_j}\}$ gives the covariance of \eqref{eq:U}, the factor $\PP(\mathcal E_j)/\PP(x\ncon Y)$
+coming from $\nu$ and $\rho_j$ (\lean{decoy_world_term}).
+\emph{In Lean:} \lean{CSH.within_unfold}, \lean{subT_comb_nonneg} (\lean{CSH/UnfoldMain.lean}); \lean{decoy_world_term} (\lean{CSH/UnfoldDecoy.lean}).
+
+\textsc{(H) Horizontal part.}  \emph{Goal:} $\mathrm{Hpart}\ge0$.  \emph{Idea:} inside each world the required transfer from $v$ to $o$ holds with the
+world's \emph{own} price $\tau(U)$; the price actually charged is the global $\tau$, and although $\tau(U)-\tau$ has no sign in a given world, on average
+over worlds the discrepancy helps.  \emph{The inequalities:} with the world's own price $\tau(U):=\PP_U(o\in C_v\mid v\ncon X)$ write
+$\mathrm{Hpart}=\E_\pi[h_o(U)-\tau(U)h_v(U)]+\E_\pi[(\tau(U)-\tau)h_v(U)]$.  The first integrand is
+nonnegative in every world by the \emph{set four-point transfer} (stated under $\PP$, applied under each $\PP_U$)
+\begin{equation}\label{eq:K6}
+ \Cov\bigl(f(\eC_x),\one\{o\con X\}\bigr)\ \ge\ \PP(o\in C_v\mid v\ncon X)\cdot\Cov\bigl(f(\eC_x),\one\{v\con X\}\bigr)\qquad(x\in X;\ o,v\notin X),
+\end{equation}
+and the second expectation is nonnegative by the \emph{two-source inequality}
+\begin{equation}\label{eq:Htw}
+ \PP(v\ncon X\cup Y,\ o\con v)\cdot\E\bigl[h_v(V\setminus C_Y);\,x\ncon Y\bigr]\ \le\ \PP(v\ncon X\cup Y)\cdot\E\bigl[\tau(V\setminus C_Y)\,h_v(V\setminus C_Y);\,x\ncon Y\bigr].
+\end{equation}
+Here $\E_\pi[\psi(U)]=\E[\psi(V\setminus C_Y);x\ncon Y]/\PP(x\ncon Y)$ for every world functional $\psi$, and $\tau=\PP(o\in C_v\mid v\ncon X\cup Y)$ because
+$Y_{\ell+1}=X\cup Y$; so \eqref{eq:Htw} divided by $\PP(x\ncon Y)\,\PP(v\ncon X\cup Y)$ is precisely $\tau\,\E_\pi[h_v(U)]\le\E_\pi[\tau(U)h_v(U)]$.
+\emph{Why \eqref{eq:K6} holds:} writing $f$ for $f(\eC_x)$, $\bar f:=f-\E f$, and using $\{o\con X\cup\{v\}\}=\{o\con X\}\sqcup(\{o\in C_v\}\cap\{v\ncon X\})$,
+\begin{multline*}
+ \Cov(f,\one\{o\con X\})=\Cov(f,\one\{o\con X\cup\{v\}\})-\E\bigl[\bar f\,\one\{o\in C_v\};v\ncon X\bigr]\\[-2pt]
+ \ge\ -\PP(o\in C_v\mid v\ncon X)\,\E[\bar f;v\ncon X]\ =\ \PP(o\in C_v\mid v\ncon X)\Cov(f,\one\{v\con X\}):
+\end{multline*}
+the first covariance on the right is $\ge0$ by \ref{K1} and is dropped; the inequality is \ref{K2}(b) given $\{v\ncon X\}$ ($f$ is increasing in
+$\eC_X$, $\one\{o\in C_v\}$ in $\eC_v$); the last step is $-\E[\bar f;v\ncon X]=\E[\bar f;v\con X]$.  For $X=\{x\}$, $Y=\emptyset$, \eqref{eq:K6} \emph{is} level zero \eqref{eq:level0}---the covariance
+form of Kozma--Nitzan's two-relay mechanism \citep[Thm.~1]{KozmaNitzan2024}.  The two-source inequality \eqref{eq:Htw} is where \ref{K3} and \ref{K4}
+enter.  \emph{In Lean:} \lean{CSH.hpart_nonneg} (\lean{AdditiveGluing/CSHHtwBridge.lean}), \lean{hpart_nonneg_of_htw}
+(\lean{CSHHpart.lean}); \eqref{eq:Htw} is \lean{CSH.htw_world}, from \lean{CovTau.p1H_univ} (\lean{CovTau/A2H.lean}).
+
+\looseness=-1 \textsc{The two-source inequality.}  \emph{Goal:} \eqref{eq:Htw}.  \emph{Idea:} it is the diagonal case of an inequality with two independent
+``source sets'' whose clusters are explored, of the type introduced by van den Berg--Kahn and van den Berg--H\"aggstr\"om--Kahn for connection
+probabilities; the novelty is that one of the four quantities is a covariance, which is not monotone in the configuration, and what replaces
+monotonicity is a one-source bound obtained from Harris' inequality stopped along the exploration.  \emph{The inequality:} with worlds indexed by their vertex set $U$ as above, put
+$\mathrm E_X(U):=\PP_U(o\in C_v,v\ncon X)$, $\mathrm M_X(U):=\PP_U(v\ncon X)$ (so $\tau(U)=\mathrm E_X(U)/\mathrm M_X(U)$) and $h:=h_v$; for a \emph{source set}
+$N\subseteq U$ and any world functional $\psi$ let $\langle\psi\rangle^U_N:=\E_U[\psi(U\setminus C_N)]$: explore the cluster of $N$ inside $U$ and
+evaluate $\psi$ on what is left.  Then \eqref{eq:Htw} is the diagonal $N=N'=Y$, $U=V$ of
+\begin{equation}\label{eq:A2H}
+ \langle\mathrm E_X\rangle^U_N\,\langle h\rangle^U_{N'}\ \le\ \langle\mathrm M_X\rangle^U_{N\cup N'}\,\langle\tau h\rangle^U_{N\cap N'}\qquad(N,N'\subseteq U)
+\end{equation}
+(indeed $\langle\mathrm E_X\rangle^V_Y=\PP(o\in C_v,\,v\ncon X\cup Y)$ and $\langle\mathrm M_X\rangle^V_Y=\PP(v\ncon X\cup Y)$ by the Markov property, and
+$\langle h\rangle^V_Y=\E[h(V\setminus C_Y);x\ncon Y]$ since $h$ vanishes on worlds not containing $x$).
+\emph{Why:} the input about $h$ is the pair of \emph{one-source} bounds, valid in every sub-world,
+\begin{equation}\label{eq:starH}
+ \langle h\rangle^U_N\cdot\PP_U(v\ncon X)\ \le\ \PP_U(v\ncon X,\,v\ncon N)\cdot h(U),\qquad \langle h\rangle^U_N\le h(U):
+\end{equation}
+exploring the cluster of a source set and recomputing the covariance in what is left loses on average at least the fraction
+$\PP_U(v\con N\mid v\ncon X)$.  Proof of \eqref{eq:starH}: total covariance along $\mathcal F_N$; the term $\Cov(\E[f(\eC_x)\mid\mathcal F_N],\one\{v\con X\cup N\})$
+that remains is $\ge0$ by \ref{K3}, and \ref{K2}(b) for the sets $X$, $\{v\}$ supplies the factor; antitonicity of $N\mapsto\langle h\rangle^U_N$ follows
+from the second bound.  \emph{Base case of \eqref{eq:A2H}}, $N\cap N'=\emptyset$: by \eqref{eq:starH},
+$\langle h\rangle_{N'}\le\PP_U(v\ncon N'\mid v\ncon X)\,h(U)$, and \ref{K2}(a) for the cluster of $v$ given $\{v\ncon X\}$ gives
+$\langle\mathrm E_X\rangle_N\PP_U(v\ncon N'\mid v\ncon X)\le\tau(U)\langle\mathrm M_X\rangle_{N\cup N'}$; multiply.  \emph{Induction} on $|U|$, the scheme of
+van den Berg--Kahn \citep{VandenBergKahn2001} and \citep[proof of Thm.~1.1]{VandenbergHaggstromKahn2005}: for $N_0:=N\cap N'\ne\emptyset$, condition on
+the \emph{open star} $\mathfrak S\subseteq U':=U\setminus N_0$ of $N_0$ (vertices joined to $N_0$ by an open edge), whose law $\sigma$ is a product measure on
+$2^{U'}$ and for which $C_N=N_0\cup C'_{(N\setminus N_0)\cup\mathfrak S}$ with $C'$ computed in $U'$; then each bracket in \eqref{eq:A2H} is a
+$\sigma$-average, and \ref{K4} is applied on $2^{U'}$ to $\alpha(s)=\langle\mathrm E_X\rangle^{U'}_{(N\setminus N_0)\cup s}$,
+$\beta(s)=\langle h\rangle^{U'}_{(N'\setminus N_0)\cup s}$, $\gamma(s)=\langle\mathrm M_X\rangle^{U'}_{((N\cup N')\setminus N_0)\cup s}$,
+$\delta(s)=\langle\tau h\rangle^{U'}_{s}$, the pointwise hypothesis being \eqref{eq:A2H} in the smaller world $U'$ together with antitonicity in the
+source set.  \emph{In Lean:} \lean{CovTau.a2H}, generic induction \lean{CovTau.metaA2_of_star} (\lean{CovTau/MetaA2.lean}), product law of the star
+\lean{CovTau/A2Push.lean}, one-source bounds \lean{CovTau/StarH.lean}, antitonicity \lean{CovTau/MetaA2Anti.lean}.
+
+\textsc{Level zero in the formal development} (an aside on the Lean route).  The formal proof of level~$0$ does not go through (T)+(H),
+although those steps are formalised for every level: the development treats $\ell=0$ separately
+(\lean{CSH.cshMargin_nil_nonneg}, from \lean{CovTau.markerDominanceAvoid}) and invokes (U) only for $\ell\ge1$; \eqref{eq:level0}, denominator-free and
+for a general avoided set, is proved in \lean{Continuity/HullPort/} from a singleton-marker one-source bound of type \eqref{eq:starH} obtained from
+\ref{K3} and \ref{K2} (\lean{HullPort.CE_holds}), by an induction on the avoided set in which the weight $\vartheta$ of one pair at a time is deformed
+(\lean{HullPort.bernstein_step}, \lean{taQ_nonneg_of_Pv}): the quantity to be shown nonnegative has the form $\mathcal Q=\mathcal I_1\mathcal J_2-\mathcal J_1\mathcal I_2$
+with $\mathcal I_i,\mathcal J_i$ affine in $\vartheta$, and a Bernstein-type identity expresses $\mathcal Q(\vartheta)$ on $[0,1]$ through
+$\mathcal Q(0),\mathcal Q(1)$ (the pair deleted or contracted, covered by the induction) and a cross term whose sign is \ref{K2}(a) for the cluster
+of $v$---without \ref{K4}.
+
+\begin{remark}[why global constants]\label{rem:global}
+Because the constants are computed under $\PP$, the sub-system generated by $z_j$ in \eqref{eq:U} is conditioned on exactly the event
+defining $c_j$ and the later constants are unchanged, so the decoy terms are lower levels of the \emph{same} hierarchy; centring at world
+constants instead would require a two-source inequality with two different covariance functionals, which is not available; the global
+centring produces exactly \eqref{eq:Htw}.
+\end{remark}
+
+We now have the hierarchy for every owner, avoided set, decoy list and pair of observers.  The remaining issue is to turn this statement about
+\emph{one} cluster and \emph{two} observers into a statement about an observer and a whole set of relays.
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{From the hierarchy to additive gluing (Step 3)}\label{ss:reduction}
+\emph{Goal.}  \cref{thm:CSH} $\Rightarrow$ \cref{thm:AG}.  \emph{Idea.}  Order the relays $a\in A$ by how valuable they are (here: by $\PP(a\con b)$)
+and charge the failure of $o$ to reach $b$ to the \emph{first} relay that $o$ holds; this localised union bound (AG-loc) gives additive gluing
+immediately, and it is the indicator case of a statement (GEN) about an arbitrary increasing functional $F$ of clusters: on the event that $o$ holds
+some relay, $F(C_o)$ is on average worth at least the mean worth of the first relay held.  (GEN) is proved by removing the most valuable relay;
+the cost of doing so is controlled by a \emph{surplus-transfer} inequality (S5) between two observers, and (S5) in turn is proved by the same
+removal, the removed relays becoming decoys---which is where the hierarchy is consumed, twice per step.
+
+\emph{The inequalities.}  Fix an increasing $F\ge0$ on vertex sets, $m_a:=\E F(C_a)$.  For a relay set $R$ list its elements so that $m$ is
+non-decreasing (a \emph{compatible rank}); on $\{u\con R\}$ the \emph{first relay} $\iota(u)$ is the relay of least rank in $C_u$, and the events
+$P^u_a=\{\iota(u)=a\}=\{u\con a\}\cap\bigcap_{a'\prec a}\{u\ncon a'\}$ partition $\{u\con R\}$.  The \emph{surplus} of $u$ over its first relay is
+\begin{equation}\label{eq:Sur}
+ \Sur_u(R):=\E\bigl[F(C_u);\,u\con R\bigr]-\sum_{a\in R}\PP(P^u_a)\,m_a=\E\Bigl[\bigl(F(C_u)-\min_{a\in C_u\cap R}m_a\bigr)\one\{u\con R\}\Bigr]
+\end{equation}
+(\lean{CSH.surplus}); the second form shows independence of the rank, and $\Sur_u(\{x\})=\Cov(F(C_x),\one\{u\in C_x\})$.  The links of
+\eqref{eq:chain} between CSH and \eqref{eq:AG} are
+\begin{align}
+ \PP(v\ncon R)\cdot\Sur_o(R)\ &\ge\ \PP(o\con v,\ v\ncon R)\cdot\Sur_v(R) &&(v\notin R);\tag{S5}\label{eq:S5}\\
+ \E\bigl[F(C_o);\,o\con A\bigr]\ &\ge\ \textstyle\sum_{a\in A}\PP(P^o_a)\,m_a;\tag{GEN}\label{eq:GEN}\\
+ \PP(o\con A,\ o\ncon b)\ &\le\ \textstyle\sum_{a\in A}\PP(P^o_a)\,\PP(a\ncon b) &&(m_a=\PP(a\con b)).\tag{AG-loc}\label{eq:AGloc}
+\end{align}
+(S5) says the surplus seen from $o$ is at least that seen from $v$, discounted by the probability that $o$ is glued to $v$ while $v$ misses the
+relays.  (S5D)$[R;Z;o,v]$ (relay set; decoy list; observers) is $\Marg[u\mapsto\Sur_u(R)]\ge0$ for a list $Z$ of decoys with constants as in \eqref{eq:constants} ($z_j$ avoiding
+$R\cup\{z_1,\dots,z_{j-1}\}$, $v$ avoiding $R\cup Z$; \lean{CSH.surplusMargin}); (S5) is its case $\ell=0$ times $\PP(v\ncon R)$, and for $R=\{x\}$ it is
+$\CSH(\emptyset;x;Z;o,v)$ at $\widehat F(\eC):=F(V(\eC)\cup\{x\})$---so with one relay, (S5D) \emph{is} the hierarchy.
+
+\looseness=-1 \emph{Why $\CSH\Rightarrow$ \textup{(S5D)} (peeling).}  Weights in $(0,1)$; induction on $|R|$ for all decoy lists at once.  Let $a_s$ be the top relay,
+$R'=R\setminus\{a_s\}$, $\mathcal D_s=\{a_s\ncon R'\}$, $\nu_s=\PP(\cdot\mid\mathcal D_s)$, $c_s(u)=\nu_s(u\in C_{a_s})$, $\gamma_s=\Cov(F(C_{a_s}),\one\{a_s\con R'\})$.
+The bookkeeping fact: the constants of $[R;Z;o,v]$ are those of $[R';(a_s,Z);o,v]$, in which $a_s$ has become the \emph{first decoy}.  Then:
+(P)~$\{u\con R\}=\{u\con R'\}\sqcup(\{u\in C_{a_s}\}\cap\mathcal D_s)$ gives
+$\Sur_u(R)=\Sur_u(R')+\PP(\mathcal D_s)\Cov_{\nu_s}(F(C_{a_s}),\one\{u\in C_{a_s}\})-\gamma_sc_s(u)$ (\lean{surplus_erase_add});
+($\gamma$)~$\gamma_s\le\Sur_{a_s}(R')$, as on $\{a_s\con R'\}$ the first relay of $a_s$ has smaller mean---the only use of compatibility
+(\lean{kappa_le_surplus}); (AC)~$\Marg[c_s]\ge0$, by $\CSH(R';a_s;Z;o,v)$ at $\Psi_{\mathrm{iso}}(\eC)=\one\{\eC\ne\emptyset\}$, for which
+$\Cov_{\nu_s}(\Psi_{\mathrm{iso}},\one\{u\in C_{a_s}\})=c_s(u)\nu_s(\eC_{a_s}=\emptyset)$ (\lean{covD_psiIso}); (N)~by \eqref{eq:cons},
+$\Marg[\Sur(R')]-\Sur_{a_s}(R')\Marg[c_s]=\Marg'[\Sur(R')]$, the form with one relay fewer and one decoy more.  The middle term of (P) being
+$\PP(\mathcal D_s)$ times the margin of $\CSH(R';a_s;Z;o,v)[\widehat F]\ge0$,
+\begin{equation}\label{eq:peel}
+ \begin{aligned}\Marg[\Sur(R)]\ &\ge\ \Marg[\Sur(R')]-\gamma_s\Marg[c_s]\\ &\ge\ \Marg[\Sur(R')]-\Sur_{a_s}(R')\,\Marg[c_s]\ =\ \Marg'[\Sur(R')]\ \ge\ 0\end{aligned}
+\end{equation}
+by induction.  Each step uses \cref{thm:CSH} twice; (S5) for $|R|=s$ consumes levels $0,\dots,s-1$.  \emph{In Lean:}
+\lean{CSH.surplusMargin_nonneg_of_csh} (\lean{CSH/Peel.lean}, \lean{PeelTools.lean}).
+
+\emph{Why \textup{(S5)}$\Rightarrow$\textup{(GEN)}.}  By \eqref{eq:Sur}, (GEN) says $\Sur_o(A)\ge0$.  Weights in $[0,1]$; induction on $|A|$ using
+only (S5), \ref{K1}, \ref{K2}(a).  With
+$a_s,A',\mathcal D_s,\gamma_s$ as above ($A$ in place of $R$) and $F_s=F(C_{a_s})$, (P) gives $\Sur_o(A)=\Sur_o(A')-\Delta$,
+$\Delta=\E[(m_{a_s}-F_s)\one\{o\in C_{a_s}\}\one_{\mathcal D_s}]$, and by \ref{K2}(a) for the cluster of $a_s$ given $\mathcal D_s$, then ($\gamma$),
+\begin{equation}\label{eq:deficit}
+ \PP(\mathcal D_s)\,\Delta\ \le\ \PP(o\in C_{a_s},\mathcal D_s)\bigl(m_{a_s}\PP(\mathcal D_s)-\E[F_s;\mathcal D_s]\bigr)=\PP(o\in C_{a_s},\mathcal D_s)\,\gamma_s\ \le\
+ \PP(o\in C_{a_s},\mathcal D_s)\,\Sur_{a_s}(A'),
+\end{equation}
+while (S5) for $A'$ with $v=a_s$ reads $\PP(\mathcal D_s)\Sur_o(A')\ge\PP(o\in C_{a_s},\mathcal D_s)\Sur_{a_s}(A')$; subtracting,
+$\PP(\mathcal D_s)\Sur_o(A)\ge0$, which is (GEN) for $A$ if $\PP(\mathcal D_s)>0$.  If $\PP(\mathcal D_s)=0$ (possible with weights in $[0,1]$) then
+$\Delta=0$ and $\Sur_o(A)=\Sur_o(A')\ge0$ by the induction hypothesis; this is its only use.  \emph{In Lean:}
+\lean{AGloc.gen_firstRank_of_surplusTransfer} (\lean{AdditiveGluing/GenOfSurplusTransfer.lean}; two relays directly in \lean{GenPair.lean}).
+
+\emph{Why \textup{(GEN)}$\Rightarrow$\textup{(AG-loc)}$\Rightarrow$\textup{(AG)}.}  At $F=\one\{b\in\cdot\,\}$, $m_a=\PP(a\con b)$ and $\E[F(C_o);o\con A]=\PP(o\con A,o\con b)$;
+as the $P^o_a$ partition $\{o\con A\}$, (GEN) gives $\PP(o\con A,o\ncon b)\le\sum_a\PP(P^o_a)(1-\PP(a\con b))$; under $\PP(a\ncon b)\le t$ this is
+$\le t\PP(o\con A)\le t$, and $\PP(o\con A)-\PP(o\con b)\le\PP(o\con A,o\ncon b)$.  \emph{In Lean:} \lean{AGloc.agloc_firstRank_of_gen},
+\lean{additiveGluing_of_agloc_firstRank} (\lean{AdditiveGluing/OfAGloc.lean}).
+
+\emph{Boundary cases.}  Peeling gives (S5) for weights in $(0,1)$ and $o\ne v$ outside $R$; $o=v$ and $o\in R$ are elementary
+(\lean{surplus_nonneg_of_mem}), and weights in $[0,1]$ (absent and contracted edges) follow by closure: by the min-form in \eqref{eq:Sur} both sides
+of (S5) are rank-free polynomials in the weights (\lean{CSH.surplus_eq_minForm}), so (S5) passes from $(0,1)^E$ to $[0,1]^E$, $E$ the set of pairs
+(\lean{weights_le_of_forall_pos_lt_one}, \lean{AGloc.exists_rank_compat}; \lean{AdditiveGluing/OfSurplusTransfer.lean}, \lean{SurplusClosure.lean}).
+
+\begin{remark}[Kozma--Nitzan's Conjecture~1 for three relays]\label{rem:mult}
+The library proves the following (\lean{CovTau.kn_conj1_three}, \lean{Percolation/Continuity/CovTau/OfTA.lean}): on a finite weighted graph,
+for vertices $o,b,a_1,a_2,a_3$ with $a_3\ne a_1$, $a_3\ne a_2$ and $\PP(a_1\con b)\le\PP(a_2\con b)\le\PP(a_3\con b)$, and every real
+$t\le\PP(a_1\con b)$, one has $t\cdot\PP\bigl(\{o\con a_1\}\cup\{o\con a_2\}\cup\{o\con a_3\}\bigr)\le\PP(o\con b)$.  Up to relabelling the
+relays so that $\PP(a_i\con b)$ is non-decreasing, this is Conjecture~1 \eqref{eq:KN1} for $|A|=3$.  The general Conjecture~1, and
+Conjectures~2 and~4, are not addressed in this development.
+\end{remark}
+
+%-----------------------------------------------------------------------------------------------------
+\subsection{Assembly: proof of Theorem~\ref{thm:main} from the pieces}\label{ss:assembly}
+(i)~\cref{thm:CSH} holds: strong induction on the level $\ell$, the step being (T)+(U)+(H) of \cref{ss:csh} with (H) fed by the two-source
+inequality \eqref{eq:Htw} (\lean{CSH.cshHolds} $=$ \lean{cshHolds_of_unfold} with \lean{within_nonneg_of_hpart} and \lean{hpart_nonneg}).
+(ii)~By \cref{ss:reduction}, peeling turns \cref{thm:CSH} into (S5D), hence (S5), hence (GEN), hence (AG-loc), hence \cref{thm:AG} for weights in
+$(0,1)$, and closure gives all weights (\lean{CSH.additiveGluing_of_csh}, \lean{CSH/AdditiveGluingOfCSH.lean}).
+(iii)~By \cref{ss:conj3}, \cref{thm:AG} with $t=\varepsilon/2$ is \cref{cor:conj3} (\lean{CSH.conjecture3_of_csh}).
+(iv)~By \cref{ss:thm6}, Kozma--Nitzan's Theorem~6 applied to \cref{cor:conj3} gives $\theta(\pc)=0$ on $\Zd$ for every $d\ge2$
+(\lean{CSH.percolationContinuity_of_csh} via \lean{KozmaNitzan2024_thm6_holds}); $d=3$ is \lean{percolationContinuity_three}.
+(v)~\lean{Solution.lean} transports \lean{percolationContinuity_allDimensions} along \lean{bridge} (\lean{Iff.rfl}: the two
+\lean{PercolationContinuity} propositions unfold to the same term), and the comparator checks that the statement proved is that of
+\lean{Challenge.lean}.\qed
+
+%=====================================================================================================
+\section{Guide to the formalization}\label{s:guide}
+\begin{table}[t]\scriptsize\centering
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}>{\raggedright}p{0.28\textwidth}>{\raggedright}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}@{}}
+\toprule
+folder / file & contents & key declarations\\\midrule
+\lean{Challenge.lean}, \lean{Solution.lean} & statement file (Mathlib only); proved twin & \lean{BondPercolation.percolation_continuity}, \lean{percolation_continuity_Z3}, \lean{bridge}\\
+\lean{Continuity/MainTheorem}, \lean{Statements}, \lean{OfGluing} & main theorems; gluing statements & \lean{CSH.cshHolds}, \lean{additiveGluing_holds}, \lean{kozmaNitzan_conjecture3_holds}, \lean{percolationContinuity_allDimensions}\\
+\lean{Continuity/CSH/} (12 files) & \cref{def:datum}, \cref{thm:CSH}; (T), $\Phi$, (U); peeling & \lean{CSHHolds}, \lean{cshMargin}, \lean{cshMargin_nonneg_of_within}, \lean{within_unfold}, \lean{phiFun_mono}, \lean{surplusMargin_nonneg_of_csh}\\
+\lean{Continuity/AdditiveGluing/} (13) & induction skeleton; (H); (S5)$\Rightarrow$(GEN)$\Rightarrow$(AG); weight closure & \lean{cshHolds_of_unfold}, \lean{hpart_nonneg}, \lean{gen_firstRank_of_surplusTransfer}, \lean{additiveGluing_of_agloc_firstRank}, \lean{surplusTransfer_of_nondegenerate}\\
+\lean{Continuity/CovTau/} (19), \lean{HullPort/} (12), \lean{LowerTail/} (4) & two-source \eqref{eq:A2H}, one-source \eqref{eq:starH}; level-zero chain; tree-Harris for real functions & \lean{metaA2_of_star}, \lean{a2H}, \lean{p1H_univ}, \lean{markerDominanceAvoid}, \lean{taQ_nonneg_of_Pv}, \lean{treeHarris_real}, \lean{kn_conj1_three}\\
+\lean{Literature/Basic}, \lean{CriticalContinuity}, \lean{LatticeModels/} & the model; product measures; weight continuity & \lean{zdGraph}, \lean{bondPercolation}, \lean{theta}, \lean{criticalProb}, \lean{prodBernoulli}, \lean{PercolationContinuity}\\
+\lean{Literature/KozmaNitzan*} (16) & \citep[\S\S2--4]{KozmaNitzan2024}: Conj.~3, Thm.~6, Thms.~1, 3, 4, 7, 8, Lemmas 6--12 & \lean{KozmaNitzan2024_conjecture3}, \lean{KozmaNitzan2024_thm6_holds}, \lean{targetLemma}, \lean{KozmaNitzan2024_slabPercolation_holds}\\
+\lean{Literature/HalfSpace*}, \lean{Tall*}, \lean{Flat*}, \lean{Slab*}, \lean{Uniqueness*}, \lean{DualContours} & BGN via \citep[\S7.3]{GrimmettPercolation1999}; DST; uniqueness; contours & \lean{BarskyGrimmettNewman1991_holds}, \lean{DuminilCopinSidoraviciusTassion2016_holds}, \lean{Grimmett1999_numInfiniteClusters_le_one_holds}\\
+\lean{Literature/Harris*}, \lean{Kesten*}, \lean{RSW*}, \lean{Russo*}, \lean{PlanarDuality}, \lean{SharpnessDCT*} & $d=2$ & \lean{harris_theta_half_holds}, \lean{kesten_criticalProb_Z2_holds}, \lean{rsw_half_holds}, \lean{russo_formula_holds}, \lean{perc_sharpness_holds}\\
+\lean{Literature/ConditionalPositiveAssociation*}, \lean{TwoCluster*}, \lean{TwoSet*}, \lean{DecisionTree*}, \lean{TargetExploration*}, \lean{GladkovZiminKernel} & \citep{VandenbergHaggstromKahn2005} Thms.~1.1--1.5 and \S2.1; \citep[Thm.~3.2]{Gladkov2024}; \citep[Ch.~5]{Gladkov2025Thesis}; Harris & \lean{BHK2006_clusterConditionalPositiveAssociation_holds}, \lean{BHK2006_twoSetConditionalAssociation}, \lean{BHK2006.harris}, \lean{PrW_mul_PrW_le_Pr2W_treeHK}, \lean{ED_ED_le_ED_diag}\\
+\bottomrule
+\end{tabular}
+\caption{Module map.  Paths relative to \texttt{Percolation/}; declarations live in \texttt{Percolation.Continuity} (sub-namespaces \texttt{CSH}, \texttt{AGloc}, \texttt{CovTau}, \texttt{HullPort}) or \texttt{Percolation.Literature}.}\label{tab:map}
+\end{table}
+
+
+\emph{Size and pins.}  251 Lean files, 97{,}574 lines (87{,}136 non-blank): about 12{,}200 lines in 63 files under
+\lean{Percolation/Continuity/} (this work) and 85{,}000 in 183 files under \lean{Percolation/Literature/}, plus \lean{Percolation.lean},
+\lean{Util/Linter.lean}, \lean{Challenge.lean}, \lean{Solution.lean}, \lean{scripts/Axioms.lean}.  Toolchain \texttt{leanprover/lean4:v4.32.0};
+Mathlib commit \texttt{81a5d257c8e4} (its tag \texttt{v4.32.0}), pinned \citep{MouraUllrich2021,Mathlib2020}.  \Cref{tab:map} is the module map.
+
+
+\emph{Re-proved versus new.}  Everything under \lean{Literature/} re-proves published results from Mathlib (docstring tags
+\texttt{[cite: Key, locator]} resolve in \texttt{references.bib}; a literature result is a \lean{def AuthorYear_result : Prop} discharged by
+\lean{theorem AuthorYear_result_holds}; nothing is assumed).  Re-proved in this way are the results in the lower half of \cref{tab:map} (Kozma--Nitzan's Theorems 1, 3, 4, 6, 7, 8 and Lemmas
+6--12 among them).  Everything under
+\lean{Continuity/} is this work (a \texttt{[cite:]} tag there points to a statement a lemma specialises, not to a source of its proof): new
+are \cref{thm:CSH}, \cref{thm:AG}, \cref{cor:conj3} and the chain between them, including \eqref{eq:S5}, \eqref{eq:GEN}, \eqref{eq:AGloc},
+\eqref{eq:Htw}, \eqref{eq:A2H}.
+
+\looseness=-1 \emph{Trusted base and checks.}  All seven main theorems depend only on \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}
+(\texttt{scripts/Axioms.lean}); \texttt{sorry} occurs twice, in \lean{Challenge.lean} by design; no \texttt{axiom} declarations, no unsafe code.  \texttt{lake exe cache get \&\& lake build} builds the default targets (about 6 minutes, per \texttt{AUDIT.md}); the CI script
+runs the Palomar acceptance check---the Lean comparator\footnote{\url{https://github.com/leanprover/comparator}} with \texttt{lean4export}, the
+independent \texttt{nanoda} kernel and the \texttt{landrun} sandbox---on \texttt{comparator.json}.  \texttt{formalization.yaml} records scope,
+divergences and review status for the Palomar registry\footnote{\url{https://palomar-registry.org}}.  The docstrings are machine-written working notes, a map rather than an exposition.
+
+%=====================================================================================================
+\section{Limitations and open directions}\label{s:limits}
+\emph{Other conjectures of Kozma--Nitzan.}  Conjecture~1 \eqref{eq:KN1} is proved only for $|A|=3$ (\lean{CovTau.kn_conj1_three}, stated
+with its hypotheses in \cref{rem:mult}); the general Conjecture~1, Conjectures~2 and~4, and Questions~5--9 of \citep[\S5]{KozmaNitzan2024} are
+not addressed in this development.  \emph{Rates.}  Nothing quantitative is proved: no bound on $\theta(p)$ as $p\downarrow\pc$, on
+the tail of $|C_0|$ at $\pc$, or on $\delta(\varepsilon)$ beyond $\varepsilon/2$.  \emph{Other models.}  The lattice theorem is proved only for
+nearest-neighbour bond percolation on $\Zd$; site percolation, other lattices and long-range models would need the reduction re-run there;
+nothing new is proved about slabs.  \emph{Exposition.}  A conventional written proof refereed by experts does not yet exist.
+
+\paragraph{Acknowledgements.}
+\looseness=-1 The reduction that makes this result accessible is due to Gady Kozma and Shahaf Nitzan.  The Lean formalization and the first drafts of
+this document were produced by Claude (Anthropic) working under my direction; I am responsible for the final text and for any errors.
+I thank Ralph Furman and Levent Alp\"oge for reading and comments.  The formalization stands on Lean~4, on Mathlib and its community, and
+on the Lean comparator, \texttt{lean4export}, \texttt{nanoda} and the Palomar template.
+
+\bibliographystyle{amsplain-norepeat}
+\setlength{\bibsep}{0pt plus 0.3pt}
+{\footnotesize\bibliography{references}}
+
+\end{document}

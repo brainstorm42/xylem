@@ -60,6 +60,18 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 
 The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results. This full run tested the same proof sources and pins supplied here; current converter-label, freshness-advice, and explanation corrections received separate targeted checks.
 
+## Private percolation candidate
+
+The private v0.1.0 package carries the pinned `formal-math` percolation snapshot,
+its two separately elaborated Lean surfaces, the captured declaration and premise
+projection, the source-module and trace-backed navigation layers, and the
+replayable reconstruction clients. The capture indexes 23,545 declarations;
+the machine index records 228 compiler-derived source regions, 13 trace-backed
+subargument steps, and authored component metadata. Start with the [percolation
+guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration
+provenance](provenance/PERCOLATION-INTEGRATION.md). This candidate stays private
+until human review authorizes a separate publication decision.
+
 ## Environment and check scope
 
 | Component or check | Version or result | Scope |
@@ -75,4 +87,29 @@ The [verification receipt](provenance/air-consumer-verification.json) records de
 | Converter round trip | normalized IR equality | Parser/render/parser comparison |
 | Converter declaration check | existing declaration | Rendered output is hashed; formal checking of that output is unassessed |
 
-See [public bootstrap](xylem-plugin/examples/ctrllib-e2e/BOOTSTRAP-PUBLIC-MACOS.md), [full regeneration](xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md), and [current verification](provenance/CORRECTION-CHECK.md). Navigation and notation rendering do not establish theorem equivalence, full theorem decomposition, or physical-system validation. The waypoint model uses real arithmetic; application to floating-point software requires a separate correspondence argument. Windows and operating-system prerequisite installation are untested. Source credits and licensing are in [Ctrllib notices](ctrllib/NOTICE.md) and [Xylem notices](xylem-plugin/NOTICE.md).
+See [public bootstrap](xylem-plugin/examples/ctrllib-e2e/BOOTSTRAP-PUBLIC-MACOS.md), [full regeneration](xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md), and [current verification](provenance/CORRECTION-CHECK.md).
+
+## Limitations
+
+Navigation and notation rendering do not establish theorem equivalence, full
+theorem decomposition, or physical-system validation. The waypoint model uses
+real arithmetic; applying it to floating-point software requires a separate
+correspondence argument. Windows and operating-system prerequisite installation
+remain untested.
+
+The percolation source-module regions are source partitions, not mathematical
+subargument boundaries. Trace-backed relations are structural evidence from the
+captured elaborated terms; opaque theorem bodies remain opaque, external
+constants remain stubs, and the authored role prose remains subject to human
+review. The Solution and Challenge surfaces are indexed separately because
+their names collide; the Challenge surface retains its two deliberate `sorry`
+placeholders. The exact formal endpoint is recorded without promoting it to a
+broader continuity or literature-equivalence claim.
+
+The committed capture and SQLite index are available after Git LFS hydration.
+A fresh source rebuild downloads the pinned Lean/Mathlib cache with `lake exe
+cache get` and may build dependencies when the cache is absent; the packaged
+evidence therefore supports inspection and replay of the recorded artifacts but
+does not promise an offline source rebuild. Source credits and licensing are in
+[Ctrllib notices](ctrllib/NOTICE.md), [Xylem notices](xylem-plugin/NOTICE.md),
+and the [percolation integration record](provenance/PERCOLATION-INTEGRATION.md).

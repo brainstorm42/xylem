@@ -81,6 +81,73 @@
         "status": "separate_agent_review",
         "evidence": "compact-bounds/evidence/review-corrected-explanations.json"
       }
+    },
+    {
+      "id": "percolation-e2e",
+      "title": "Pinned percolation dual-surface source capture and component navigation",
+      "source_revision": "anthropics/formal-math@795efb86f191735c5481675763537cfb4ff37e55",
+      "source": "percolation-e2e/upstream",
+      "capture": {
+        "path": "percolation-e2e/data/declarations.json.gz",
+        "surfaces": ["solution", "challenge"],
+        "declarations": 23545,
+        "premise_records": 1207584,
+        "type_edges": 400846,
+        "proof_edges": 1159853,
+        "proof_terms_included": false,
+        "expression_trees_complete": false,
+        "tree_diagnostics": {
+          "null_conclusion_trees": 190,
+          "null_binder_trees": 200,
+          "all_null_trees_diagnosed": true
+        }
+      },
+      "index": {
+        "config": "percolation-e2e/xylem-e2e-config.json",
+        "archive": "percolation-e2e/data/xylem.db.gz",
+        "components": "percolation-e2e/data/components-generated.json",
+        "import_graph": "percolation-e2e/data/module_graph.dot",
+        "coverage": "percolation-e2e/data/reproducibility-receipt.json",
+        "capture_audit": "percolation-e2e/data/capture-audit.json",
+        "component_audit": "percolation-e2e/data/component-audit.json",
+        "subargument_audit": "percolation-e2e/data/subargument-audit.json",
+        "subargument_validation": "percolation-e2e/data/subargument-validation.json",
+        "proof_trace": "percolation-e2e/data/proof-trace.json.gz",
+        "reconstruction": [
+          "percolation-e2e/reconstruction/ProofSpine.lean",
+          "percolation-e2e/reconstruction/SubargumentSpine.lean"
+        ]
+      },
+      "mcp": {
+        "status": "canonical_available",
+        "operations": ["overview", "components", "context", "explain", "dependencies", "path"],
+        "surface_qualification": "solution:: and challenge::"
+      },
+      "decomposition": {
+        "status": "compiler_indexed_with_trace_backed_subarguments_and_authored_overlay",
+        "component_count": 276,
+        "compiler_source_module_region_count": 228,
+        "trace_backed_subargument_count": 13,
+        "trace_application_target_count": 23,
+        "reachable_solution_declaration_count": 8134,
+        "cross_region_relation_count": 1702,
+        "trace_backed_relation_count": 33,
+        "trace_application_record_count": 32759,
+        "trace_exact_context_application_count": 469,
+        "trace_structural_only_application_count": 32290,
+        "proof_trace_declaration_count": 13,
+        "interpretation_review": "human_pending",
+        "formal_endpoint": "theta (zdGraph d) 0 (criticalProbI d) = 0"
+      },
+      "review": {
+        "status": "semantic_review_pending",
+        "scope": "Compiler evidence and authored role prose are kept distinct; no literature-equivalence certification is implied."
+      },
+      "limitations": [
+        "Challenge.lean has two sorry declarations; Solution and Challenge are not imported together.",
+        "External constants are stubs; opaque theorem constants are not inlined; the selected proof trace is structural Expr evidence.",
+        "Component prose is not mathematical refereeing, and the formal endpoint is not silently promoted to a broader continuity or literature equivalence."
+      ]
     }
   ]
 }
