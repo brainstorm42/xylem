@@ -1,5 +1,5 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-# Xylem: Segmentation of and relationships between theoretical concepts
+# Xylem: A method to find structure in formal proofs
 
 ## Purpose
 
