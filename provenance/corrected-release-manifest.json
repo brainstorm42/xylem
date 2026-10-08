@@ -1303,8 +1303,8 @@
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/README.md",
-      "bytes": 12673,
-      "sha256": "e0b7f4f3105423e8cef4cdf2c867ae858f8ea7a328b80ed5c7ae78e173654cbf"
+      "bytes": 13195,
+      "sha256": "8e90fed09f15231614ca13e5cc09f63a3ea25ab320bfd5f18ed2c475ae234092"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/capture-audit.json",
@@ -2783,8 +2783,8 @@
     },
     {
       "path": "xylem-plugin/tests/test_percolation_e2e.py",
-      "bytes": 15687,
-      "sha256": "666eb270b928d0da4c07fb5c0eefe8334fc83e9c03046f3ffa6da8158b6bd6a2"
+      "bytes": 22050,
+      "sha256": "6947a08f2cd33a2a8b823e3b937810a342455abd3296907891a67deaf1b185b0"
     },
     {
       "path": "xylem-plugin/tests/test_premise_availability.py",
@@ -2793,8 +2793,8 @@
     },
     {
       "path": "xylem-plugin/tests/test_release_corrections.py",
-      "bytes": 12514,
-      "sha256": "c4251e24bc090adee7078c9b9a617b3ab1034418eac0e2c83821a323cba9c866"
+      "bytes": 13710,
+      "sha256": "b0060deeec1cf553dcd57f4d376b8e3b3af7c30518980335d90cb6c5584e7a05"
     }
   ]
 }

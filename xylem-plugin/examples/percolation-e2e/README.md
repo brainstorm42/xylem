@@ -125,6 +125,14 @@ SQLite database after hydrating Git LFS; the restore script checks the committed
 archive before writing the ignored working database. The small CLI/MCP runtime
 still needs the declared Python packages from `canonical/requirements.txt`.
 
+The release regression check keeps two states separate: it verifies the raw
+archive byte hash before rebinding freshness, then verifies the relocated
+working database with SQLite integrity, graph counts and identities, source
+locations, and the intended package-relative input snapshot. It does not
+require the private producer Git commit recorded in the historical receipt;
+that receipt is anchored by the shipped release manifest. A corrupted archive
+is covered by a negative test and must fail the raw identity check.
+
 ## Rebuild from source
 
 The upstream commands run with the repository's `leanprover/lean4:v4.32.0`

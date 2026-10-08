@@ -7,6 +7,7 @@ controlled unit regressions, not a claim of newly checking Lean output.
 """
 import contextlib
 from fractions import Fraction
+import gzip
 import hashlib
 import io
 import json
@@ -20,6 +21,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+PERCOLATION = ROOT / "examples" / "percolation-e2e"
 sys.path[:0] = [str(ROOT/'canonical'), str(ROOT/'canonical/xylem')]
 from brickconverter import cli
 from brickconverter.ir import Lit
@@ -208,6 +210,31 @@ class CandidatePackaging(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertNotIn('"status": "PASS"', result.stdout)
             self.assertFalse(archive.exists())
+
+    def test_corrupted_archive_fails_raw_identity(self):
+        receipt = read(PERCOLATION / 'data/reproducibility-receipt.json')
+        expected = receipt['index']['sqlite']['sha256']
+        with tempfile.TemporaryDirectory() as temp:
+            corrupted = Path(temp) / 'corrupted.db.gz'
+            restored = Path(temp) / 'restored.db'
+            with gzip.open(PERCOLATION / 'data/xylem.db.gz', 'rb') as source:
+                raw = bytearray(source.read())
+            raw[len(raw) // 2] ^= 1
+            corrupted.write_bytes(gzip.compress(bytes(raw), mtime=0))
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(PERCOLATION / 'restore_index.py'),
+                    '--archive', str(corrupted),
+                    '--output', str(restored),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            actual = hashlib.sha256(restored.read_bytes()).hexdigest()
+            self.assertNotEqual(actual, expected)
 
 
 if __name__=='__main__':

@@ -3,10 +3,12 @@
 
 from __future__ import annotations
 
+import atexit
 import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import sqlite3
 import subprocess
 import sys
@@ -18,9 +20,13 @@ DATA = ROOT / "examples" / "percolation-e2e" / "data"
 CONFIG = ROOT / "examples" / "percolation-e2e" / "xylem-e2e-config.json"
 DB = DATA / "xylem.db"
 ARCHIVE = DATA / "xylem.db.gz"
+PACKAGE_ROOT = ROOT.parent
+REBOUND_SPEC_KEYS = {"dot", "extractor", "vault", "source_root", "components"}
 
 sys.path.insert(0, str(ROOT / "capture" / "percolation"))
 from run_batched_trace import validate_merged_trace  # noqa: E402
+sys.path.insert(0, str(ROOT / "canonical" / "xylem"))
+from xylem import input_state  # noqa: E402
 
 
 def sha256(path: Path) -> str:
@@ -44,6 +50,151 @@ def cli(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def restore_archive(archive: Path, output: Path, config: Path | None = None) -> None:
+    command = [
+        sys.executable,
+        str(ROOT / "examples" / "percolation-e2e" / "restore_index.py"),
+        "--archive",
+        str(archive),
+        "--output",
+        str(output),
+    ]
+    if config is not None:
+        command.extend(("--config", str(config)))
+    subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+
+
+def rows_digest(conn: sqlite3.Connection, query: str) -> str:
+    digest = hashlib.sha256()
+    for row in conn.execute(query):
+        digest.update(
+            json.dumps(list(row), ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        )
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def logical_database_fingerprint(path: Path) -> dict:
+    """Capture stable graph/source evidence while excluding relocatable input_state."""
+    with sqlite3.connect(path) as conn:
+        conn.row_factory = sqlite3.Row
+        assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+        table_names = [
+            row[0]
+            for row in conn.execute(
+                "SELECT name FROM sqlite_master "
+                "WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
+            )
+        ]
+        table_counts = {
+            name: conn.execute(f"SELECT COUNT(*) FROM {name}").fetchone()[0]
+            for name in table_names
+        }
+        schema_digest = rows_digest(
+            conn,
+            "SELECT type, name, tbl_name, sql FROM sqlite_master "
+            "WHERE type IN ('table', 'index', 'trigger', 'view') ORDER BY type, name",
+        )
+        graph_digests = {
+            "node": rows_digest(
+                conn,
+                "SELECT id, kind, name, module, decl_kind, docstring, src_file, "
+                "src_start, src_end, signature, is_external, props, rank "
+                "FROM node ORDER BY id",
+            ),
+            "edge": rows_digest(
+                conn,
+                "SELECT src, dst, type, props FROM edge ORDER BY src, dst, type",
+            ),
+            "similarity_feature": rows_digest(
+                conn,
+                "SELECT decl_id, schema_version, signature_sha256, status, reason, "
+                "tree_size, features FROM similarity_feature ORDER BY decl_id",
+            ),
+        }
+        source_evidence_digest = rows_digest(
+            conn,
+            "SELECT id, kind, name, module, src_file, src_start, src_end "
+            "FROM node WHERE src_file IS NOT NULL ORDER BY id",
+        )
+        identities = {}
+        for identifier in (
+            "decl:solution::BondPercolation.percolation_continuity",
+            "decl:challenge::BondPercolation.percolation_continuity",
+        ):
+            row = conn.execute(
+                "SELECT id, kind, name, module, src_file, src_start, src_end, "
+                "signature, props FROM node WHERE id=?",
+                (identifier,),
+            ).fetchone()
+            identities[identifier] = list(row) if row is not None else None
+        return {
+            "table_names": table_names,
+            "table_counts": table_counts,
+            "schema_digest": schema_digest,
+            "graph_digests": graph_digests,
+            "source_evidence_digest": source_evidence_digest,
+            "source_evidence_count": conn.execute(
+                "SELECT COUNT(*) FROM node WHERE src_file IS NOT NULL"
+            ).fetchone()[0],
+            "identities": identities,
+        }
+
+
+def input_state_payload(path: Path) -> dict:
+    with sqlite3.connect(path) as conn:
+        return json.loads(conn.execute(
+            "SELECT payload FROM input_state WHERE id=1"
+        ).fetchone()[0])
+
+
+def assert_relocated_database_preserves_graph(raw: Path, relocated: Path) -> None:
+    raw_fingerprint = logical_database_fingerprint(raw)
+    relocated_fingerprint = logical_database_fingerprint(relocated)
+    assert raw_fingerprint == relocated_fingerprint
+
+    raw_state = input_state_payload(raw)
+    relocated_state = input_state_payload(relocated)
+    raw_spec = raw_state["spec"]
+    relocated_spec = relocated_state["spec"]
+    assert set(raw_spec) == set(relocated_spec)
+    changed_spec_keys = {
+        key for key in raw_spec if raw_spec[key] != relocated_spec[key]
+    }
+    assert changed_spec_keys == REBOUND_SPEC_KEYS
+    for key in raw_spec:
+        if key not in REBOUND_SPEC_KEYS:
+            assert raw_spec[key] == relocated_spec[key]
+    for key in REBOUND_SPEC_KEYS:
+        target = Path(relocated_spec[key])
+        assert target.is_relative_to(PACKAGE_ROOT)
+        assert target.exists()
+
+    assert raw_state["issues"] == relocated_state["issues"]
+    assert len(raw_state["files"]) == len(relocated_state["files"])
+    assert relocated_state["files"] == input_state.snapshot(relocated_spec)
+    assert all(
+        Path(path).is_relative_to(PACKAGE_ROOT)
+        for path in relocated_state["files"]
+    )
+    with sqlite3.connect(relocated) as conn:
+        conn.row_factory = sqlite3.Row
+        assert input_state.current_warning(conn) is None
+
+
+def prepare_release_databases(receipt: dict) -> tuple[tempfile.TemporaryDirectory, Path]:
+    """Restore raw bytes first, then create the relocatable working DB."""
+    scratch = tempfile.TemporaryDirectory(prefix="percolation-e2e-raw-")
+    raw = Path(scratch.name) / "xylem.db"
+    restore_archive(ARCHIVE, raw)
+    expected = receipt["index"]["sqlite"]
+    # This is the immutable archive check; it intentionally precedes rebinding.
+    assert raw.stat().st_size == expected["bytes"]
+    assert sha256(raw) == expected["sha256"]
+    restore_archive(ARCHIVE, DB, CONFIG)
+    return scratch, raw
+
+
 def main() -> int:
     receipt = json.loads((DATA / "reproducibility-receipt.json").read_text(encoding="utf-8"))
     capture = json.loads((DATA / "capture-manifest.json").read_text(encoding="utf-8"))
@@ -59,17 +210,26 @@ def main() -> int:
         items=[{"declaration": name} for name in selected_declarations],
     )
 
+    manifest = json.loads(
+        (PACKAGE_ROOT / "provenance" / "corrected-release-manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    receipt_rel = (DATA / "reproducibility-receipt.json").relative_to(PACKAGE_ROOT).as_posix()
+    receipt_entry = next(item for item in manifest["files"] if item["path"] == receipt_rel)
+    assert receipt_entry["bytes"] == (DATA / "reproducibility-receipt.json").stat().st_size
+    assert receipt_entry["sha256"] == sha256(DATA / "reproducibility-receipt.json")
+
     assert receipt["schema_version"] == 2
     assert receipt["source"]["revision"] == "795efb86f191735c5481675763537cfb4ff37e55"
+    # A fresh release clone does not contain the private producer commit. The
+    # manifest-anchored receipt check preserves that historical identity as
+    # provenance without pretending the unavailable Git object is shipped.
     verified_commit = receipt["xylem_git"]["verified_commit"]
-    verified_tree = subprocess.run(
-        ["git", "rev-parse", f"{verified_commit}^{{tree}}"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
-    assert verified_tree == receipt["xylem_git"]["verified_tree"]
+    verified_tree = receipt["xylem_git"]["verified_tree"]
+    assert re.fullmatch(r"[0-9a-f]{40}", verified_commit)
+    assert re.fullmatch(r"[0-9a-f]{40}", verified_tree)
+    assert "named commit and tree were verified" in receipt["xylem_git"]["verification_scope"]
     assert receipt["xylem_git"]["working_tree_clean_at_verification"] is True
     assert receipt["components"]["schema_version"] == 2
     assert receipt["proof_trace"]["record_count"] == proof_trace["record_count"]
@@ -167,6 +327,9 @@ def main() -> int:
     assert proof_trace["generated_from"] == "Solution"
     assert proof_trace["record_count"] == 8063
 
+    raw_scratch, raw_db = prepare_release_databases(receipt)
+    atexit.register(raw_scratch.cleanup)
+
     with sqlite3.connect(DB) as conn:
         conn.row_factory = sqlite3.Row
         assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
@@ -259,19 +422,12 @@ def main() -> int:
     assert mcp_compiler_zoom["ok"] is True
     assert mcp_compiler_zoom["data"]["component"]["id"] == f"component:{compiler_component['id']}"
 
-    # Verify the committed archive restores byte-identically to the generated DB.
-    with tempfile.TemporaryDirectory(prefix="percolation-e2e-") as scratch:
-        restored = Path(scratch) / "xylem.db"
-        subprocess.run([
-            sys.executable, str(ROOT / "examples" / "percolation-e2e" / "restore_index.py"),
-            "--archive", str(ARCHIVE), "--output", str(restored), "--config", str(CONFIG),
-        ], cwd=ROOT, check=True, capture_output=True, text=True)
-        assert sha256(restored) == sha256(DB) == receipt["index"]["sqlite"]["sha256"]
-        sys.path.insert(0, str(ROOT / "canonical" / "xylem"))
-        from xylem import input_state  # noqa: E402
-        with sqlite3.connect(restored) as restored_conn:
-            restored_conn.row_factory = sqlite3.Row
-            assert input_state.current_warning(restored_conn) is None
+    # The raw archive remains byte-identical; config rebinding is checked with
+    # graph/source-evidence fingerprints and explicit input-state invariants.
+    with tempfile.TemporaryDirectory(prefix="percolation-e2e-relocated-") as scratch:
+        relocated = Path(scratch) / "xylem.db"
+        restore_archive(ARCHIVE, relocated, CONFIG)
+        assert_relocated_database_preserves_graph(raw_db, relocated)
     assert sha256(ARCHIVE) == receipt["index"]["compressed_sqlite"]["sha256"]
 
     print("percolation_source_capture_coverage: PASS")
@@ -279,7 +435,7 @@ def main() -> int:
     print("percolation_sqlite_integrity_and_edges: PASS")
     print("percolation_cli_overview_zoom_path: PASS")
     print("percolation_mcp_overview_zoom: PASS")
-    print("percolation_archive_restore_identity: PASS")
+    print("percolation_archive_raw_identity_and_relocation: PASS")
     return 0
 
 
