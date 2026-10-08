@@ -14,6 +14,11 @@
       "sha256": "355c3cbed4e3603ed0d956388a29526b807c9fda0f6fb7e5238b07ae98b34056"
     },
     {
+      "path": "FUTURE-DIRECTIONS.md",
+      "bytes": 8176,
+      "sha256": "cbe0482bc9ab721dcdbbb02305a5f139e44e44588fa4569de18c41bfd3078fea"
+    },
+    {
       "path": "LICENSE",
       "bytes": 11357,
       "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
@@ -25,13 +30,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 3922,
-      "sha256": "d8cdc7f83765f022926194f4d01ec57543cf15f4f582f1b1813151b45234a3b7"
+      "bytes": 4099,
+      "sha256": "04c6e0b3bb161259cd1499e30e9d088594786365328dcdb56f4c0ab82ae6fcd8"
     },
     {
       "path": "RELEASE-SCOPE.md",
       "bytes": 5198,
       "sha256": "6dd7c0b0a7d717d9062422989a1c55e6575a70c6067b3d684e3323e59a459d10"
+    },
+    {
+      "path": "TEACHING-RESOURCES.md",
+      "bytes": 16403,
+      "sha256": "aaef7370d8fd4d65a157cda5ebefe0bf75f1ad52c1c8306c87643f364afa0050"
     },
     {
       "path": "assets/NOTICE.md",

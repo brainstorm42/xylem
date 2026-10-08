@@ -68,4 +68,6 @@ Photograph: MIT Instrumentation Laboratory (now Draper Laboratory), 1969. Public
 
 Find related mathematics in the [Ctrllib subject index](ctrllib/SUBJECT-INDEX.md) and [rover geometry, motion, timing, and clearance guide](ctrllib/ROVER-PROVISIONAL.md). To regenerate the full 123-module graph, follow [public dependency provisioning](xylem-plugin/examples/ctrllib-e2e/BOOTSTRAP-PUBLIC-MACOS.md) and [full regeneration](xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md).
 
+For teaching-oriented starting points and planned work, see [Mathematics learning and teaching resources](TEACHING-RESOURCES.md) and [Future directions](FUTURE-DIRECTIONS.md).
+
 [Verification and technical scope](RELEASE-SCOPE.md) distinguish the compact examples, full source-first results, and the checks performed. Source credits and licenses are in [Ctrllib notices](ctrllib/NOTICE.md) and [Xylem notices](xylem-plugin/NOTICE.md).
