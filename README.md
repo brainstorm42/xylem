@@ -72,4 +72,6 @@ For teaching-oriented starting points and planned work, see [Mathematics learnin
 
 For the private percolation candidate, start with the [percolation capture and index guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration provenance](provenance/PERCOLATION-INTEGRATION.md). The guide begins with the committed capture and query commands; source rebuilding remains a separately scoped, dependency-downloading operation.
 
+For a bounded, source-inspected Navier–Stokes assurance case, read the [Navier–Stokes inverse-estimate semantic map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.md) and its [machine-readable evidence map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.json).
+
 [Verification and technical scope](RELEASE-SCOPE.md) distinguish the compact examples, full source-first results, and the checks performed. Source credits and licenses are in [Ctrllib notices](ctrllib/NOTICE.md) and [Xylem notices](xylem-plugin/NOTICE.md).

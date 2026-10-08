@@ -1,0 +1,258 @@
+{
+  "schema": "xylem.authored_assurance_case.v1",
+  "title": "One Navier–Stokes inverse-estimate interface",
+  "authorship": "authored",
+  "evidence_status": "source_inspected",
+  "inspected_on": "2026-10-08",
+  "repository": "https://github.com/openai/NavierStokesAndEuler",
+  "commit": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "scope": "Lemma 8.6 equation (8.19) and the selected inverse-estimate route",
+  "nodes": [
+    {
+      "id": "A",
+      "kind": "intended_claim",
+      "label": "Written four-derivative estimate",
+      "evidence": [
+        "paper"
+      ]
+    },
+    {
+      "id": "B",
+      "kind": "interpretation_prerequisites",
+      "label": "Periodicity, temporal direction, normalized inverse",
+      "evidence": [
+        {
+          "path": "NavierStokes/TorusInverse.lean",
+          "lines": [
+            190,
+            213
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/TorusInverse.lean#L190-L213"
+        },
+        {
+          "path": "NavierStokes/TorusInverse.lean",
+          "lines": [
+            444,
+            456
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/TorusInverse.lean#L444-L456"
+        },
+        {
+          "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+          "lines": [
+            20,
+            37
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L20-L37"
+        },
+        {
+          "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+          "lines": [
+            346,
+            348
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L346-L348"
+        },
+        {
+          "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+          "lines": [
+            572,
+            616
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L572-L616"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "kind": "formal_interface",
+      "label": "Fourier coefficient budget",
+      "evidence": [
+        {
+          "path": "NavierStokes/SmoothFourierData.lean",
+          "lines": [
+            65,
+            68
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFourierData.lean#L65-L68"
+        },
+        {
+          "path": "NavierStokes/SmoothFourierData.lean",
+          "lines": [
+            182,
+            190
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFourierData.lean#L182-L190"
+        },
+        {
+          "path": "NavierStokes/SmoothFourierData.lean",
+          "lines": [
+            325,
+            387
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFourierData.lean#L325-L387"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "kind": "formal_interface",
+      "label": "Inverse derivative budget",
+      "evidence": [
+        {
+          "path": "NavierStokes/TorusInverse.lean",
+          "lines": [
+            503,
+            525
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/TorusInverse.lean#L503-L525"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "kind": "proof_result",
+      "label": "Composed five-derivative estimate",
+      "proof_status": "proof_body_inspected",
+      "evidence": [
+        {
+          "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+          "lines": [
+            1058,
+            1080
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L1058-L1080"
+        },
+        {
+          "path": "NavierStokes/ParametricTorusInverse.lean",
+          "lines": [
+            643,
+            649
+          ],
+          "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/ParametricTorusInverse.lean#L643-L649"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "kind": "correspondence_obligation",
+      "label": "Review quantitative contract",
+      "status": "open",
+      "evidence": [
+        "authored comparison"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "C",
+      "to": "E",
+      "type": "proof_dependency",
+      "status": "source_inspected",
+      "evidence": {
+        "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+        "lines": [
+          1069,
+          1071
+        ],
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L1069-L1071"
+      }
+    },
+    {
+      "from": "D",
+      "to": "E",
+      "type": "proof_dependency",
+      "status": "source_inspected",
+      "evidence": {
+        "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+        "lines": [
+          1073,
+          1076
+        ],
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean#L1073-L1076"
+      }
+    },
+    {
+      "from": "B",
+      "to": "F",
+      "type": "interpretation",
+      "status": "reviewable_source_alignment"
+    },
+    {
+      "from": "A",
+      "to": "F",
+      "type": "specification",
+      "status": "source_inspected"
+    },
+    {
+      "from": "E",
+      "to": "F",
+      "type": "comparison",
+      "status": "authored_inference"
+    }
+  ],
+  "local_difference": {
+    "written_input_derivative_order": "m+4",
+    "derived_formal_input_derivative_order": "m+5",
+    "output_derivative_order": "m",
+    "dimension": 2,
+    "qualitative_input_regularity": "smooth on both sides",
+    "comparison_wrapper": "not formalized in this review"
+  },
+  "open_obligations": [
+    "Fix intended norm and quantitative budget.",
+    "Review operator identification and finite-word supremum aggregation.",
+    "Determine whether a stronger lemma or consumer-specific assumption closes the budget gap."
+  ],
+  "next_check": "Consider the coefficient interface at q+3 and cubic lattice summability before composing with the inverse interface.",
+  "validation": {
+    "build": "not_run",
+    "kernel_replay": "not_run",
+    "semantic_equivalence": "not_checked",
+    "automatic_extraction": "not_performed",
+    "whole_theorem_verdict": "outside_scope",
+    "source_blob_hashes": "verified_locally_against_GitHub_connector_blob_SHA"
+  },
+  "sources": {
+    "paper": {
+      "url": "https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf",
+      "locations": [
+        "equation (6.2), printed page 63",
+        "equation (6.7), printed page 64",
+        "Lemma 8.6 / equation (8.19), printed pages 95–96"
+      ],
+      "revision_note": "CDN artifact inspected on the stated date; no independent immutable PDF version identifier or local PDF hash recorded"
+    },
+    "critique": {
+      "url": "https://arxiv.org/html/2610.08144v1#S3.SS1",
+      "location": "Section 3.1, Example 3.1 and Section 3.1.1; introduction disclaimer",
+      "role": "motivates the selected question; primary paper and Lean source also inspected"
+    },
+    "lean_files": [
+      {
+        "path": "NavierStokes/SmoothFamilyTorusInverse.lean",
+        "blob_sha": "c607eb6f2460a3ba55dc2218072cd504bf6253bf",
+        "sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFamilyTorusInverse.lean"
+      },
+      {
+        "path": "NavierStokes/SmoothFourierData.lean",
+        "blob_sha": "1de68214bc1f62781e3fbaac44f294a25d97886d",
+        "sha256": "980b746ca551345d88351dd961d30b69876c68c84f0c758445593025d9dbc642",
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/SmoothFourierData.lean"
+      },
+      {
+        "path": "NavierStokes/ParametricTorusInverse.lean",
+        "blob_sha": "37be58e0e68b8fd8f24b7f8b5e0da18620db7529",
+        "sha256": "b4930518678ae79a85cfde23ecf7200d01495a94b5f19e0443aaea89e25f6cb0",
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/ParametricTorusInverse.lean"
+      },
+      {
+        "path": "NavierStokes/TorusInverse.lean",
+        "blob_sha": "4ab23593f44933403cc852ec7cf5065728ff6ca7",
+        "sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+        "url": "https://github.com/openai/NavierStokesAndEuler/blob/f9e8bc5b38b6e212696e8a30e3e91517af887bbd/NavierStokes/TorusInverse.lean"
+      }
+    ]
+  }
+}

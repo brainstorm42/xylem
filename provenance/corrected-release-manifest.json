@@ -9,7 +9,7 @@
     "manifest_path": "provenance/corrected-release-manifest.json",
     "payload_member_rule": "archive regular-file members equal this manifest's files plus the manifest itself; ignored and untracked files are excluded"
   },
-  "file_count": 555,
+  "file_count": 557,
   "files": [
     {
       "path": ".gitattributes",
@@ -43,8 +43,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4562,
-      "sha256": "969fca9ac57d48c4793d8cf7e5920a22b3ba4300fb7108ae7e42e8a01ea7de1d"
+      "bytes": 4861,
+      "sha256": "7312cdc5d44246d71d2a79defb436fbe6505085955e3e0edc3f34f8178063c6d"
     },
     {
       "path": "RELEASE-SCOPE.md",
@@ -1280,6 +1280,16 @@
       "path": "xylem-plugin/examples/ctrllib-e2e/xylem-e2e-config.json",
       "bytes": 795,
       "sha256": "855376d57a7a8ae3f9b8f7be0811fb9d88aa40a2d728325401d15edfc3c51fc8"
+    },
+    {
+      "path": "xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.json",
+      "bytes": 9245,
+      "sha256": "1d7a71cc72f2c8332b0d53e812c9540fd7f7a432d5ee6f1bf7299013596c93c2"
+    },
+    {
+      "path": "xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.md",
+      "bytes": 7765,
+      "sha256": "1beafbe243cd77fc5a6a63e756de670cdf5c30e65673d684a0808f21a14f1976"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/.github/README.md",
