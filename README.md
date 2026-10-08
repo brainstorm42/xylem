@@ -76,7 +76,7 @@ Find related mathematics in the [Ctrllib subject index](ctrllib/SUBJECT-INDEX.md
 
 For teaching-oriented starting points and planned work, see [Mathematics learning and teaching resources](TEACHING-RESOURCES.md) and [Future directions](FUTURE-DIRECTIONS.md).
 
-For the private percolation candidate, start with the [percolation capture and index guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration provenance](provenance/PERCOLATION-INTEGRATION.md). The guide begins with the committed capture and query commands; source rebuilding remains a separately scoped, dependency-downloading operation.
+For the public percolation example, start with the [percolation capture and index guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration provenance](provenance/PERCOLATION-INTEGRATION.md). The guide begins with the committed capture and query commands; source rebuilding remains a separately scoped, dependency-downloading operation.
 
 For a bounded, source-inspected Navier–Stokes assurance case, read the [Navier–Stokes inverse-estimate semantic map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.md) and its [machine-readable evidence map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.json).
 

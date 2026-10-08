@@ -60,17 +60,17 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 
 The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results. This full run tested the same proof sources and pins supplied here; current converter-label, freshness-advice, and explanation corrections received separate targeted checks.
 
-## Private percolation candidate
+## Public percolation example
 
-The private v0.1.0 package carries the pinned `formal-math` percolation snapshot,
+The public v0.1.0 package carries the pinned `formal-math` percolation snapshot,
 its two separately elaborated Lean surfaces, the captured declaration and premise
 projection, the source-module and trace-backed navigation layers, and the
 replayable reconstruction clients. The capture indexes 23,545 declarations;
 the machine index records 228 compiler-derived source regions, 13 trace-backed
 subargument steps, and authored component metadata. Start with the [percolation
 guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration
-provenance](provenance/PERCOLATION-INTEGRATION.md). This candidate stays private
-until human review authorizes a separate publication decision.
+provenance](provenance/PERCOLATION-INTEGRATION.md). This release is public;
+source rebuilding and broader verification claims remain separately scoped below.
 
 ## Environment and check scope
 

@@ -43,13 +43,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 6889,
-      "sha256": "7bab6cf90d49ea4141cb27bb994e2cd14df979dfb366c754c6dd4f6e6244c219"
+      "bytes": 6886,
+      "sha256": "0029b59de9511b1224f2118e7386b8fbd9d520816274327239306c402fde51f2"
     },
     {
       "path": "RELEASE-SCOPE.md",
-      "bytes": 6971,
-      "sha256": "c41f01d82809adc28ce409ec0c2584d041d7d0a3117b0e511fbff1a5c10c1b96"
+      "bytes": 6981,
+      "sha256": "74a4c55ff0939ce748c4de9de609da0c050009ccb508d1cef63645889e328620"
     },
     {
       "path": "TEACHING-RESOURCES.md",
@@ -1303,8 +1303,8 @@
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/README.md",
-      "bytes": 13195,
-      "sha256": "8e90fed09f15231614ca13e5cc09f63a3ea25ab320bfd5f18ed2c475ae234092"
+      "bytes": 13194,
+      "sha256": "d6312c546a9e075b9d2c11f6b6db6d0cd4cc82dda96422db93390cd76b7ea4aa"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/capture-audit.json",

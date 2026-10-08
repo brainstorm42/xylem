@@ -1,6 +1,6 @@
 # Percolation source capture and Xylem index
 
-This is a private, reproducible integration of the pinned upstream
+This is a public, reproducible integration of the pinned upstream
 `formal-math` percolation project at revision
 `795efb86f191735c5481675763537cfb4ff37e55`.
 
