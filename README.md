@@ -3,7 +3,7 @@
 
 ## Purpose
 
-“What does this theorem assume, and which earlier facts does it use?” Xylem gives you a searchable map of captured Lean declarations and their recorded relationships. You can inspect a statement, follow a dependency, and open the source or a linked mathematical explanation.
+Xylem helps an individual person or agent inspect a mathematical proof. It makes the named pieces, their dependencies, and their supporting records easy to find. It provides a route from a well-posed question to an exact statement and provides the evidence needed to support and analyze it.
 
 ```mermaid
 flowchart TD
