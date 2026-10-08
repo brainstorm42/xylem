@@ -1,0 +1,243 @@
+{
+  "schema": "proofbricks-explanation-packet/v2",
+  "package_version": "0.1.0",
+  "release_scope": "v0.1.0-leading-boundaries",
+  "component": {
+    "id": "compact-bounds-hS",
+    "related_id": "compact-bounds-hSpos",
+    "boundary": "hS",
+    "declaration": "OAI.Problem326.compact_positive_uniform_bounds",
+    "exact_type": "IsCompact S",
+    "recorded_interface": "∀ {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}, IsCompact K → (∀ x ∈ K, ∀ (i : ι), 0 < x i) → IsCompact (⋃ i, (fun x : ι → ℝ => x i) '' K)",
+    "assumption_minimization": "not performed",
+    "source": {
+      "path": "proof/CompactBoundsExplicitResolved.lean",
+      "sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+      "revision": "openai/math@adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+      "span": {
+        "start_line": 34,
+        "end_line": 36
+      }
+    },
+    "interface_evidence": "Recorded interface with historical extraction/checking summaries; generated helper proof terms or printed-signature output are not bundled."
+  },
+  "related_interfaces": {
+    "hSpos": "∀ {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}, IsCompact K → (∀ x ∈ K, ∀ (i : ι), 0 < x i) → let S := ⋃ i, (fun x : ι → ℝ => x i) '' K; ∀ y ∈ S, 0 < y"
+  },
+  "parent_statement": {
+    "signature": "OAI.Problem326.compact_positive_uniform_bounds.{uIota} {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}\n  (hK : IsCompact K) (hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i) :\n  ∃ ε, 0 < ε ∧ ε < 1 ∧ ∀ x ∈ K, ∀ (i : ι), ε ≤ x i ∧ x i ≤ ε⁻¹",
+    "binders": [
+      {
+        "index": 0,
+        "name": "ι",
+        "binder_info": "implicit",
+        "type": "Type uIota"
+      },
+      {
+        "index": 1,
+        "name": null,
+        "binder_info": "instance",
+        "type": "Finite ι"
+      },
+      {
+        "index": 2,
+        "name": "K",
+        "binder_info": "implicit",
+        "type": "Set (ι → ℝ)"
+      },
+      {
+        "index": 3,
+        "name": "hK",
+        "binder_info": "default",
+        "type": "IsCompact K"
+      },
+      {
+        "index": 4,
+        "name": "hpos",
+        "binder_info": "default",
+        "type": "∀ x ∈ K, ∀ (i : ι), 0 < x i"
+      }
+    ],
+    "capture": "../../capture/declarations.json"
+  },
+  "definitions": [
+    {
+      "name": "S",
+      "exact": "⋃ i : ι, (fun x : ι → ℝ => x i) '' K",
+      "source_span": {
+        "start_line": 34,
+        "end_line": 34
+      },
+      "meaning": "the union of all coordinate images of K"
+    }
+  ],
+  "assumptions": {
+    "hS_interface": [
+      "ι : Type uIota",
+      "[Finite ι]",
+      "K : Set (ι → ℝ)",
+      "hK : IsCompact K",
+      "hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i",
+      "S := ⋃ i, (fun x : ι → ℝ => x i) '' K"
+    ],
+    "hSpos_interface": [
+      "ι : Type uIota",
+      "[Finite ι]",
+      "K : Set (ι → ℝ)",
+      "hK : IsCompact K",
+      "hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i",
+      "S := ⋃ i, (fun x : ι → ℝ => x i) '' K"
+    ],
+    "not_assumed": [
+      "ι is nonempty",
+      "K is nonempty",
+      "positive dimension"
+    ],
+    "minimization": "not performed",
+    "source_argument_used": {
+      "hS": [
+        "[Finite ι]",
+        "hK : IsCompact K",
+        "S is the coordinate-image union"
+      ],
+      "hSpos": [
+        "hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i",
+        "S is the coordinate-image union"
+      ]
+    },
+    "source_analysis_scope": "Visible source arguments at lines 34–40; this separates use from retained interface context and does not minimize either extracted interface."
+  },
+  "meaning": "Coordinate evaluation maps K to compact subsets of ℝ; the finite union is S, and hpos makes every value in S positive.",
+  "symbols": {
+    "ι": "finite index type",
+    "K": "compact set of functions ι → ℝ",
+    "S": "union of coordinate-value images",
+    "hK": "input compactness hypothesis",
+    "hpos": "input coordinatewise positivity hypothesis",
+    "hS": "derived compactness fact for S",
+    "hSpos": "derived positivity fact for S"
+  },
+  "prerequisites": [
+    "continuous_apply",
+    "IsCompact.image",
+    "isCompact_iUnion",
+    "Finite ι"
+  ],
+  "derivation": [
+    {
+      "step": 1,
+      "claim": "For fixed i, x ↦ x i is continuous.",
+      "evidence": "continuous_apply i at source line 36"
+    },
+    {
+      "step": 2,
+      "claim": "The i-th coordinate image of K is compact.",
+      "evidence": "hK.image (continuous_apply i) at source line 36"
+    },
+    {
+      "step": 3,
+      "claim": "The finite union of those compact images is compact.",
+      "evidence": "isCompact_iUnion at source line 36"
+    },
+    {
+      "step": 4,
+      "claim": "Membership in S supplies a coordinate value covered by hpos.",
+      "evidence": "hSpos source span and extraction receipt"
+    }
+  ],
+  "example": {
+    "setup": "ι has two coordinates and K = [1,2] × [3,4].",
+    "result": "S = [1,2] ∪ [3,4].",
+    "validity_conditions": [
+      "This is one illustration, not the quantified theorem proof."
+    ],
+    "structured_illustration": {
+      "index_count": 2,
+      "K_coordinate_intervals": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "S_intervals": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "S_cardinality": "infinite",
+      "construction": "union_of_coordinate_images"
+    }
+  },
+  "analogy": {
+    "text": "Project a compact set of points onto finitely many coordinate axes and collect the projections.",
+    "stops_at": "The Lean hypotheses and checked lemmas establish the formal result."
+  },
+  "capture": {
+    "status": "projection",
+    "premises_included": false,
+    "premise_data_state": "unavailable",
+    "note": "An empty premises list is not evidence of no dependencies."
+  },
+  "evidence": [
+    {
+      "id": "source",
+      "path": "proof/CompactBoundsExplicitResolved.lean",
+      "status": "observed_exact"
+    },
+    {
+      "id": "inventory",
+      "path": "evidence/inventory-summary.json",
+      "status": "observed_pass"
+    },
+    {
+      "id": "extraction",
+      "path": "evidence/extraction-summary.json",
+      "status": "observed_pass"
+    },
+    {
+      "id": "reproduction",
+      "path": "evidence/reproduction-receipt.json",
+      "status": "observed_pass"
+    },
+    {
+      "id": "capture",
+      "path": "../../capture/declarations.json",
+      "status": "dependency_records_unavailable"
+    },
+    {
+      "id": "fresh_review",
+      "path": "evidence/review-corrected-explanations.json",
+      "status": "separate_agent_review_pass"
+    }
+  ],
+  "status": {
+    "formal": "observed_checked",
+    "source_correspondence": "observed_exact",
+    "converter": "exact_lean_text_fallback",
+    "explanation": "completed_grounded",
+    "review": "separate_agent_review",
+    "engineering": "not_assessed",
+    "review_receipt": "evidence/review-corrected-explanations.json"
+  },
+  "unknowns": [
+    "The separate agent review is limited to the hS packet/page and does not certify the full theorem.",
+    "The bundled capture omits expression trees, proof terms, and dependency records.",
+    "The remainder of the parent theorem is outside this packet.",
+    "The displayed helper signatures are recorded strings attributed to historical checking receipts; their exact identity with generated helpers cannot be independently replayed from the bundled artifacts."
+  ],
+  "limits": [
+    "No full theorem decomposition is claimed.",
+    "No semantic equivalence between exact fallback text and a rendered notation is claimed.",
+    "No novelty, reuse, speedup, ontology, or physical applicability claim is made."
+  ],
+  "lesson": "Read hS and hSpos as the compactness and positivity boundaries of the compact coordinate-value set S. The coordinate family is finite; S itself can be infinite. Both recorded interfaces retain the parent context."
+}

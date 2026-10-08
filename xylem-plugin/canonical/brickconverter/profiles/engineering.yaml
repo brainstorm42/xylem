@@ -1,0 +1,116 @@
+schema_version: 1
+profile_id: engineering
+profile_version: 2
+notes: "Explicit notation for captured scalar, finite matrix and population-CVaR statements. CVaR uses confidence alpha and upper-tail mass 1-alpha, with probability, integrability and alpha bounds retained as premises. Unknown heads and unsupported binders retain exact Lean text. Index types m,n denote sets, not implicitly natural-number dimensions."
+symbols:
+  Real: {aliases: [Real], output: '\mathbb{R}', kind: constant, arity: 0}
+  Nat: {aliases: [Nat], output: '\mathbb{N}', kind: constant, arity: 0}
+  Neg.neg: {aliases: [neg], output: '-', kind: constant, arity: 1}
+  sigma: {aliases: [sigma], output: '\sigma', kind: binder, arity: 0}
+  lam: {aliases: [lam], output: '\lambda', kind: binder, arity: 0}
+structures:
+  Matrix:
+    head: Matrix
+    arity: 3
+    input: [rows, cols, field]
+    output: '\mathrm{{Matrix}}_{{{rows}\times {cols}}}({field})'
+    provenance: 'Matrices indexed by the displayed row and column types.'
+  Fintype:
+    head: Fintype
+    arity: 1
+    input: [index]
+    output: '{index}\text{{ is a finite index type}}'
+  DecidableEq:
+    head: DecidableEq
+    arity: 1
+    input: [index]
+    output: '\text{{equality on }}{index}\text{{ is decidable}}'
+  Matrix.PosDef:
+    head: Matrix.PosDef
+    arity: 1
+    input: [matrix]
+    output: '{matrix}\text{{ is Hermitian positive definite}}'
+  Matrix.PosSemidef:
+    head: Matrix.PosSemidef
+    arity: 1
+    input: [matrix]
+    output: '{matrix}\text{{ is Hermitian positive semidefinite}}'
+  Function.Surjective:
+    head: Function.Surjective
+    arity: 1
+    input: [map]
+    output: '{map}\text{{ is surjective}}'
+  Function.Injective:
+    head: Function.Injective
+    arity: 1
+    input: [map]
+    output: '{map}\text{{ is injective}}'
+  Matrix.mulVec:
+    head: Matrix.mulVec
+    arity: 2
+    input: [matrix, vector]
+    output: '\left({matrix}\right)\left({vector}\right)'
+  Matrix.mulVec.function:
+    head: Matrix.mulVec.function
+    arity: 1
+    input: [matrix]
+    output: '\left({matrix}\right)\,(\cdot)'
+    provenance: 'The partially applied matrix-vector multiplication map; a slot avoids introducing a bound variable that could capture a free name.'
+  Matrix.transpose:
+    head: Matrix.transpose
+    arity: 1
+    input: [matrix]
+    output: '\left({matrix}\right)^\top'
+  Ctrllib.weightedRightInverse:
+    head: Ctrllib.weightedRightInverse
+    arity: 2
+    input: [weight, matrix]
+    output: '\operatorname{{weightedRightInverse}}\left({weight},{matrix}\right)'
+    provenance: 'Named definition retained; see WeightedRightInverse.lean and the Brick for its formula.'
+  Real.sqrt:
+    head: Real.sqrt
+    arity: 1
+    input: [value]
+    output: '\sqrt{{{value}}}'
+  MeasurableSpace:
+    head: MeasurableSpace
+    arity: 1
+    input: [space]
+    output: '\text{{a }}σ\text{{-algebra on }}{space}'
+    provenance: 'Mathlib.MeasureTheory.MeasurableSpace.Defs: the measurable-space structure is a sigma-algebra, not a probability measure.'
+  MeasureTheory.Measure:
+    head: MeasureTheory.Measure
+    arity: 1
+    input: [space]
+    output: '\operatorname{{Measure}}\left({space}\right)'
+    provenance: 'Measures on the displayed type with its retained MeasurableSpace instance.'
+  MeasureTheory.IsProbabilityMeasure:
+    head: MeasureTheory.IsProbabilityMeasure
+    arity: 1
+    input: [measure]
+    output: '{measure}\text{{ is a probability measure}}'
+    provenance: 'The measure has total mass one; the instance premise remains an explicit statement row.'
+  MeasureTheory.Integrable:
+    head: MeasureTheory.Integrable
+    arity: 2
+    input: [function, measure]
+    output: '{function}\text{{ is integrable with respect to }}{measure}'
+    provenance: 'Mathlib Bochner integrability, including a.e. strong measurability; not merely finiteness of a signed integral or membership of an equivalence class in L1.'
+  Ctrllib.cvarPop:
+    head: Ctrllib.cvarPop
+    arity: 3
+    input: [alpha, measure, loss]
+    output: '\operatorname{{CVaR}}_{{{alpha}}}^{{{measure}}}\left({loss}\right)'
+    provenance: 'Ctrllib/CvarPopulation.lean: infimum over real thresholds t of t + (1/(1-alpha)) times the integral of max(loss-t,0). Confidence alpha, upper-tail mass 1-alpha; no conditional-tail-mean identification. Integrability, probability and alpha bounds remain separate premises.'
+  Filter.Eventually.ae:
+    head: Filter.Eventually.ae
+    arity: 4
+    input: [variable, domain, measure, predicate]
+    output: '\left(\text{{for }}{measure}\text{{-almost every }}{variable} : {domain},\; {predicate}\right)'
+    provenance: 'Statement-only structural adapter for Filter.Eventually applied to a named lambda and exactly MeasureTheory.ae measure. Retains the bound variable, its domain, the measure and predicate; parentheses preserve scope. Other filters and general binders remain unsupported.'
+  abs:
+    head: abs
+    arity: 1
+    input: [value]
+    output: '\left|{value}\right|'
+    provenance: 'Lean lattice absolute value; real absolute value in the population-CVaR statements.'

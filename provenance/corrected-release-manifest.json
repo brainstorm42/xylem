@@ -1,0 +1,1262 @@
+{
+  "schema": "xylem-ctrllib-release-inventory/v1",
+  "version": "0.1.0",
+  "inventory_scope": "package payload except this manifest",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 169,
+      "sha256": "ea0080b16238f29dc91b6c90a110e017b647dc3f721175ee6ad582fefa67700f"
+    },
+    {
+      "path": "ABOUT.md",
+      "bytes": 1072,
+      "sha256": "355c3cbed4e3603ed0d956388a29526b807c9fda0f6fb7e5238b07ae98b34056"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 932,
+      "sha256": "168532a965cf74475587ebe899a3aa9b91005c878c3525f02b049c3478bda99b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3922,
+      "sha256": "d8cdc7f83765f022926194f4d01ec57543cf15f4f582f1b1813151b45234a3b7"
+    },
+    {
+      "path": "RELEASE-SCOPE.md",
+      "bytes": 5198,
+      "sha256": "6dd7c0b0a7d717d9062422989a1c55e6575a70c6067b3d684e3323e59a459d10"
+    },
+    {
+      "path": "assets/NOTICE.md",
+      "bytes": 816,
+      "sha256": "46628bfce4dabf7c14a9425b75d91cb096b8da63d5942b9ebde09caf3e87ebcc"
+    },
+    {
+      "path": "assets/margaret-hamilton.webp",
+      "bytes": 21358,
+      "sha256": "517b82b1284f8d445e6e3130ac5989639aeadd8b121ba827ca825b13ed6cc8f2"
+    },
+    {
+      "path": "ctrllib/ABOUT.md",
+      "bytes": 629,
+      "sha256": "fe18cb8b109e4859b522a62a89cf63bd5a08ff19c777a2b67eead6ebe066cede"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ActuationBound.lean",
+      "bytes": 4221,
+      "sha256": "c81f07194b7e1a7d860450ba089b994c55d677ab345e189184bb533e51fc6ff3"
+    },
+    {
+      "path": "ctrllib/Ctrllib/AllocationRealizationError.lean",
+      "bytes": 10045,
+      "sha256": "e3530d8ab6dfb979b21182f63717e35da108e90f64d6f03758d42af9758951ed"
+    },
+    {
+      "path": "ctrllib/Ctrllib/AllocationSignConvention.lean",
+      "bytes": 9495,
+      "sha256": "a37ad63e58fb4aac06cd9f9a111c58a939848e60d1943f4b8df76bd62df0223a"
+    },
+    {
+      "path": "ctrllib/Ctrllib/AssumeGuarantee.lean",
+      "bytes": 4076,
+      "sha256": "d8fc9d78098fbd0d94c0e954f6577051d6e2c471dae4c2562aec6ac4ef3f770a"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Barbalat.lean",
+      "bytes": 4700,
+      "sha256": "d6658bc7c484770952e2d3e4c5d1b8bcda43f8453d2baf7f7d243bb316ea9a34"
+    },
+    {
+      "path": "ctrllib/Ctrllib/BernoulliCount.lean",
+      "bytes": 3306,
+      "sha256": "8ff24be426c8cc6ee808297f33a40ecdadd614b09958b0948d3cd92b70491c79"
+    },
+    {
+      "path": "ctrllib/Ctrllib/BinomialConfidence.lean",
+      "bytes": 6481,
+      "sha256": "ebdf9eddafd5ca5fe50fc0ed577f8a5d38fead335f268a4927eba7f0d0d66500"
+    },
+    {
+      "path": "ctrllib/Ctrllib/BinomialZeroFailure.lean",
+      "bytes": 2778,
+      "sha256": "6af55481edd3d2e81a9b54aed80062f842492d60635a94695f9edf262b282417"
+    },
+    {
+      "path": "ctrllib/Ctrllib/BlockLyapunov.lean",
+      "bytes": 7392,
+      "sha256": "d78de8eb8c28d52d3da3ac40d1af9210ccf597fd6fccd8d637eb55d691f1de5b"
+    },
+    {
+      "path": "ctrllib/Ctrllib/BlockPrecompact.lean",
+      "bytes": 5139,
+      "sha256": "63d863d51d7cceaa7f1bdec480252939ba67ddc671d56e8c6a7e9339de158fc6"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Cascade.lean",
+      "bytes": 14777,
+      "sha256": "06c158e78c24855549e25ba7389d3f3a5b8310574fedfb6f5fed8036db490bcb"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CircumcentroidalCorrection.lean",
+      "bytes": 20163,
+      "sha256": "17a2033af1db814ced0a03b52a62515e9247bb9bd29afb3e0b261a822de52372"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CircumcentroidalPassivity.lean",
+      "bytes": 10747,
+      "sha256": "47f4acaaa602bec1b1c5a9957f903f88a2bf140974c8b099e5328772467f4d16"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CircumcentroidalRank.lean",
+      "bytes": 1227,
+      "sha256": "39084f96f051c56fccb79678bfc081d47ddabda1dfa4e85bb17602ed0045fca1"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ComLaSalle.lean",
+      "bytes": 12390,
+      "sha256": "44dc8c14d389bc5d9f59fab542dafe7b5dd40a9c83429020d0ece3d60926f760"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ComLaSalleMatrix.lean",
+      "bytes": 7242,
+      "sha256": "08bbff42362275613f65370779333432492a5c18092c4c45e7b66a5851bf9007"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ComparisonFunctions.lean",
+      "bytes": 14531,
+      "sha256": "d5d335a3deb2e8c5eac2f91be9dc70d0e1e922e29b161de0e0563a398b1f29d0"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ComparisonUltimateBound.lean",
+      "bytes": 3465,
+      "sha256": "5015b3c23a4dae0ec1fe543c930a9d47314e6e903b1e9fee842c90b3adbc4c9f"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CoupledCollapse.lean",
+      "bytes": 13014,
+      "sha256": "d2aadd152d6befd105750dd33a55493107548f3f61679b8a12f08d6559d01617"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CoupledCollapseMatrix.lean",
+      "bytes": 9730,
+      "sha256": "27de7c9bbfcf3f27535e802bf6fdae01472a34aba5a306358c4b86a7f85fc24c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CoupledDissipation.lean",
+      "bytes": 9772,
+      "sha256": "5650cd5823874a64635203dcde0b9f71ec80a7ca64765154fbdea4f981a06bfa"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CoupledField.lean",
+      "bytes": 9994,
+      "sha256": "db7c25d63431a17b3135a5443960363ff008e19ec7c251ed6ab6c6f04e2a8dd8"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CoupledSandwich.lean",
+      "bytes": 6202,
+      "sha256": "caace15ba171cacd86e3cd6d85b06f97ff5e868a86c5bc4fd5a32482134602a2"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CruiseLag.lean",
+      "bytes": 5994,
+      "sha256": "7520ba41d82dd5e5977f1888d5a2a22f9fe58f0766040d461951ee709e4f6a8c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarConfidence.lean",
+      "bytes": 7810,
+      "sha256": "949a4c832240361466fd03f7e5ddc8b6302626d6f22ef604fac2f7eab67b3874"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarEmpiricalConfidence.lean",
+      "bytes": 7859,
+      "sha256": "4579df887a19e684af0f835893e66fc3e88f83e5522d0541bb940defb5e5bb0c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarGridApproximation.lean",
+      "bytes": 6072,
+      "sha256": "781c3faaefeda16cd2142f5572c9b9e5eff1d43fd332452074491340f553f33b"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarInfForm.lean",
+      "bytes": 25971,
+      "sha256": "6cc07c4cb7329ccde4b5a6f072733276416c16de998b9d33313558d9da11f1c5"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarMarginWrapper.lean",
+      "bytes": 19370,
+      "sha256": "875921334a0aa96b5935777d395acf9e7e5b9ff35c6704234b2e603251de32f8"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarPopulation.lean",
+      "bytes": 6468,
+      "sha256": "5011ba77b1a7178854617fd5d36e662274deca3aa83231f6d75c06cbc85faa77"
+    },
+    {
+      "path": "ctrllib/Ctrllib/CvarStateCost.lean",
+      "bytes": 5152,
+      "sha256": "7a1b15eceb2e66e00944db2005b5ce129d882aff4aa2cc01ff35aba494859faa"
+    },
+    {
+      "path": "ctrllib/Ctrllib/DetGamma.lean",
+      "bytes": 2192,
+      "sha256": "79eace6017058bcd992a5ba2ce7d95763aeb5044a912b59f1e4118f57e5bfa92"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ElasticAttachment.lean",
+      "bytes": 11412,
+      "sha256": "4491bbfb1e27fb1e1ce3c00ca9080563562e2c28cd38704efca36ec904375258"
+    },
+    {
+      "path": "ctrllib/Ctrllib/EqualityConstrainedQuadratic.lean",
+      "bytes": 8162,
+      "sha256": "3e37ad5ea340c4d978290824a627107297160d5aa873788d691b3f5b1d49826c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/EstimationError.lean",
+      "bytes": 7594,
+      "sha256": "b32c4f2df6cd5c6c8a302e3b4078ddce7c9641c80600a5fe358628f4e142027c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/EuclideanNormBridge.lean",
+      "bytes": 13099,
+      "sha256": "186f4b39d06cc65dbf41ee11fc9779b6691ba5c030eab97590a161f4c1559b47"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Examples/ProofSearchReuse.lean",
+      "bytes": 483,
+      "sha256": "315c89f901f6b5c17a523c94f24a85d38d9e9d08be3d7261c0e0910fc0b88f58"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ForcedImpedance.lean",
+      "bytes": 7333,
+      "sha256": "800fc13264cb1f696874196ea9abd33c30d7984070eaf0cf6e8053258f31e463"
+    },
+    {
+      "path": "ctrllib/Ctrllib/GammaInvertible.lean",
+      "bytes": 5595,
+      "sha256": "130fe6df818211aa46bd93818b459a4e1ed930fa52358a7b19048ffc36b1e549"
+    },
+    {
+      "path": "ctrllib/Ctrllib/GaussianTail.lean",
+      "bytes": 5543,
+      "sha256": "3950f26fe839c43a8b4971cc5964fd408c5f9f536e14b1a17eb3c29d594eb848"
+    },
+    {
+      "path": "ctrllib/Ctrllib/GiordanoErrata.lean",
+      "bytes": 5926,
+      "sha256": "a56ab8dcd434b6e6b351820d2888e37d0c338834fc1248c5e0eb967264575277"
+    },
+    {
+      "path": "ctrllib/Ctrllib/HoeffdingViewLoss.lean",
+      "bytes": 3797,
+      "sha256": "9befb0c605e55592b7a05cf5390fd6667cd06227526d5dbbdf03e73c067f1cc2"
+    },
+    {
+      "path": "ctrllib/Ctrllib/InspectionMargin.lean",
+      "bytes": 4819,
+      "sha256": "31103739cd647be78000f2659a2e8ee549c2d5b52043d3b12fb8634db32d8c64"
+    },
+    {
+      "path": "ctrllib/Ctrllib/IntegratedEnergy.lean",
+      "bytes": 7076,
+      "sha256": "cedd7727eb67680a38354940b67dade4bc0f54c806ef7204ec3ff17d85e1f5e0"
+    },
+    {
+      "path": "ctrllib/Ctrllib/KernelLift.lean",
+      "bytes": 14129,
+      "sha256": "6634571e507c283597c63925363104a1168eda59867783d7d98a65ce5c80a990"
+    },
+    {
+      "path": "ctrllib/Ctrllib/KhalilComparison.lean",
+      "bytes": 7121,
+      "sha256": "1a52095dca49d6c7664664c74ae802937ba9fea4e4d7b168d5f5434a2622c8c4"
+    },
+    {
+      "path": "ctrllib/Ctrllib/KhalilStability.lean",
+      "bytes": 12444,
+      "sha256": "50b53b277bf4e0c154efcab306d2dc1f5454965fafce2a4fce986c8e7e1ac679"
+    },
+    {
+      "path": "ctrllib/Ctrllib/KoenigDecomposition.lean",
+      "bytes": 8219,
+      "sha256": "fd2dc114a7f7b610147a0e77eb02144997a8552fd261b966abcc317405a4b3bb"
+    },
+    {
+      "path": "ctrllib/Ctrllib/LaSalle.lean",
+      "bytes": 10066,
+      "sha256": "7cdf75179a775e431007a64d8310e457c178a5e678febf27533fc66799f99dc1"
+    },
+    {
+      "path": "ctrllib/Ctrllib/LinearOperatorFlow.lean",
+      "bytes": 2964,
+      "sha256": "9d879cb81ed9e05805d5cdefd02097529a1010e999f78df31827a00cdb3bd782"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Lyapunov.lean",
+      "bytes": 5649,
+      "sha256": "77f87473d4054664001a8cb6b7e71115e209eec1fb1a48fef7b7a379005634df"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ManipulatorEnergy.lean",
+      "bytes": 11695,
+      "sha256": "12e77b83dead176819557d36335290ef9ecedd4a7711e824a8404f56af312ef5"
+    },
+    {
+      "path": "ctrllib/Ctrllib/MatrixImpedance.lean",
+      "bytes": 6874,
+      "sha256": "9af134cd5f566abb6de9ea5875254ae3c71a5f4480dbe3272daccb208ae88152"
+    },
+    {
+      "path": "ctrllib/Ctrllib/MovingReferenceFlow.lean",
+      "bytes": 4892,
+      "sha256": "56c49be31c422e042022ed00037aa7b4ebd0f277de809288fbb3a85a4732e7ea"
+    },
+    {
+      "path": "ctrllib/Ctrllib/NominalMPC.lean",
+      "bytes": 7415,
+      "sha256": "73436e8401a61e9d6c18e5c38f562b45471749a3577b16c5a3e69175c3c27bc3"
+    },
+    {
+      "path": "ctrllib/Ctrllib/NullspaceMotion.lean",
+      "bytes": 8400,
+      "sha256": "227eb42c3b06cf1227d727bbfc5731bba753cbeee30dde1c22d233aa3ddfddb7"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ObserverUltimateBound.lean",
+      "bytes": 1682,
+      "sha256": "74ef5264706b75c36eb28a91dbd29747fc06b4bc87cc3c60822ab797a92f1247"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ObserverUniformBound.lean",
+      "bytes": 3049,
+      "sha256": "98ce1bfb5b58e7bc31cdd9f905c0625c87f7c1c7917e3bebbccc0a79d9ac7a5e"
+    },
+    {
+      "path": "ctrllib/Ctrllib/PVSYoung.lean",
+      "bytes": 1705,
+      "sha256": "093564fa4adc270187b14f7757f3cd5474c8654c3e034bbed453513b542b975c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Passivity.lean",
+      "bytes": 2551,
+      "sha256": "ede48042969b1a6c340edd43f8f9e84a092a1eafd1f950d74215b9ea1e84825d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/PassivityTransport.lean",
+      "bytes": 5401,
+      "sha256": "c01e94f1ff98c0ab74e81fde4ef597a47f13d4066105596661ef5ba772c7cf45"
+    },
+    {
+      "path": "ctrllib/Ctrllib/PointMassComFlow.lean",
+      "bytes": 18435,
+      "sha256": "8a2b7ea33417ff2dc02d2f8723bb5af2cabf3e759907b9feba3b3c4708763b33"
+    },
+    {
+      "path": "ctrllib/Ctrllib/PointMassStability.lean",
+      "bytes": 4347,
+      "sha256": "faab4cbcfd16e8227f26bda4b04553f33ce8d1bca24caaa1ff31314aa8b42104"
+    },
+    {
+      "path": "ctrllib/Ctrllib/PopulationMeanConfidence.lean",
+      "bytes": 4469,
+      "sha256": "073c39ee211ab06622c71171454c89c9e98d32164412f9543c2ed47df1fc7579"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Rayleigh.lean",
+      "bytes": 6760,
+      "sha256": "92615c9b100cd3de07959acbf827c4713deb528657f56bb0406fc69357a83a9e"
+    },
+    {
+      "path": "ctrllib/Ctrllib/Reduction.lean",
+      "bytes": 10516,
+      "sha256": "d380d7f97cf04772b90fb9d42e49a32271e6ec7d3c4f87a10c4736b3273c7c8d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReductionAttraction.lean",
+      "bytes": 14068,
+      "sha256": "67843da902de0e87fd85dedc2a1aa31ccca42c27a6f58127647f403c5afffdd6"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReductionStability.lean",
+      "bytes": 5704,
+      "sha256": "9febdff5ce96e3aec3da2bbe12f59cb165d1965b76a3a37358ddbf22b6fc4122"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReductionStabilityFinish.lean",
+      "bytes": 27332,
+      "sha256": "535703d461cdba2f2827dda6402055a0a8660a01756c155165bdb60d4da1f67e"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReductionUniformization.lean",
+      "bytes": 10121,
+      "sha256": "3ee81ed0e791c58c1bba6bbcb68e19983d3356f6dd609df4c1f2d90016992aff"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceAdmissibility.lean",
+      "bytes": 3977,
+      "sha256": "7a94c60d4c4ec2603d9172a5d3a83cfb4b478947cee628e465e247fad275871e"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceCalculus.lean",
+      "bytes": 2540,
+      "sha256": "9a8274c9e214b259a66274f60f1f192240d98c0fdd0d973dd42d6e8b117d2d13"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceConditioning.lean",
+      "bytes": 3505,
+      "sha256": "a780848eba4318de8466d099d900166b55ba075c5774014546aa9f212d047b8b"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceFrameResidual.lean",
+      "bytes": 2971,
+      "sha256": "77b4f779ddf214afcc70fe2ab83c3d964c4266e3d3a54d9b254eb6fa7ef66eaf"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceLift.lean",
+      "bytes": 6071,
+      "sha256": "889afe69f970437e98839e9967bf6db888fbb9c307e7b4295d07a20c18da20b1"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferencePhase.lean",
+      "bytes": 3409,
+      "sha256": "d69f05a0de9903795929bd1c9fd8d6ca39e2af1eaa2f3d0e99fe96d7b582e861"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceTiming.lean",
+      "bytes": 3701,
+      "sha256": "c16993b779540bf28e8a9eb5bbe690b7eb61dae42232e0005a51ab1184957df7"
+    },
+    {
+      "path": "ctrllib/Ctrllib/ReferenceTracking.lean",
+      "bytes": 8330,
+      "sha256": "633af521f45770920d56de0806bfb0da53e50fee2a4585b3668e35763d49691d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverAsyncClearance.lean",
+      "bytes": 5665,
+      "sha256": "56eb9511df96c13bf2e3ab3944b8a6dca3dd4470ca6793a867d0bcb19475f181"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverClock.lean",
+      "bytes": 2751,
+      "sha256": "6be92b84a142205bf6971a28c05aab2af31490b07c206d68a4f2cd35a731526f"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverConcreteClearance.lean",
+      "bytes": 2737,
+      "sha256": "127a062a6c6411f70f1410a7234002c369e2011e0d6a74447875935d9df6d122"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverConcreteCovers.lean",
+      "bytes": 8130,
+      "sha256": "7b91cdd4943370d78fc47e3ef447362667794715d5f3266c709707f0085f0297"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverHeadingClearance.lean",
+      "bytes": 5526,
+      "sha256": "735edbf85bb11bed3f64ad0c56e3f04463c76a344b06e23bcb588100a5ba3013"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverIntervalClearance.lean",
+      "bytes": 5436,
+      "sha256": "ba3094714d89cf3dfe7df3705f83c60cdc330f046bb36fb2f61c249b4ebd9ff3"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverKinematicCompatibility.lean",
+      "bytes": 5719,
+      "sha256": "3ba5b118dc0e917260387a44812fb64afb11d3078a598641eb4048fe3a92b43f"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverPlanarRotation.lean",
+      "bytes": 9085,
+      "sha256": "f77ef870b83c752bb401d7f0d4cbfc544cd3a0bf66951f772a9a4d2b5689d333"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverPoseGeometry.lean",
+      "bytes": 7900,
+      "sha256": "4c770a29701041f4ae0235601b1e81e1cd2de5e7fa745ac7e30dc040e6c7808c"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverRelativeTrace.lean",
+      "bytes": 2800,
+      "sha256": "ce6be65ff025a0f3264c6f24c1c2c74126d08dd2a2ee28d1cc35679a96bdb189"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverSampledClearance.lean",
+      "bytes": 7015,
+      "sha256": "281a7de84a6ba93ae7ac0a83e34f77b83d9bcfe4822b964e9051d6ad288d794a"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverStepResidual.lean",
+      "bytes": 7924,
+      "sha256": "706c136ff14dc62815583c01fc5f630c9f8a1fa659b77bb65fb0989f26b145a4"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverTraceCertificate.lean",
+      "bytes": 5181,
+      "sha256": "2437f15632f9f7f0890c15542b99b80a992079a28e6846e42dcbbe4ea889c375"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverTranslationMotion.lean",
+      "bytes": 9936,
+      "sha256": "f3daf16375b0b1a700d357505a862fe87c7e98015e85074ca69a0276e7a84b40"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverWaypointClearance.lean",
+      "bytes": 2840,
+      "sha256": "7040d9b08c75233c967f50c23ba7edd61a16ac14a57bf8e7f4e9183ee112fa50"
+    },
+    {
+      "path": "ctrllib/Ctrllib/RoverWaypointModel.lean",
+      "bytes": 3691,
+      "sha256": "fe05af19c38f43d08eff268e9d98e727d79b73379ccb6a20c2b704b6901788a1"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SevenDof.lean",
+      "bytes": 24724,
+      "sha256": "b1c46b720b946786903f3ab3e2c3ac061de88bdc5a353390e0ae8a63ea679c5d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SevenDofDecoupling.lean",
+      "bytes": 9346,
+      "sha256": "a865fccae9cbb565d354c38974f5ec4054d42062293db807196280037becd4aa"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SevenDofTaskBlock.lean",
+      "bytes": 26152,
+      "sha256": "260906edf7b0425d91d4ad838445e5479a11ebeb1baf804d06436bf1c36c9159"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SigmaMinDet.lean",
+      "bytes": 4965,
+      "sha256": "1b6272b1fb1fe8b7d590f944c05d2c667762a52d3fbac827a94f1c0183465af6"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SingularValueInterface.lean",
+      "bytes": 10498,
+      "sha256": "b544e96bd872b5db0cbe5f54f0220555038307ce701928440bdfc1fa11c3fffc"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SkewCharP.lean",
+      "bytes": 2020,
+      "sha256": "854e2f327bdf56fa3fde412cf22e70e0b2b04775bab2546cef85de563d48f325"
+    },
+    {
+      "path": "ctrllib/Ctrllib/SphericalHelix.lean",
+      "bytes": 4388,
+      "sha256": "6f899e6aa91387a713a0c3c415c4f71d73a6b7e5e9c836d6749ff16034da50fd"
+    },
+    {
+      "path": "ctrllib/Ctrllib/StiffnessResidual.lean",
+      "bytes": 6252,
+      "sha256": "091a44f083f4a602a8b24fdc18cb2fa58d261658d3901fa1b4241d88da634dd6"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovDeniedTask.lean",
+      "bytes": 1911,
+      "sha256": "78b5b8911be5ab112b31467be1c55b59617ea5d0d52422a3204c55a435e55532"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovEquality.lean",
+      "bytes": 1480,
+      "sha256": "8fe845efb08760fabceb8ddebe4314a89cb8a7b2b307a9e045b6114007de7d4d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovInverseDifference.lean",
+      "bytes": 6534,
+      "sha256": "348127dce466c7bae07fc8ee51a423317c6c9cc9ebf43779761330d73977f3c3"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovOperatorBound.lean",
+      "bytes": 2884,
+      "sha256": "f0e771d1e3c64ec5c355c0c61dbfdd6be0a9fbb6bdde3a0bb5ff80c0498cb4f8"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovProp3.lean",
+      "bytes": 4856,
+      "sha256": "3245c9b6d1091fafa51e24850d68a31a0257a48c9eaa7cc2f3848d20bc3f7a32"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovRealizedTask.lean",
+      "bytes": 8315,
+      "sha256": "ee9f5c9f676b7e260019f1283c45656bb4ac7416be5d3cb79bfdc9d13bb7a2be"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovSVD.lean",
+      "bytes": 19059,
+      "sha256": "1ecd26293cc23d097979d656fd8f345e7444b0041eda126a81a3cc1625058909"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TikhonovUniformBound.lean",
+      "bytes": 1246,
+      "sha256": "9618e7a7c67da050e4ad73ab58c197bd7e1c31a424811274bcd06e3f5ca21fe0"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TimeVaryingComparison.lean",
+      "bytes": 6881,
+      "sha256": "cc1b6a3eeb6fb504415975ed7b59ddcb9c939f6334fa912e18faa0d7a5a0d4b0"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingCascade.lean",
+      "bytes": 17221,
+      "sha256": "9ade9653f8958b0c24fd9e0ac9ded406dc1bf313338cf1914c75290271683ab1"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingCrossTerm.lean",
+      "bytes": 7577,
+      "sha256": "f08256fe59011fecbdd3932419ddd42ad1c015bbd19cdaeb19151a06c03df407"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingDissipation.lean",
+      "bytes": 10810,
+      "sha256": "33220e891d2abfc2c492683d9449e91e631eba0c632b39bad36266996860909d"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingErrorJacobian.lean",
+      "bytes": 7088,
+      "sha256": "feedcac82e30ae67364678938b76e563c61a9f4ad3310ab83242fb337e3f79bc"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingForcingInterface.lean",
+      "bytes": 3895,
+      "sha256": "0e772aa7b6cf71c142cc9ea41158962a18395d637db7eeb8b971248a2d0b4cec"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingStorageDerivative.lean",
+      "bytes": 5935,
+      "sha256": "d6865881644b6847fc3ba4177220f9bb7dc1aa8039292bb2927098901d2bdfc3"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingStrictBound.lean",
+      "bytes": 23909,
+      "sha256": "0cc2de3da1ddc903ef1d624c2345b0c905d7635c9e1d57dcd042525798fcf74b"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingStrictBoundWeighted.lean",
+      "bytes": 11240,
+      "sha256": "5921f5a340a87cbde2ca5181a72192252a0fd87ad8f0e47685e1343e92f08d12"
+    },
+    {
+      "path": "ctrllib/Ctrllib/TrackingUltimateBound.lean",
+      "bytes": 5156,
+      "sha256": "f3521e0982b5c09725821824633bdc7e0f1fed613125038d22159911956c2f26"
+    },
+    {
+      "path": "ctrllib/Ctrllib/VaRSubadditivity.lean",
+      "bytes": 5857,
+      "sha256": "460303462eb68e0da4c9c18629457531ae73c735919a3de4de4eb48f440131de"
+    },
+    {
+      "path": "ctrllib/Ctrllib/WeightedAccelerationCompatibility.lean",
+      "bytes": 3053,
+      "sha256": "d7226eb368daba39b5e9214df0f2c838b62aca539a7200a57036f3984f77a399"
+    },
+    {
+      "path": "ctrllib/Ctrllib/WeightedRightInverse.lean",
+      "bytes": 5478,
+      "sha256": "971b7e07d9eedb054b5845a808a30d821b01a2665e0a7553d8374e4037949b34"
+    },
+    {
+      "path": "ctrllib/Ctrllib.lean",
+      "bytes": 4064,
+      "sha256": "b333b5817c8b321034a904967dce8da085ad985b5f8e48abb3ea72043e975fbc"
+    },
+    {
+      "path": "ctrllib/Extract.lean",
+      "bytes": 11868,
+      "sha256": "06721ede7dcc1f070969df170b2fe73909349896bae1098f8cb9e81a77d9ed94"
+    },
+    {
+      "path": "ctrllib/IMPORT-CLOSURE.json",
+      "bytes": 434,
+      "sha256": "a16e6605324c2f7fa87a622b01077692dc349836077ffd96407cd5df408964e0"
+    },
+    {
+      "path": "ctrllib/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "ctrllib/MODULE-BRICK-MAP.json",
+      "bytes": 48514,
+      "sha256": "97c77ad74f66a24324e494e70fa946b9f6d6de5bafff93be753feefe0754e024"
+    },
+    {
+      "path": "ctrllib/NOTICE.md",
+      "bytes": 1198,
+      "sha256": "ba3010d34bb4efe33b80924090da1059bb798a03365b95c094c45223f122f2ff"
+    },
+    {
+      "path": "ctrllib/README.md",
+      "bytes": 1799,
+      "sha256": "43d1f112273ea3a8beb4f763a50a5071cf0aa51c2b1757695ba787d9eb548222"
+    },
+    {
+      "path": "ctrllib/ROVER-PROVISIONAL.md",
+      "bytes": 7075,
+      "sha256": "138b4c55e8415696f96f429a00ea1bc4b60412a98a9f7d5c495f64048b3e5cdc"
+    },
+    {
+      "path": "ctrllib/SUBJECT-INDEX.md",
+      "bytes": 2241,
+      "sha256": "0a834ad42d461fc80eeb06a08f3cc3df1ba79bfcbe8999b3c9ad285c3d1a0003"
+    },
+    {
+      "path": "ctrllib/lake-manifest.json",
+      "bytes": 3141,
+      "sha256": "c68c9b10ec63d9b4c144bcedff914ff46d1136a1b5a146b0acd1b34dab0a309b"
+    },
+    {
+      "path": "ctrllib/lakefile.toml",
+      "bytes": 424,
+      "sha256": "e0c6bffe0ec2f4074262786f9f55134bef24197efc8bdf7ddaa2bea48bb36054"
+    },
+    {
+      "path": "ctrllib/lean-toolchain",
+      "bytes": 25,
+      "sha256": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632"
+    },
+    {
+      "path": "ctrllib/tools/source_first_e2e.py",
+      "bytes": 26961,
+      "sha256": "c372148dbfaaeec3f813ea8a46a0d47f95822c1407c434ec1c85bb98515ce408"
+    },
+    {
+      "path": "provenance/AIR-CONSUMER-CHECK.md",
+      "bytes": 4200,
+      "sha256": "175d653475836aa5110c33f337d34bca83cefa2de7edb37ab245c4efd96e68cc"
+    },
+    {
+      "path": "provenance/CORRECTION-CHECK.md",
+      "bytes": 3136,
+      "sha256": "36b79aadff9305b041bfef71bc45ad9f7841d04a94a9341978453ef41104b6b6"
+    },
+    {
+      "path": "provenance/air-consumer-verification.json",
+      "bytes": 4377,
+      "sha256": "4c8e935cfa0aed806ba169600fde5eaa6e34650706046ab7be53ed122a93d055"
+    },
+    {
+      "path": "xylem-plugin/.claude-plugin/plugin.json",
+      "bytes": 489,
+      "sha256": "ddf0bfdcc1f175c5307527f3fcdb10198196a46842fb88fd591839714e5ed924"
+    },
+    {
+      "path": "xylem-plugin/.codex-plugin/plugin.json",
+      "bytes": 1379,
+      "sha256": "542b32ec74b66c2801c4f7f990a2afadc747d4f0a8c26372d5b35eea08c879d3"
+    },
+    {
+      "path": "xylem-plugin/.gitignore",
+      "bytes": 62,
+      "sha256": "c138e556f6b79bcbba8518b41b23f6500211e8cb8ceb9eb3acefb602b461dae2"
+    },
+    {
+      "path": "xylem-plugin/.mcp.json",
+      "bytes": 200,
+      "sha256": "808d017a87b0ec7a2c34998ab622cd6743acce94c66314b4ee17c9cae93130ce"
+    },
+    {
+      "path": "xylem-plugin/ABOUT.md",
+      "bytes": 2736,
+      "sha256": "a4d0834b94ea251e0663b10ef97e051a305b082fe44911ea8f36b7f80631a48a"
+    },
+    {
+      "path": "xylem-plugin/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "xylem-plugin/LICENSE-SCOPE.md",
+      "bytes": 392,
+      "sha256": "288f4267967889529b28c44663d25ddda5a8603fe3b2726072035b46e9547c1a"
+    },
+    {
+      "path": "xylem-plugin/NOTICE.md",
+      "bytes": 1044,
+      "sha256": "e1f38c67f77f86385737f0e2d59beb16b7a4f9d3b34bd03da270fcdb9a18e5cc"
+    },
+    {
+      "path": "xylem-plugin/README.md",
+      "bytes": 4957,
+      "sha256": "ab20ccd3493298232fcbc15fe06987d6e7e9bfd8dbca5f72d23ee1162a0e4401"
+    },
+    {
+      "path": "xylem-plugin/RELEASE-SCOPE.md",
+      "bytes": 748,
+      "sha256": "fe921fa7db2fb8bea6fe460855667d90fef1ac70c7113588394678bbfe722e57"
+    },
+    {
+      "path": "xylem-plugin/START-HERE.md",
+      "bytes": 1521,
+      "sha256": "5b55b81c1ae95cfa2ff19bead713134272585971b573952a8d9a32da64fc0c2c"
+    },
+    {
+      "path": "xylem-plugin/TECHNICAL-REPORT.md",
+      "bytes": 11173,
+      "sha256": "83d836ec0937f40c1aeabe79e862ec39b8cf3a0720bfa9d234885dd4e0d31777"
+    },
+    {
+      "path": "xylem-plugin/bridge/emit_mcp_config.py",
+      "bytes": 1359,
+      "sha256": "92d8f9b3840b190deea7f01f9b2914b273987d62866cbec26857b868bc888bd6"
+    },
+    {
+      "path": "xylem-plugin/bridge/launch_canonical_converter.py",
+      "bytes": 1112,
+      "sha256": "e053096264a09937f729e2e74ca4e28895434f92468853ac3bcb9e5d96a74bc2"
+    },
+    {
+      "path": "xylem-plugin/bridge/launch_canonical_xylem.py",
+      "bytes": 1105,
+      "sha256": "91ad6c25e7d1b021feba0b786f0f1266452ff4cebb84069896154bff45a2c122"
+    },
+    {
+      "path": "xylem-plugin/bridge/quickstart.py",
+      "bytes": 2517,
+      "sha256": "fec784a563906bec5f790f79944757fd9b3a9fa9a2c60db241e1237747bae95b"
+    },
+    {
+      "path": "xylem-plugin/canonical/ORIGIN.md",
+      "bytes": 685,
+      "sha256": "0786fdd6074aad573f3a55f357021c274c7db663650c7ba76e47797adf394b16"
+    },
+    {
+      "path": "xylem-plugin/canonical/README.md",
+      "bytes": 3880,
+      "sha256": "e099163877d3a6d9d4902d3910108f359ea355ca41e1b47281cd2b8ec23fda9c"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/__init__.py",
+      "bytes": 495,
+      "sha256": "c98a97445c215ca6407fbc8ac08eaa7bb61dc212d76330f182354af901720495"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/__main__.py",
+      "bytes": 47,
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/catalogue.py",
+      "bytes": 31507,
+      "sha256": "2e0146c21026d53ec08221e37732b5948a9dc6cafcccaf34fcb6e83b5184f08b"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/cli.py",
+      "bytes": 13546,
+      "sha256": "3e75422516e153c13eb49a4476bf60c71933350b66752404f0c51317ab35865b"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/document.py",
+      "bytes": 4706,
+      "sha256": "b1c6377b947093325f72dc2d8c4966834fa949690f4b7d18d4291f9bb5bba5eb"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/extractor.py",
+      "bytes": 3325,
+      "sha256": "b12323986a4d3bf0b8d932e5c36d52f2ee517ad21aa900170dd9ca95adebe892"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/frame_notation.py",
+      "bytes": 14971,
+      "sha256": "c5c0820a424f6793d7d1b82a946da0a61918cf6a9ce535dcc66f44737aee8daf"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/ir.py",
+      "bytes": 3222,
+      "sha256": "a70cb7db3e188fda0c760768d40ad079a889e0e5250fb39e5a1c71d27d26f267"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/lean_gate.py",
+      "bytes": 12516,
+      "sha256": "e30594cef76c3215ece4424a4ca4fdf667460c86ebf9080fe0df0053dbdc67e2"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/library.py",
+      "bytes": 10368,
+      "sha256": "61f100938ffd718493b64e4e26f229cf7213f11b54dc9e990a565b492f9a3921"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/parser.py",
+      "bytes": 4965,
+      "sha256": "6cf45ec92c28a2b5832923edf58efaadfb3475adeb1706305ab21f4a57f7f2b6"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/paths.py",
+      "bytes": 946,
+      "sha256": "330ef1bfca788e581bc0cabb3ce02abbe98facefbe8d0834a2e18ebd7bc08f0a"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/profiles/engineering.yaml",
+      "bytes": 5039,
+      "sha256": "5438cd894488b25cf6aefc1469de3821ad262097598d166d001b5b5669dc4355"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/profiles/house.yaml",
+      "bytes": 1076,
+      "sha256": "14cb81eae03e907bf2b5b432f1bb568c0ac04d04f9f7dd493bb35058350fe073"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/profiles/lean.yaml",
+      "bytes": 817,
+      "sha256": "5befc9e023960a9a6fcd0c7f20f5e607af41a0854c4630d48921fa79635d82de"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/profiles/vectrix.yaml",
+      "bytes": 596,
+      "sha256": "e70e4b2a05e5ae665a2394f467a2c30109528b061cf31cc1ea9e169df7893aa9"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/profiles.py",
+      "bytes": 7030,
+      "sha256": "1b234083730f518c43e22a9eb74a0748bea1c20803e63859352136271f91c63d"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/reader.py",
+      "bytes": 9797,
+      "sha256": "1b7911815ac77cb309d6e34db0645fc29043c6be4f3c4395205b7cd48c618175"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/reader_markdown.py",
+      "bytes": 19942,
+      "sha256": "3b1766aec2807224c8b2e744dc448371741706ef1e152d85c369742429d7abc0"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/receipts.py",
+      "bytes": 1844,
+      "sha256": "faf60e8bd2b14a2101ac33e3115debce301d71430a8e1c40de766c97ae986963"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/render.py",
+      "bytes": 5688,
+      "sha256": "9f38d2c6085947dd9db900d07892c9a23a464980150df0747101ae2bcbcdbf75"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/sets.py",
+      "bytes": 2317,
+      "sha256": "5136cde145693193302528a6703c3c8f5a6863e6ac9ff110ca350899e15bfb80"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/statement.py",
+      "bytes": 11414,
+      "sha256": "6c08fe59fe0b2495f741a9f1b4a8b030439f15dde6d4da03c145fb7c8c774779"
+    },
+    {
+      "path": "xylem-plugin/canonical/brickconverter/wiley_display.py",
+      "bytes": 3685,
+      "sha256": "53402076b2532cdc8270e56abbfc545e8372dcd72985b9d32d256d739548446c"
+    },
+    {
+      "path": "xylem-plugin/canonical/example-config.json",
+      "bytes": 865,
+      "sha256": "d4984c80d88c0e866ab3f322fef3ac2801bc38472263ae97456bea00e1312020"
+    },
+    {
+      "path": "xylem-plugin/canonical/mcp.sh",
+      "bytes": 1398,
+      "sha256": "d75059e98411f61e0b0ecfcb0765a8c9aea0c1c711ed794bbc75e60e246e1239"
+    },
+    {
+      "path": "xylem-plugin/canonical/requirements.txt",
+      "bytes": 138,
+      "sha256": "594cd77626feb3b268c1759efeae1a4f5510645a22a2066522215a1b44af2f1c"
+    },
+    {
+      "path": "xylem-plugin/canonical/run.py",
+      "bytes": 7018,
+      "sha256": "d4dc5aab89314663a3a346a7d9a3c401083ca7683e125395d96be9198a73d31c"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/__init__.py",
+      "bytes": 663,
+      "sha256": "965df0224826848fd1439c2bf0fd9afda3f061e1612d343c08b5e8cea17906a4"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/build.py",
+      "bytes": 21880,
+      "sha256": "4b2e56b9ca0e1ff4fecd2802f8720f09347cf03bc32a8417b86d3f1f981f30a5"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/catalogue.py",
+      "bytes": 8730,
+      "sha256": "13160a239b610e8f5ef0b0e63165a7e77586ef83b25f7c2d9c40049e15aa1ad7"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/config.py",
+      "bytes": 790,
+      "sha256": "b437966d34ed6466fe4bdc157e9218b8065927d3d3cd58a2edd964d7dbd6375e"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/input_state.py",
+      "bytes": 3740,
+      "sha256": "9756d80456d59b6876782ec5da5f906fb29dfd2a1ee35d408bb82bb887c83e0b"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/navigation.py",
+      "bytes": 12111,
+      "sha256": "7dc522060dd0f6a95dd1390276ed0298a4bbe7e95579ea0c74a8480fd1f4611a"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/query.py",
+      "bytes": 20318,
+      "sha256": "68a23188bc38bf1f48862855d782039084ca846cb4d6065a400cf0bb0c27d231"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/reviewer.py",
+      "bytes": 24772,
+      "sha256": "f221c57c06ca5f0a60fcafa82d577d9ff08bab186baef1ee331b31a843bdf45d"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/schema.sql",
+      "bytes": 3453,
+      "sha256": "e4afccb87114c03742b02be03a2f0faeb30f243ff34d6d1cf75d1a4aa189fbe5"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/server.py",
+      "bytes": 10119,
+      "sha256": "ff97663cc2481a137971ffd79de0d455579856af2595e84f14aa08776c427c50"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/similarity.py",
+      "bytes": 13797,
+      "sha256": "aaf237c2cdc73cd486dc280174d24a007658bda04794bdb2ad8ea4153f39c21a"
+    },
+    {
+      "path": "xylem-plugin/canonical/xylem/xylem/store.py",
+      "bytes": 6069,
+      "sha256": "5c17b4c9f8550ccfc57120d43fa86c2aa74ad8b2bad35bfd537869fad1585e85"
+    },
+    {
+      "path": "xylem-plugin/capture/ORIGIN.md",
+      "bytes": 755,
+      "sha256": "4c04a4a6f9f547c5502b567a4f8c05bfb86664d586498521a865dc8f4638e8b5"
+    },
+    {
+      "path": "xylem-plugin/capture/capture_declaration.py",
+      "bytes": 8467,
+      "sha256": "6af9dce320ba2c25519ed36bf4d637efb9d216202673d77d59614844e170df7e"
+    },
+    {
+      "path": "xylem-plugin/capture/declarations.json",
+      "bytes": 2628,
+      "sha256": "149d82dc59bc637178157c4e409c53ae70717c5c49face322757ff7741f2bfc8"
+    },
+    {
+      "path": "xylem-plugin/examples/INDEX.json",
+      "bytes": 2877,
+      "sha256": "1c7eb59da37873414d88f1bdc418c0773935dc012649b91b2ad0f452cb4eb450"
+    },
+    {
+      "path": "xylem-plugin/examples/INDEX.md",
+      "bytes": 764,
+      "sha256": "d7cdbcbb25229a05d3a1a7879e93d43645f156a99ff935e1d02f5553c1c1f799"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/component-record.json",
+      "bytes": 8927,
+      "sha256": "445755eeffdfda92f76f2f4aebeedb9bf6cf5496408d0cf25fbd2cd085679dd8"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/assumptions.json",
+      "bytes": 402,
+      "sha256": "8936df26989189d4993e92df199528cca3ac753f29fa1da0c0096db40724fcf2"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/bundled-converter-test.json",
+      "bytes": 458,
+      "sha256": "91d928668a7b02fa705796537b6e9ee1e98e816587612072fa4413e297a84905"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/bundled-mcp-test.json",
+      "bytes": 600,
+      "sha256": "7413d555d45e6a1f817d7c1802345b7882efe9ea1c63518ceab30a590393fb00"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/dependency-state-propagation.json",
+      "bytes": 1838,
+      "sha256": "12e3c3c9660d649ccb5ca830d3a60ce27d89fa00aa322cc701267bc1652b147e"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/extraction-summary.json",
+      "bytes": 1164,
+      "sha256": "171211502675de40117408fed761ef2fed1af1ee213d424b136799e320663f35"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/inventory-summary.json",
+      "bytes": 1291,
+      "sha256": "46ed9eb8d95b7876a78bd3faac8e345e63bce84378c3a7935f24965452c72193"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/reproduction-receipt.json",
+      "bytes": 1121,
+      "sha256": "d0098f39d795b77ede37eaddf8bb5326d81c692b9e1b6607ec1d66e476f50bdf"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/review-corrected-explanations.json",
+      "bytes": 894,
+      "sha256": "e2e285eb0c347642a822a8c2f953494242fd81f1fd03bb93fbc0ff2d8fe9a239"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/evidence/source-fingerprints.json",
+      "bytes": 565,
+      "sha256": "f87b29ae8f48297d43828f81757a642b16913f5e10ecec24cc5510f660e5508b"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/explanation-hS.json",
+      "bytes": 8037,
+      "sha256": "5c44a8e88ef13c04e4b7305a04b2dc73875fecf78be030b3af14e6d265106847"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/explanation-hS.md",
+      "bytes": 4095,
+      "sha256": "2c4599c94a9a3d5754be426eeea8e49471a839d56f67aacdcba6b616f5b9b4f2"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/graph/declarations.json",
+      "bytes": 2623,
+      "sha256": "946c3f6fd4298d828178c46b112a778219c583acd5648714420083f19448d200"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/graph/module_graph.dot",
+      "bytes": 100,
+      "sha256": "1a633d09f3ee1e00edde3b60b3bf7ef5cfec4121542176a8af0cce8453fa1c2f"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/proof/CompactBoundsExplicitResolved.lean",
+      "bytes": 2333,
+      "sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/third_party/openai-math/LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/third_party/openai-math/NOTICE.md",
+      "bytes": 345,
+      "sha256": "f2ccbcdc270e65a4142faed1db9298a2d451bf2d2626528ff8bed218f8118ce0"
+    },
+    {
+      "path": "xylem-plugin/examples/compact-bounds/vault/README.md",
+      "bytes": 175,
+      "sha256": "1b5989a38188e192b165aa00e31ad7461b687cf92fa9f090e0d71879ce8c24ed"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/.gitignore",
+      "bytes": 46,
+      "sha256": "7c0a0b9bfdf5e73bee1a00edc5f484225d493bb5464d09dfc4475e7f49ca1bad"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/BOOTSTRAP-PUBLIC-MACOS.md",
+      "bytes": 8599,
+      "sha256": "543a266661e4da4cbf5bbbd4fc820d13b6d09034896c948e15f4fb78aae05eb0"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/README.md",
+      "bytes": 4643,
+      "sha256": "7f29a9db71f8c9d01c21561322cbf24e061bbf2a6186d4cb3aeeca573eb6a88c"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md",
+      "bytes": 8121,
+      "sha256": "8a9a89220ad6d470cf287aa20409ecaf3a72067c64651f9a4509c005f2dbadca"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/graph/declarations.json",
+      "bytes": 517148,
+      "sha256": "68df142ee51871579346df8a7d8b5d538c10843d2a93ca722c4200ef683c8dad"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/graph/module_graph.dot",
+      "bytes": 8596,
+      "sha256": "7c2328df45b24701c42afeaba51c66db3ad07a321f8d6e5eb0bbf9a0480efe07"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/make_full_e2e_config.py",
+      "bytes": 4102,
+      "sha256": "c0205df4fcd138564bb04a57253625607403ab146d130f5dbf8cb9291307bc57"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/vault/PointMassComFlow.md",
+      "bytes": 3488,
+      "sha256": "c5224202f348e2956f2082efcc1a30ba338fdb6d23e6ba331300293dc4e7788f"
+    },
+    {
+      "path": "xylem-plugin/examples/ctrllib-e2e/xylem-e2e-config.json",
+      "bytes": 795,
+      "sha256": "855376d57a7a8ae3f9b8f7be0811fb9d88aa40a2d728325401d15edfc3c51fc8"
+    },
+    {
+      "path": "xylem-plugin/mcp/bundled_launcher.py",
+      "bytes": 1279,
+      "sha256": "4715b71a64c2575b86b772fd83bbc09f6bc02856ea5e0f4971d406978efb4a11"
+    },
+    {
+      "path": "xylem-plugin/mcp/bundled_server.py",
+      "bytes": 9930,
+      "sha256": "7e7915c7f78119eca046d3c903417f75b38bd67a7a48ae7205e9a6041af5ebe7"
+    },
+    {
+      "path": "xylem-plugin/package-metadata.json",
+      "bytes": 3688,
+      "sha256": "cca2f524d10d25b7cbe507bae3fee958ac16a48017cc836f3d3b1cd073553aa4"
+    },
+    {
+      "path": "xylem-plugin/runtime/bundled_converter.py",
+      "bytes": 7200,
+      "sha256": "6d9ad669c64f7270c6869cea87b896b6b88b4aec20379ef69fd8eeb53caa086f"
+    },
+    {
+      "path": "xylem-plugin/skills/explain-proof-component/SKILL.md",
+      "bytes": 1487,
+      "sha256": "0b946628ac4faf5d5d34d89159e085b1f10ae8d574ec58a43b9e0c9efd300b97"
+    },
+    {
+      "path": "xylem-plugin/skills/flexiformal-converter/SKILL.md",
+      "bytes": 1444,
+      "sha256": "838b5afbce03f1462b914da50420ba240416a614440970ed3f2e5b1bd18115cb"
+    },
+    {
+      "path": "xylem-plugin/skills/review-proof-explanation/SKILL.md",
+      "bytes": 1070,
+      "sha256": "5f0785565e0658b596a7bf34694a7e0618ded6931e17f20564dbc2c03ce53eea"
+    },
+    {
+      "path": "xylem-plugin/tests/test_bundled_mcp.py",
+      "bytes": 4637,
+      "sha256": "dac95528c617503c3f5344791e5423d15c589d315203b6723b6d1897ffb75822"
+    },
+    {
+      "path": "xylem-plugin/tests/test_capture_safety.py",
+      "bytes": 2100,
+      "sha256": "b1c9546a334c198f0a117134a068405d498be6cee8eb90f62ec1aaffc5b5fd73"
+    },
+    {
+      "path": "xylem-plugin/tests/test_grounded_packet.py",
+      "bytes": 2339,
+      "sha256": "74051dbbfeb46d7b7463ff6ff9a6344b0550879ac2b43f0310f01fb2a6455a02"
+    },
+    {
+      "path": "xylem-plugin/tests/test_host_config.py",
+      "bytes": 7667,
+      "sha256": "a3f278c0ac775a3128433057ac63256a9b4cf4c853523efa5b87175b0cf641db"
+    },
+    {
+      "path": "xylem-plugin/tests/test_premise_availability.py",
+      "bytes": 2000,
+      "sha256": "15d88df8bb069b626554e7a4e2ffc8c8e221e302e8d07daba43452e6d3270e52"
+    },
+    {
+      "path": "xylem-plugin/tests/test_release_corrections.py",
+      "bytes": 11294,
+      "sha256": "b907efdf3d326e2a3e67ca2570179f9a339b3d0d4639b73ef19fc8205ec5c803"
+    }
+  ]
+}

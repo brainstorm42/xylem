@@ -1,0 +1,15 @@
+{
+  "schema": "xylem-compact-bounds-inventory/v1",
+  "status": "observed_pass",
+  "target": "OAI.Problem326.compact_positive_uniform_bounds",
+  "exact_type": "∀ {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}, IsCompact K → (∀ x ∈ K, ∀ (i : ι), 0 < x i) → ∃ ε, 0 < ε ∧ ε < 1 ∧ ∀ x ∈ K, ∀ (i : ι), ε ≤ x i ∧ x i ≤ ε⁻¹",
+  "axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "boundary_count": 3,
+  "leading_spine": [
+    {"path": "root/body/body/body/body/body", "local_name": "S", "local_type": "Set ℝ", "proposition_valued": false, "eligibility": "rejected_data_boundary"},
+    {"path": "root/body/body/body/body/body/body", "local_name": "hS", "local_type": "IsCompact S", "proposition_valued": true, "eligibility": "eligible_native_proposition_boundary"},
+    {"path": "root/body/body/body/body/body/body/body", "local_name": "hSpos", "local_type": "∀ y ∈ S, 0 < y", "proposition_valued": true, "eligibility": "eligible_native_proposition_boundary"}
+  ],
+  "source_preservation": {"proof_body_preserved": true, "original_import": "Mathlib", "resolved_import_count": 7, "selection": "hS and hSpos"},
+  "provenance": "Sanitized summary of the accepted CompactBounds run; the frozen candidate contains the complete bounded replay."
+}

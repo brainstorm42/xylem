@@ -1,0 +1,21 @@
+{
+  "relative_to": "config",
+  "paths": {
+    "data": "graph",
+    "dot": "graph/module_graph.dot",
+    "extractor": "graph/declarations.json",
+    "vault": "vault",
+    "bricks": "",
+    "bib": "",
+    "ctrllib": "../../../ctrllib",
+    "db": "graph/xylem.db",
+    "converter_capture": "graph/declarations.json",
+    "converter_profile": "../../canonical/brickconverter/profiles/engineering.yaml"
+  },
+  "notes": {
+    "source": "five-record fixture selected from a verified 123-module source-first run",
+    "dependency_data": "premises are present for the selected records; fixture completeness is partial",
+    "source_explanation": "vault/PointMassComFlow.md pairs with Ctrllib.PointMassComFlow",
+    "component_mapping": "no Brick or bibliography inputs are bundled in this example"
+  }
+}

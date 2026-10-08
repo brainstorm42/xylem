@@ -1,0 +1,1195 @@
+{
+  "schema": "ctrllib-public-module-brick-map-v1",
+  "source_basis": "exact current Brick README manifest lean_modules membership",
+  "mapping_is_not": [
+    "proof acceptance",
+    "theorem equivalence",
+    "rights clearance"
+  ],
+  "denominator": {
+    "included_modules": 123
+  },
+  "notes": [
+    "Exact manifest relations are distinct from subject navigation."
+  ],
+  "modules": [
+    {
+      "module": "Ctrllib.ActuationBound",
+      "path": "ctrllib/Ctrllib/ActuationBound.lean",
+      "sha256_canonical": "87a12ef59ed2e5dcbe98fdf18140e731397925c2b372617fd938072d8176b770",
+      "direct_brick_mappings": [
+        "actuation_error_bound"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.AllocationRealizationError",
+      "path": "ctrllib/Ctrllib/AllocationRealizationError.lean",
+      "sha256_canonical": "66f1c2b885614397707519803c079db4308b10f7112d37e5d60d5cdc688f9c1c",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.AllocationSignConvention",
+      "path": "ctrllib/Ctrllib/AllocationSignConvention.lean",
+      "sha256_canonical": "a37ad63e58fb4aac06cd9f9a111c58a939848e60d1943f4b8df76bd62df0223a",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.AssumeGuarantee",
+      "path": "ctrllib/Ctrllib/AssumeGuarantee.lean",
+      "sha256_canonical": "8143991935d5e2df6b0122a75c235b8c64450dbb098c2ba49cebb699f9fb9a7e",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Barbalat",
+      "path": "ctrllib/Ctrllib/Barbalat.lean",
+      "sha256_canonical": "81c0701d5b11a9ad61b2532f0c97ca8c986a90079cf4658745ad107524e3cc61",
+      "direct_brick_mappings": [
+        "barbalat_convergence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.BernoulliCount",
+      "path": "ctrllib/Ctrllib/BernoulliCount.lean",
+      "sha256_canonical": "8ff24be426c8cc6ee808297f33a40ecdadd614b09958b0948d3cd92b70491c79",
+      "direct_brick_mappings": [
+        "binomial_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.BinomialConfidence",
+      "path": "ctrllib/Ctrllib/BinomialConfidence.lean",
+      "sha256_canonical": "ebdf9eddafd5ca5fe50fc0ed577f8a5d38fead335f268a4927eba7f0d0d66500",
+      "direct_brick_mappings": [
+        "binomial_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.BinomialZeroFailure",
+      "path": "ctrllib/Ctrllib/BinomialZeroFailure.lean",
+      "sha256_canonical": "6af55481edd3d2e81a9b54aed80062f842492d60635a94695f9edf262b282417",
+      "direct_brick_mappings": [
+        "binomial_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.BlockLyapunov",
+      "path": "ctrllib/Ctrllib/BlockLyapunov.lean",
+      "sha256_canonical": "e1d244c1b2a7f65c3d457ccb08c99334510613b43a133e0fa8cd912f05315d31",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.BlockPrecompact",
+      "path": "ctrllib/Ctrllib/BlockPrecompact.lean",
+      "sha256_canonical": "6b1ac90d24689e93271d58db6c3735a8448357ed7e592bfe810fcae2577362a8",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Cascade",
+      "path": "ctrllib/Ctrllib/Cascade.lean",
+      "sha256_canonical": "3221eafb7f342aae31a97fae109137a71a386f7ebd8451a9689598e166177d7f",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CircumcentroidalCorrection",
+      "path": "ctrllib/Ctrllib/CircumcentroidalCorrection.lean",
+      "sha256_canonical": "17a2033af1db814ced0a03b52a62515e9247bb9bd29afb3e0b261a822de52372",
+      "direct_brick_mappings": [
+        "circumcentroidal_correction"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CircumcentroidalPassivity",
+      "path": "ctrllib/Ctrllib/CircumcentroidalPassivity.lean",
+      "sha256_canonical": "1a9ff0531c67e089fede10f654655285793a1873f41d71f04fe4939af3fafbd0",
+      "direct_brick_mappings": [
+        "circumcentroidal_passivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CircumcentroidalRank",
+      "path": "ctrllib/Ctrllib/CircumcentroidalRank.lean",
+      "sha256_canonical": "39084f96f051c56fccb79678bfc081d47ddabda1dfa4e85bb17602ed0045fca1",
+      "direct_brick_mappings": [
+        "circumcentroidal_correction",
+        "circumcentroidal_update_rank"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ComLaSalle",
+      "path": "ctrllib/Ctrllib/ComLaSalle.lean",
+      "sha256_canonical": "80a60ba2f590c2a770ef87e0048b726d4503bc0104a4efae19d7895ce94de7f0",
+      "direct_brick_mappings": [
+        "com_attractivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ComLaSalleMatrix",
+      "path": "ctrllib/Ctrllib/ComLaSalleMatrix.lean",
+      "sha256_canonical": "6467a2dc9178cbf5250029a739f7a4b9a6229825bfffbb6e2918550d7090c4db",
+      "direct_brick_mappings": [
+        "matrix_com_attractivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ComparisonFunctions",
+      "path": "ctrllib/Ctrllib/ComparisonFunctions.lean",
+      "sha256_canonical": "63d8dc7fd9481320c0562073302fc48e2ce558b4fd0d4e91b38c285219aa8fa6",
+      "direct_brick_mappings": [
+        "comparison_functions"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ComparisonUltimateBound",
+      "path": "ctrllib/Ctrllib/ComparisonUltimateBound.lean",
+      "sha256_canonical": "5015b3c23a4dae0ec1fe543c930a9d47314e6e903b1e9fee842c90b3adbc4c9f",
+      "direct_brick_mappings": [
+        "differential_comparison"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CoupledCollapse",
+      "path": "ctrllib/Ctrllib/CoupledCollapse.lean",
+      "sha256_canonical": "2134dbafc009a38188e1733ae91fc8f85d54ae852db876d41f0c02f22cb492ba",
+      "direct_brick_mappings": [
+        "coupled_lasalle_specialization"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CoupledCollapseMatrix",
+      "path": "ctrllib/Ctrllib/CoupledCollapseMatrix.lean",
+      "sha256_canonical": "a39c7e33589d1aae37aeea2252f5672bf2b0481fa6f2cca1e5519f505e466757",
+      "direct_brick_mappings": [
+        "coupled_lasalle_specialization"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CoupledDissipation",
+      "path": "ctrllib/Ctrllib/CoupledDissipation.lean",
+      "sha256_canonical": "f5399defbea848dafae0389f5a119a591d18c6c0e9fbc91d8f9e02242538b906",
+      "direct_brick_mappings": [
+        "coupled_field_dissipation"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CoupledField",
+      "path": "ctrllib/Ctrllib/CoupledField.lean",
+      "sha256_canonical": "3090048ea9b41b3e65bcf16152f6fa25905e46435d7756453d5a1884d1ae6328",
+      "direct_brick_mappings": [
+        "coupled_field_dissipation"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CoupledSandwich",
+      "path": "ctrllib/Ctrllib/CoupledSandwich.lean",
+      "sha256_canonical": "5ce8d6fd45f664d523163e6e5b78fb5c6d96ef4213b80cc5f50d276883543fa0",
+      "direct_brick_mappings": [
+        "coupled_lasalle_specialization"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CruiseLag",
+      "path": "ctrllib/Ctrllib/CruiseLag.lean",
+      "sha256_canonical": "611f49a7d9362b68d6ba05b74a90d94fba063fc5b8c5ffe408cf88c61e22b6ab",
+      "direct_brick_mappings": [
+        "tracking_steady_lag"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarConfidence",
+      "path": "ctrllib/Ctrllib/CvarConfidence.lean",
+      "sha256_canonical": "949a4c832240361466fd03f7e5ddc8b6302626d6f22ef604fac2f7eab67b3874",
+      "direct_brick_mappings": [
+        "finite_validation_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarEmpiricalConfidence",
+      "path": "ctrllib/Ctrllib/CvarEmpiricalConfidence.lean",
+      "sha256_canonical": "4579df887a19e684af0f835893e66fc3e88f83e5522d0541bb940defb5e5bb0c",
+      "direct_brick_mappings": [
+        "finite_validation_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarGridApproximation",
+      "path": "ctrllib/Ctrllib/CvarGridApproximation.lean",
+      "sha256_canonical": "781c3faaefeda16cd2142f5572c9b9e5eff1d43fd332452074491340f553f33b",
+      "direct_brick_mappings": [
+        "cvar_saa_engine"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarInfForm",
+      "path": "ctrllib/Ctrllib/CvarInfForm.lean",
+      "sha256_canonical": "4e5574335bea436e533269576cbb83bfecbae704b2972275db630665949c791c",
+      "direct_brick_mappings": [
+        "cvar_saa_engine"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarMarginWrapper",
+      "path": "ctrllib/Ctrllib/CvarMarginWrapper.lean",
+      "sha256_canonical": "e0048199bed252f8f18ba99bdd587db1dd77db83d3d0e01427e17cc406213c86",
+      "direct_brick_mappings": [
+        "sampled_risk_adapters"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarPopulation",
+      "path": "ctrllib/Ctrllib/CvarPopulation.lean",
+      "sha256_canonical": "5011ba77b1a7178854617fd5d36e662274deca3aa83231f6d75c06cbc85faa77",
+      "direct_brick_mappings": [
+        "cvar_population"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.CvarStateCost",
+      "path": "ctrllib/Ctrllib/CvarStateCost.lean",
+      "sha256_canonical": "7b047d22b77ba5b013c13ba78a7ca49efedaa5e41fe69eaf14bfc1af0829dcc5",
+      "direct_brick_mappings": [
+        "sampled_risk_adapters"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.DetGamma",
+      "path": "ctrllib/Ctrllib/DetGamma.lean",
+      "sha256_canonical": "fe1debf90fd1a786225f504c67e74b8f36eece652f373f66ad837687f0525691",
+      "direct_brick_mappings": [
+        "coordinated_invertibility"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ElasticAttachment",
+      "path": "ctrllib/Ctrllib/ElasticAttachment.lean",
+      "sha256_canonical": "4491bbfb1e27fb1e1ce3c00ca9080563562e2c28cd38704efca36ec904375258",
+      "direct_brick_mappings": [
+        "elastic_attachment_balance"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.EqualityConstrainedQuadratic",
+      "path": "ctrllib/Ctrllib/EqualityConstrainedQuadratic.lean",
+      "sha256_canonical": "893e24b27079c2e09f8e788861543b15a07658d26c68eab6a8e800f3b17b59d8",
+      "direct_brick_mappings": [
+        "weighted_quadratic_allocation"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.EstimationError",
+      "path": "ctrllib/Ctrllib/EstimationError.lean",
+      "sha256_canonical": "b32c4f2df6cd5c6c8a302e3b4078ddce7c9641c80600a5fe358628f4e142027c",
+      "direct_brick_mappings": [
+        "estimation_error"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.EuclideanNormBridge",
+      "path": "ctrllib/Ctrllib/EuclideanNormBridge.lean",
+      "sha256_canonical": "3a233fc09f9281e7c39ef2b2898845f75c8c432a9e8a536af3930c44067f2b7a",
+      "direct_brick_mappings": [
+        "euclidean_operator_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Examples.ProofSearchReuse",
+      "path": "ctrllib/Ctrllib/Examples/ProofSearchReuse.lean",
+      "sha256_canonical": "50ecd92f42d41b551defbbdd5473bd368c206603e82c90d46dab3131abffe094",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ForcedImpedance",
+      "path": "ctrllib/Ctrllib/ForcedImpedance.lean",
+      "sha256_canonical": "800fc13264cb1f696874196ea9abd33c30d7984070eaf0cf6e8053258f31e463",
+      "direct_brick_mappings": [
+        "forced_impedance_balance"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.GammaInvertible",
+      "path": "ctrllib/Ctrllib/GammaInvertible.lean",
+      "sha256_canonical": "6dfcc8999f887caf46463e7dff4e9d3c9b1d3dc5f1de107e155706f4bf877524",
+      "direct_brick_mappings": [
+        "coordinated_invertibility"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.GaussianTail",
+      "path": "ctrllib/Ctrllib/GaussianTail.lean",
+      "sha256_canonical": "dccf36580a81ba167a1b3e11f66e2c838e87ddccaa157138371c70482dd36854",
+      "direct_brick_mappings": [
+        "gaussian_tail"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.GiordanoErrata",
+      "path": "ctrllib/Ctrllib/GiordanoErrata.lean",
+      "sha256_canonical": "a56ab8dcd434b6e6b351820d2888e37d0c338834fc1248c5e0eb967264575277",
+      "direct_brick_mappings": [
+        "giordano_errata"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.HoeffdingViewLoss",
+      "path": "ctrllib/Ctrllib/HoeffdingViewLoss.lean",
+      "sha256_canonical": "32493b893c2df83e1c11f33f092e637566d4957fb3c6441881cc59dd209b0ebf",
+      "direct_brick_mappings": [
+        "finite_validation_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.InspectionMargin",
+      "path": "ctrllib/Ctrllib/InspectionMargin.lean",
+      "sha256_canonical": "e9e7dee0357f1790c0136e9e1fed1ef0e38b061a1ca83bc958e2bee921916928",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.IntegratedEnergy",
+      "path": "ctrllib/Ctrllib/IntegratedEnergy.lean",
+      "sha256_canonical": "cedd7727eb67680a38354940b67dade4bc0f54c806ef7204ec3ff17d85e1f5e0",
+      "direct_brick_mappings": [
+        "forced_impedance_balance"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.KernelLift",
+      "path": "ctrllib/Ctrllib/KernelLift.lean",
+      "sha256_canonical": "516759601949c78f76898068246cac2cb770df16252bb1e986122b186a65866f",
+      "direct_brick_mappings": [
+        "nullspace_projector_lift"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.KhalilComparison",
+      "path": "ctrllib/Ctrllib/KhalilComparison.lean",
+      "sha256_canonical": "4d30db6de18456af106ebda7359a1d81e51305781efb217e824cbcca404ed552",
+      "direct_brick_mappings": [
+        "barbalat_convergence",
+        "differential_comparison"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.KhalilStability",
+      "path": "ctrllib/Ctrllib/KhalilStability.lean",
+      "sha256_canonical": "50b53b277bf4e0c154efcab306d2dc1f5454965fafce2a4fce986c8e7e1ac679",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.KoenigDecomposition",
+      "path": "ctrllib/Ctrllib/KoenigDecomposition.lean",
+      "sha256_canonical": "9d2c4c0923c16932845bb28ab79c9e4a970dd54363970714a752c90b497d0287",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.LaSalle",
+      "path": "ctrllib/Ctrllib/LaSalle.lean",
+      "sha256_canonical": "209db932df733ca15d7e03f594f0d835851fe0b1af0c8cae7f7989fd918bbc93",
+      "direct_brick_mappings": [
+        "com_attractivity",
+        "lasalle_flow_engine"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.LinearOperatorFlow",
+      "path": "ctrllib/Ctrllib/LinearOperatorFlow.lean",
+      "sha256_canonical": "9d879cb81ed9e05805d5cdefd02097529a1010e999f78df31827a00cdb3bd782",
+      "direct_brick_mappings": [
+        "matrix_impedance_stability"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Lyapunov",
+      "path": "ctrllib/Ctrllib/Lyapunov.lean",
+      "sha256_canonical": "ef2bca7ccaebda8524eacdd20ce904c4843e9713dfed850ca9cba70089a23866",
+      "direct_brick_mappings": [
+        "differential_comparison"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ManipulatorEnergy",
+      "path": "ctrllib/Ctrllib/ManipulatorEnergy.lean",
+      "sha256_canonical": "12e77b83dead176819557d36335290ef9ecedd4a7711e824a8404f56af312ef5",
+      "direct_brick_mappings": [
+        "manipulator_energy_balance"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.MatrixImpedance",
+      "path": "ctrllib/Ctrllib/MatrixImpedance.lean",
+      "sha256_canonical": "9af134cd5f566abb6de9ea5875254ae3c71a5f4480dbe3272daccb208ae88152",
+      "direct_brick_mappings": [
+        "matrix_impedance_stability"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.MovingReferenceFlow",
+      "path": "ctrllib/Ctrllib/MovingReferenceFlow.lean",
+      "sha256_canonical": "56c49be31c422e042022ed00037aa7b4ebd0f277de809288fbb3a85a4732e7ea",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.NominalMPC",
+      "path": "ctrllib/Ctrllib/NominalMPC.lean",
+      "sha256_canonical": "73436e8401a61e9d6c18e5c38f562b45471749a3577b16c5a3e69175c3c27bc3",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.NullspaceMotion",
+      "path": "ctrllib/Ctrllib/NullspaceMotion.lean",
+      "sha256_canonical": "227eb42c3b06cf1227d727bbfc5731bba753cbeee30dde1c22d233aa3ddfddb7",
+      "direct_brick_mappings": [
+        "nullspace_projector_lift"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ObserverUltimateBound",
+      "path": "ctrllib/Ctrllib/ObserverUltimateBound.lean",
+      "sha256_canonical": "74ef5264706b75c36eb28a91dbd29747fc06b4bc87cc3c60822ab797a92f1247",
+      "direct_brick_mappings": [
+        "estimation_error"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ObserverUniformBound",
+      "path": "ctrllib/Ctrllib/ObserverUniformBound.lean",
+      "sha256_canonical": "98ce1bfb5b58e7bc31cdd9f905c0625c87f7c1c7917e3bebbccc0a79d9ac7a5e",
+      "direct_brick_mappings": [
+        "estimation_error"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.PVSYoung",
+      "path": "ctrllib/Ctrllib/PVSYoung.lean",
+      "sha256_canonical": "67dbd49439d3b7dccd1c723d177573741a707bb0b17cd324e8ed4bb7a9c640d0",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Passivity",
+      "path": "ctrllib/Ctrllib/Passivity.lean",
+      "sha256_canonical": "d7c2f016d7d110f0c34e83c4c7d27b1a85499be00c8f26f1b14a7b55a12f78dc",
+      "direct_brick_mappings": [
+        "passivity_transport_algebra"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.PassivityTransport",
+      "path": "ctrllib/Ctrllib/PassivityTransport.lean",
+      "sha256_canonical": "11d056303ad62dd4afbd9ef032d0d3d9bd1b52e29eb2deec0d5e5162d23a5d69",
+      "direct_brick_mappings": [
+        "passivity_transport_algebra"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.PointMassComFlow",
+      "path": "ctrllib/Ctrllib/PointMassComFlow.lean",
+      "sha256_canonical": "0d3d09eb39c8d0c04ea53d58441587238d8fff671cfb042723dbec330d31e7db",
+      "direct_brick_mappings": [
+        "point_mass_stability"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.PointMassStability",
+      "path": "ctrllib/Ctrllib/PointMassStability.lean",
+      "sha256_canonical": "faab4cbcfd16e8227f26bda4b04553f33ce8d1bca24caaa1ff31314aa8b42104",
+      "direct_brick_mappings": [
+        "point_mass_stability"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.PopulationMeanConfidence",
+      "path": "ctrllib/Ctrllib/PopulationMeanConfidence.lean",
+      "sha256_canonical": "073c39ee211ab06622c71171454c89c9e98d32164412f9543c2ed47df1fc7579",
+      "direct_brick_mappings": [
+        "finite_validation_confidence"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Rayleigh",
+      "path": "ctrllib/Ctrllib/Rayleigh.lean",
+      "sha256_canonical": "59cd1121235e36f6100828293e8d60e84a6cd337f0ff322af5311a47ca18fe24",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.Reduction",
+      "path": "ctrllib/Ctrllib/Reduction.lean",
+      "sha256_canonical": "7f69cfd981b18699b87def61bacfc361c7853efdf28ae4f9073005bf31bee625",
+      "direct_brick_mappings": [
+        "com_attractivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReductionAttraction",
+      "path": "ctrllib/Ctrllib/ReductionAttraction.lean",
+      "sha256_canonical": "e4adb504ad686e0bb6f7e56c12bd3aadc1c2543049b4a532c799b7bc355c6958",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReductionStability",
+      "path": "ctrllib/Ctrllib/ReductionStability.lean",
+      "sha256_canonical": "55d451a24d99a0e0a1da581c1fcb4f1a2dca5aaaa50ce6dd23605a2a561920a1",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReductionStabilityFinish",
+      "path": "ctrllib/Ctrllib/ReductionStabilityFinish.lean",
+      "sha256_canonical": "35c90b2a4f81f6830eb0caf68acd3d11043c60c58e923e6f494f1b2c0a2bd42b",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReductionUniformization",
+      "path": "ctrllib/Ctrllib/ReductionUniformization.lean",
+      "sha256_canonical": "55b2f365d3be6ff480a5ed228ca627692d7246946175b8cdba82d3ebaf25a0bd",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceAdmissibility",
+      "path": "ctrllib/Ctrllib/ReferenceAdmissibility.lean",
+      "sha256_canonical": "adf9a435b49f66c4ad56f295cb00980603d38bd3b9449068785e967b1ed8dacc",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceCalculus",
+      "path": "ctrllib/Ctrllib/ReferenceCalculus.lean",
+      "sha256_canonical": "9a8274c9e214b259a66274f60f1f192240d98c0fdd0d973dd42d6e8b117d2d13",
+      "direct_brick_mappings": [
+        "reference_calculus"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceConditioning",
+      "path": "ctrllib/Ctrllib/ReferenceConditioning.lean",
+      "sha256_canonical": "a780848eba4318de8466d099d900166b55ba075c5774014546aa9f212d047b8b",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceFrameResidual",
+      "path": "ctrllib/Ctrllib/ReferenceFrameResidual.lean",
+      "sha256_canonical": "77b4f779ddf214afcc70fe2ab83c3d964c4266e3d3a54d9b254eb6fa7ef66eaf",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceLift",
+      "path": "ctrllib/Ctrllib/ReferenceLift.lean",
+      "sha256_canonical": "87009db2fe5652dc5387e2c4c62a785568154bdf6750bdcfe5ac38c07ab6d213",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferencePhase",
+      "path": "ctrllib/Ctrllib/ReferencePhase.lean",
+      "sha256_canonical": "d69f05a0de9903795929bd1c9fd8d6ca39e2af1eaa2f3d0e99fe96d7b582e861",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceTiming",
+      "path": "ctrllib/Ctrllib/ReferenceTiming.lean",
+      "sha256_canonical": "c16993b779540bf28e8a9eb5bbe690b7eb61dae42232e0005a51ab1184957df7",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.ReferenceTracking",
+      "path": "ctrllib/Ctrllib/ReferenceTracking.lean",
+      "sha256_canonical": "1989690f41506cd1e05d5d7e02d208ffd6f53bc9716e8598a4271a08f3de0f2d",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.RoverAsyncClearance",
+      "path": "ctrllib/Ctrllib/RoverAsyncClearance.lean",
+      "sha256_canonical": "56eb9511df96c13bf2e3ab3944b8a6dca3dd4470ca6793a867d0bcb19475f181",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Timing and sampled observation",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverClock",
+      "path": "ctrllib/Ctrllib/RoverClock.lean",
+      "sha256_canonical": "6be92b84a142205bf6971a28c05aab2af31490b07c206d68a4f2cd35a731526f",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Timing and sampled observation",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverConcreteClearance",
+      "path": "ctrllib/Ctrllib/RoverConcreteClearance.lean",
+      "sha256_canonical": "127a062a6c6411f70f1410a7234002c369e2011e0d6a74447875935d9df6d122",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverConcreteCovers",
+      "path": "ctrllib/Ctrllib/RoverConcreteCovers.lean",
+      "sha256_canonical": "7b91cdd4943370d78fc47e3ef447362667794715d5f3266c709707f0085f0297",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverHeadingClearance",
+      "path": "ctrllib/Ctrllib/RoverHeadingClearance.lean",
+      "sha256_canonical": "735edbf85bb11bed3f64ad0c56e3f04463c76a344b06e23bcb588100a5ba3013",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverIntervalClearance",
+      "path": "ctrllib/Ctrllib/RoverIntervalClearance.lean",
+      "sha256_canonical": "ba3094714d89cf3dfe7df3705f83c60cdc330f046bb36fb2f61c249b4ebd9ff3",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverKinematicCompatibility",
+      "path": "ctrllib/Ctrllib/RoverKinematicCompatibility.lean",
+      "sha256_canonical": "3ba5b118dc0e917260387a44812fb64afb11d3078a598641eb4048fe3a92b43f",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Geometry and kinematics",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverPlanarRotation",
+      "path": "ctrllib/Ctrllib/RoverPlanarRotation.lean",
+      "sha256_canonical": "f77ef870b83c752bb401d7f0d4cbfc544cd3a0bf66951f772a9a4d2b5689d333",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Geometry and kinematics",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverPoseGeometry",
+      "path": "ctrllib/Ctrllib/RoverPoseGeometry.lean",
+      "sha256_canonical": "4c770a29701041f4ae0235601b1e81e1cd2de5e7fa745ac7e30dc040e6c7808c",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Geometry and kinematics",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverRelativeTrace",
+      "path": "ctrllib/Ctrllib/RoverRelativeTrace.lean",
+      "sha256_canonical": "ce6be65ff025a0f3264c6f24c1c2c74126d08dd2a2ee28d1cc35679a96bdb189",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Motion, traces, and waypoints",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverSampledClearance",
+      "path": "ctrllib/Ctrllib/RoverSampledClearance.lean",
+      "sha256_canonical": "281a7de84a6ba93ae7ac0a83e34f77b83d9bcfe4822b964e9051d6ad288d794a",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Timing and sampled observation",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverStepResidual",
+      "path": "ctrllib/Ctrllib/RoverStepResidual.lean",
+      "sha256_canonical": "706c136ff14dc62815583c01fc5f630c9f8a1fa659b77bb65fb0989f26b145a4",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Motion, traces, and waypoints",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverTraceCertificate",
+      "path": "ctrllib/Ctrllib/RoverTraceCertificate.lean",
+      "sha256_canonical": "2437f15632f9f7f0890c15542b99b80a992079a28e6846e42dcbbe4ea889c375",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverTranslationMotion",
+      "path": "ctrllib/Ctrllib/RoverTranslationMotion.lean",
+      "sha256_canonical": "f3daf16375b0b1a700d357505a862fe87c7e98015e85074ca69a0276e7a84b40",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Motion, traces, and waypoints",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverWaypointClearance",
+      "path": "ctrllib/Ctrllib/RoverWaypointClearance.lean",
+      "sha256_canonical": "7040d9b08c75233c967f50c23ba7edd61a16ac14a57bf8e7f4e9183ee112fa50",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Clearance and trace certificates",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.RoverWaypointModel",
+      "path": "ctrllib/Ctrllib/RoverWaypointModel.lean",
+      "sha256_canonical": "fe05af19c38f43d08eff268e9d98e727d79b73379ccb6a20c2b704b6901788a1",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim",
+      "subject_group": "Motion, traces, and waypoints",
+      "subject_guide": "ROVER-PROVISIONAL.md"
+    },
+    {
+      "module": "Ctrllib.SevenDof",
+      "path": "ctrllib/Ctrllib/SevenDof.lean",
+      "sha256_canonical": "29f42f9a86652ae9a92b98aba67ee7b2ebe291c0c6af2e1db190878d8f78af3d",
+      "direct_brick_mappings": [
+        "seven_dof_nullspace_damping",
+        "seven_dof_passivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SevenDofDecoupling",
+      "path": "ctrllib/Ctrllib/SevenDofDecoupling.lean",
+      "sha256_canonical": "dcab816eae90f66a7a411170620da84239e1f552b869d215d7e67d9a5270c7d3",
+      "direct_brick_mappings": [
+        "seven_dof_decoupling"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SevenDofTaskBlock",
+      "path": "ctrllib/Ctrllib/SevenDofTaskBlock.lean",
+      "sha256_canonical": "68f20749635942cc1d39e7afff568e4710e2fe666eb6daa7d845a706c20ce8fa",
+      "direct_brick_mappings": [
+        "seven_dof_task_block"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SigmaMinDet",
+      "path": "ctrllib/Ctrllib/SigmaMinDet.lean",
+      "sha256_canonical": "0058d3ad94c819803b1f50edb593e8cc6806bd8e928d8a3ac56cbf64c24f58ac",
+      "direct_brick_mappings": [
+        "smallest_singular_value"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SingularValueInterface",
+      "path": "ctrllib/Ctrllib/SingularValueInterface.lean",
+      "sha256_canonical": "b544e96bd872b5db0cbe5f54f0220555038307ce701928440bdfc1fa11c3fffc",
+      "direct_brick_mappings": [
+        "rectangular_rank_nullspace",
+        "smallest_singular_value"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SkewCharP",
+      "path": "ctrllib/Ctrllib/SkewCharP.lean",
+      "sha256_canonical": "a10c80c5d13073eef98bd70fd308a12f351cf951ab333b2d24ba17d83ed86be5",
+      "direct_brick_mappings": [
+        "passivity_transport_algebra"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.SphericalHelix",
+      "path": "ctrllib/Ctrllib/SphericalHelix.lean",
+      "sha256_canonical": "6f899e6aa91387a713a0c3c415c4f71d73a6b7e5e9c836d6749ff16034da50fd",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.StiffnessResidual",
+      "path": "ctrllib/Ctrllib/StiffnessResidual.lean",
+      "sha256_canonical": "108b6f67121c52327176a41ea278205b816a3f5a668e8b677bc27cbd678f1373",
+      "direct_brick_mappings": [
+        "stiffness_residual"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovDeniedTask",
+      "path": "ctrllib/Ctrllib/TikhonovDeniedTask.lean",
+      "sha256_canonical": "78b5b8911be5ab112b31467be1c55b59617ea5d0d52422a3204c55a435e55532",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovEquality",
+      "path": "ctrllib/Ctrllib/TikhonovEquality.lean",
+      "sha256_canonical": "8fe845efb08760fabceb8ddebe4314a89cb8a7b2b307a9e045b6114007de7d4d",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovInverseDifference",
+      "path": "ctrllib/Ctrllib/TikhonovInverseDifference.lean",
+      "sha256_canonical": "04e8ea76cc34abd98e1622ce349e8fd3e5b3af546a58d2ea98a40d75304e2e14",
+      "direct_brick_mappings": [
+        "tikhonov_inverse_residual"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovOperatorBound",
+      "path": "ctrllib/Ctrllib/TikhonovOperatorBound.lean",
+      "sha256_canonical": "f0e771d1e3c64ec5c355c0c61dbfdd6be0a9fbb6bdde3a0bb5ff80c0498cb4f8",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovProp3",
+      "path": "ctrllib/Ctrllib/TikhonovProp3.lean",
+      "sha256_canonical": "09909c6fc7aa754fc29cf23687dee4e906fec1009cb87830b145f0f56c438054",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovRealizedTask",
+      "path": "ctrllib/Ctrllib/TikhonovRealizedTask.lean",
+      "sha256_canonical": "ee9f5c9f676b7e260019f1283c45656bb4ac7416be5d3cb79bfdc9d13bb7a2be",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovSVD",
+      "path": "ctrllib/Ctrllib/TikhonovSVD.lean",
+      "sha256_canonical": "8b281d4d1e1fd76be334b095bf492fcc6019953c99f2d8495f7ebc91b92d6665",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TikhonovUniformBound",
+      "path": "ctrllib/Ctrllib/TikhonovUniformBound.lean",
+      "sha256_canonical": "9618e7a7c67da050e4ad73ab58c197bd7e1c31a424811274bcd06e3f5ca21fe0",
+      "direct_brick_mappings": [
+        "tikhonov_modal_bounds"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TimeVaryingComparison",
+      "path": "ctrllib/Ctrllib/TimeVaryingComparison.lean",
+      "sha256_canonical": "7e35d36a94aad13a94d79b67ded16f4b37fe323e7398eda291a1d47984c32034",
+      "direct_brick_mappings": [
+        "differential_comparison"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingCascade",
+      "path": "ctrllib/Ctrllib/TrackingCascade.lean",
+      "sha256_canonical": "e69bb47632c605011b65b18e9d2e5aad94dbec7be3c519d8a7284d35986df552",
+      "direct_brick_mappings": [
+        "tracking_cascade"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingCrossTerm",
+      "path": "ctrllib/Ctrllib/TrackingCrossTerm.lean",
+      "sha256_canonical": "0987601f5eb502ae6d5f076084fd8b65975b009c6bae950683f512808738f431",
+      "direct_brick_mappings": [
+        "tracking_cross_term"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingDissipation",
+      "path": "ctrllib/Ctrllib/TrackingDissipation.lean",
+      "sha256_canonical": "6b7892efc9635c86d40e26e4554a540217187fe2a9af0c42b526ecd88450e6a3",
+      "direct_brick_mappings": [
+        "tracking_dissipation"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingErrorJacobian",
+      "path": "ctrllib/Ctrllib/TrackingErrorJacobian.lean",
+      "sha256_canonical": "4e4af0c4ee921b1e434dd521525674263b893ed99b71abcfe3111c9dcead1795",
+      "direct_brick_mappings": [
+        "tracking_jacobian"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingForcingInterface",
+      "path": "ctrllib/Ctrllib/TrackingForcingInterface.lean",
+      "sha256_canonical": "f2644aae6f99c00c37500c4d42d228ecf817cfa9d21c0e853efe226e500c5dbe",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingStorageDerivative",
+      "path": "ctrllib/Ctrllib/TrackingStorageDerivative.lean",
+      "sha256_canonical": "d6865881644b6847fc3ba4177220f9bb7dc1aa8039292bb2927098901d2bdfc3",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingStrictBound",
+      "path": "ctrllib/Ctrllib/TrackingStrictBound.lean",
+      "sha256_canonical": "c98aec8471133ece74e23edc8f28e1c2dfe0568b60fab953e78896a1793a7f50",
+      "direct_brick_mappings": [
+        "tracking_strict_bound"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingStrictBoundWeighted",
+      "path": "ctrllib/Ctrllib/TrackingStrictBoundWeighted.lean",
+      "sha256_canonical": "ed3682c2b73a7ffce033fce1be81d6ed2ae86f429cb159ad76b7e82562186879",
+      "direct_brick_mappings": [
+        "tracking_strict_bound_weighted"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.TrackingUltimateBound",
+      "path": "ctrllib/Ctrllib/TrackingUltimateBound.lean",
+      "sha256_canonical": "f3521e0982b5c09725821824633bdc7e0f1fed613125038d22159911956c2f26",
+      "direct_brick_mappings": [
+        "tracking_cascade"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.VaRSubadditivity",
+      "path": "ctrllib/Ctrllib/VaRSubadditivity.lean",
+      "sha256_canonical": "8f11905327e46dba5b72c27ae1e79feac716ed2326cbaf6177432da424876597",
+      "direct_brick_mappings": [
+        "var_subadditivity"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.WeightedAccelerationCompatibility",
+      "path": "ctrllib/Ctrllib/WeightedAccelerationCompatibility.lean",
+      "sha256_canonical": "d7226eb368daba39b5e9214df0f2c838b62aca539a7200a57036f3984f77a399",
+      "direct_brick_mappings": [],
+      "brick_mapping_status": "none",
+      "subject_status": "candidate; no acceptance claim"
+    },
+    {
+      "module": "Ctrllib.WeightedRightInverse",
+      "path": "ctrllib/Ctrllib/WeightedRightInverse.lean",
+      "sha256_canonical": "21efb88dec705c85e84d8ab7c43e4131fd3d8e4efb58a22b4e67de07d3734a9f",
+      "direct_brick_mappings": [
+        "weighted_quadratic_allocation",
+        "weighted_right_inverse"
+      ],
+      "brick_mapping_status": "direct_manifest_mapping",
+      "subject_status": "candidate; no acceptance claim"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "name": "proofbricks-xylem",
+  "version": "0.1.0",
+  "status": "release_candidate",
+  "license": "Apache-2.0",
+  "license_scope": "Scoped Apache-2.0; see NOTICE.md",
+  "surfaces": {
+    "canonical_runtime_config": "canonical/example-config.json for CompactBounds; examples/ctrllib-e2e/xylem-e2e-config.json for Ctrllib",
+    "canonical_xylem_build_query": "canonical/run.py build|query; source-preserving canonical Xylem package",
+    "canonical_mcp": "canonical/mcp.sh; existing Xylem MCP stdio server over the configured graph",
+    "canonical_converter": "canonical/run.py convert; source-preserving BrickConverter package",
+    "bundled_mcp_legacy": "mcp/bundled_server.py; retained example-scoped offline regression surface only",
+    "bundled_converter_legacy": "runtime/bundled_converter.py; retained stdlib-only regression surface only",
+    "declaration_capture": "capture/declarations.json exact CompactBounds projection; Ctrllib public extractor at ../ctrllib/Extract.lean",
+    "plugin_mcp_config": ".mcp.json linked by both plugin manifests",
+    "explanation_skill": "skills/explain-proof-component/SKILL.md",
+    "review_skill": "skills/review-proof-explanation/SKILL.md",
+    "canonical_runtime_origin": "canonical/ORIGIN.md",
+    "canonical_mcp_bridge": "bridge/emit_mcp_config.py and bridge/launch_canonical_xylem.py",
+    "canonical_converter_bridge": "bridge/launch_canonical_converter.py"
+  },
+  "offline_first_use": {
+    "python": "tested 3.12.13 and 3.12.14; declared runtime >=3.10",
+    "third_party_python_packages": [
+      "PyYAML==6.0.3",
+      "mcp==2.2.0"
+    ],
+    "network": false,
+    "lake_invoked": false,
+    "dependency_install_performed": true,
+    "fresh_install": "passed isolated Air installation"
+  },
+  "optional_formal_replay": {
+    "lean": "4.34.1 recorded CompactBounds helper evidence; fresh replay untested",
+    "compiled_mathlib": "required",
+    "capture_source": "external authorized CompactBounds helper/capture tooling needed for fresh replay",
+    "network": false
+  },
+  "canonical_runtime": {
+    "python": "tested 3.12.13 and 3.12.14; declared runtime >=3.10",
+    "packages": [
+      "PyYAML==6.0.3",
+      "mcp==2.2.0"
+    ],
+    "direct_dependency_licenses": {
+      "PyYAML==6.0.3": "MIT",
+      "mcp==2.2.0": "MIT"
+    },
+    "observed_transitive_dependency": {
+      "mcp-types==2.2.0": "MIT"
+    },
+    "transitive_license_audit": "not exhaustive",
+    "dataset": "CompactBounds statement graph and compact Ctrllib dependency-navigation fixture",
+    "dependency_data": "unavailable when capture_projection.premises_included=false",
+    "dependency_state_contract": "canonical dependencies/dependents and review JSON/HTML expose dependency_data alongside items; states empty|unavailable|partial|captured",
+    "observed_test_versions": {
+      "python": "3.12.13 (Air)",
+      "PyYAML": "6.0.3",
+      "mcp": "2.2.0",
+      "mcp-types": "2.2.0"
+    },
+    "install_instructions": "python3.12 -m venv .venv; .venv/bin/python -m pip install -r canonical/requirements.txt",
+    "dependency_install_performed_in_staging": true,
+    "fresh_install": "passed isolated Air installation"
+  },
+  "host_support": {
+    "codex": "observed .codex-plugin/plugin.json format with linked .mcp.json",
+    "claude_code": "observed .claude-plugin/plugin.json format with linked .mcp.json",
+    "mcp": "plugin-linked relative stdio config; no global registration"
+  },
+  "publication": "not_authorized",
+  "provenance": {
+    "status": "current scoped verification",
+    "inventory": "../provenance/corrected-release-manifest.json",
+    "public_distribution": "hold",
+    "license_application": "scoped_apache_2; see NOTICE.md"
+  }
+}

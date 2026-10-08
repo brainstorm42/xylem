@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "package_version": "0.1.0",
+  "generated_status": "static_example_index",
+  "source_of_truth": "example-local captures and component records",
+  "examples": [
+    {
+      "id": "compact-bounds",
+      "title": "OpenAI Math CompactBounds leading boundaries",
+      "source_revision": "openai/math@adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+      "source_sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+      "declaration": "OAI.Problem326.compact_positive_uniform_bounds",
+      "components": [
+        "compact-bounds-hS",
+        "compact-bounds-hSpos"
+      ],
+      "capture": {
+        "status": "generated_from_elaborated_environment",
+        "toolchain": "leanprover/lean4:v4.34.0",
+        "exact_binders": 5,
+        "proof_terms_included": false
+      },
+      "converter": {
+        "status": "canonical_available",
+        "fallback": "exact_lean_text",
+        "source_equivalence_checked": false
+      },
+      "mcp": {
+        "status": "canonical_available",
+        "graph_scope": "setup_statement_inspection_only",
+        "dependency_data": "unavailable"
+      },
+      "decomposition": {
+        "status": "observed_checked",
+        "scope": "hS and hSpos leading proposition boundaries only"
+      },
+      "explanation": {
+        "status": "completed_grounded",
+        "component": "compact-bounds-hS",
+        "components": [
+          "compact-bounds-hS",
+          "compact-bounds-hSpos"
+        ]
+      },
+      "review": {
+        "status": "separate_agent_review",
+        "evidence": "compact-bounds/evidence/review-corrected-explanations.json"
+      },
+      "dependency_state": {
+        "status": "fixed_and_rechecked",
+        "evidence": "compact-bounds/evidence/dependency-state-propagation.json"
+      }
+    },
+    {
+      "id": "ctrllib-e2e",
+      "title": "Ctrllib point-mass dependency navigation",
+      "declaration": "Ctrllib.pointMass_tendsto_zero",
+      "source": "../../ctrllib/Ctrllib/PointMassComFlow.lean",
+      "source_sha256": "8a2b7ea33417ff2dc02d2f8723bb5af2cabf3e759907b9feba3b3c4708763b33",
+      "capture": {
+        "path": "ctrllib-e2e/graph/declarations.json",
+        "local_records": 5,
+        "exact_binders": 7,
+        "coverage": "partial"
+      },
+      "converter": {
+        "status": "canonical_available",
+        "fallback": "exact_lean_text",
+        "source_equivalence_checked": false
+      },
+      "mcp": {
+        "status": "canonical_available",
+        "config": "ctrllib-e2e/xylem-e2e-config.json",
+        "dependency_data": "partial"
+      },
+      "explanation": {
+        "status": "completed_grounded",
+        "path": "ctrllib-e2e/vault/PointMassComFlow.md"
+      },
+      "review": {
+        "status": "separate_agent_review",
+        "evidence": "compact-bounds/evidence/review-corrected-explanations.json"
+      }
+    }
+  ]
+}

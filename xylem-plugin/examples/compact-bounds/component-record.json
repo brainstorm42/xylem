@@ -1,0 +1,230 @@
+{
+  "schema_version": 2,
+  "package_version": "0.1.0",
+  "release_scope": "v0.1.0-leading-boundaries",
+  "record_id": "compact-bounds",
+  "title": "CompactBounds leading-boundary component record",
+  "scope": "one supplied example; hS and hSpos leading proposition boundaries only",
+  "capture_state": {
+    "statement": "exact five-binder projection",
+    "premises_included": false,
+    "dependency_data": "unavailable",
+    "interpretation": "an empty premises list is not evidence of no dependencies"
+  },
+  "components": [
+    {
+      "id": "compact-bounds-hS",
+      "declaration": "OAI.Problem326.compact_positive_uniform_bounds",
+      "boundary": "hS",
+      "formal_type": "IsCompact S",
+      "recorded_formal_interface": "∀ {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}, IsCompact K → (∀ x ∈ K, ∀ (i : ι), 0 < x i) → IsCompact (⋃ i, (fun x : ι → ℝ => x i) '' K)",
+      "interface_context": [
+        "ι : Type uIota",
+        "[Finite ι]",
+        "K : Set (ι → ℝ)",
+        "hK : IsCompact K",
+        "hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i",
+        "S := ⋃ i, (fun x : ι → ℝ => x i) '' K"
+      ],
+      "assumption_minimization": "not performed",
+      "source": {
+        "path": "proof/CompactBoundsExplicitResolved.lean",
+        "sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+        "revision": "openai/math@adc7f1241b42e322a6451854ab7e4b4c146bf78a"
+      },
+      "evidence_ids": [
+        "inventory",
+        "extraction",
+        "reproduction",
+        "assumptions",
+        "capture",
+        "mcp",
+        "converter",
+        "fresh_review",
+        "dependency_state"
+      ],
+      "interface_evidence": "Recorded interface with historical checking summaries; generated helper proof terms or printed signatures are not bundled."
+    },
+    {
+      "id": "compact-bounds-hSpos",
+      "declaration": "OAI.Problem326.compact_positive_uniform_bounds",
+      "boundary": "hSpos",
+      "formal_type": "∀ y ∈ S, 0 < y",
+      "recorded_formal_interface": "∀ {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}, IsCompact K → (∀ x ∈ K, ∀ (i : ι), 0 < x i) → let S := ⋃ i, (fun x : ι → ℝ => x i) '' K; ∀ y ∈ S, 0 < y",
+      "interface_context": [
+        "ι : Type uIota",
+        "[Finite ι]",
+        "K : Set (ι → ℝ)",
+        "hK : IsCompact K",
+        "hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i",
+        "S := ⋃ i, (fun x : ι → ℝ => x i) '' K"
+      ],
+      "assumption_minimization": "not performed",
+      "source": {
+        "path": "proof/CompactBoundsExplicitResolved.lean",
+        "sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+        "revision": "openai/math@adc7f1241b42e322a6451854ab7e4b4c146bf78a"
+      },
+      "evidence_ids": [
+        "inventory",
+        "extraction",
+        "reproduction",
+        "assumptions",
+        "capture",
+        "mcp",
+        "converter",
+        "dependency_state"
+      ],
+      "interface_evidence": "Recorded interface with historical checking summaries; generated helper proof terms or printed signatures are not bundled."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "inventory",
+      "path": "evidence/inventory-summary.json",
+      "status": "historical_receipt",
+      "kind": "inventory",
+      "scope": "leading elaborated spine",
+      "origin": "sanitized accepted replay summary"
+    },
+    {
+      "id": "extraction",
+      "path": "evidence/extraction-summary.json",
+      "status": "historical_receipt",
+      "kind": "receipt",
+      "scope": "hS and hSpos only",
+      "origin": "sanitized accepted replay summary"
+    },
+    {
+      "id": "reproduction",
+      "path": "evidence/reproduction-receipt.json",
+      "status": "historical_receipt",
+      "kind": "receipt",
+      "scope": "frozen replay plus bundled capture runtime",
+      "origin": "local evidence"
+    },
+    {
+      "id": "assumptions",
+      "path": "evidence/assumptions.json",
+      "status": "authored_boundary",
+      "kind": "assumptions",
+      "scope": "theorem interface and limits",
+      "origin": "authored evidence summary"
+    },
+    {
+      "id": "capture",
+      "path": "../../capture/declarations.json",
+      "status": "retained_public_projection",
+      "kind": "declaration_capture",
+      "scope": "parent theorem statement; proof-free projection; dependency records unavailable",
+      "origin": "user-supplied authorized capture tool not included"
+    },
+    {
+      "id": "mcp",
+      "path": "evidence/bundled-mcp-test.json",
+      "status": "regression_receipt",
+      "kind": "stdio_test",
+      "scope": "bundled xylem_query",
+      "origin": "local smoke test"
+    },
+    {
+      "id": "converter",
+      "path": "evidence/bundled-converter-test.json",
+      "status": "regression_receipt",
+      "kind": "converter_test",
+      "scope": "complete parent statement and binders",
+      "origin": "local smoke test"
+    },
+    {
+      "id": "dependency_state",
+      "path": "evidence/dependency-state-propagation.json",
+      "status": "fixed_and_rechecked",
+      "kind": "dependency_state_propagation",
+      "scope": "canonical CLI, MCP, review JSON, and review HTML",
+      "origin": "local regression test"
+    },
+    {
+      "id": "fresh_review",
+      "path": "evidence/review-corrected-explanations.json",
+      "status": "pass",
+      "kind": "separate_agent_review",
+      "scope": "corrected CompactBounds and point-mass explanations; no Lean helper replay",
+      "origin": "independent read-only review"
+    }
+  ],
+  "layers": {
+    "xylem_graph": {
+      "status": "setup_statement_inspection",
+      "description": "The canonical runtime builds the supplied one-module graph; dependency data is unavailable and no proof-navigation claim is made."
+    },
+    "converter": {
+      "status": "exact_lean_text_fallback",
+      "description": "The tree-free capture retains exact Lean text; no semantic equivalence or formal acceptance claim is made."
+    },
+    "decomposition": {
+      "status": "observed_checked",
+      "description": "Historical accepted receipts cover the leading hS and hSpos proposition boundaries only."
+    },
+    "explanation": {
+      "status": "completed_grounded",
+      "description": "The authored explanation defines S and separates retained parent context from source-argument use; no interface minimization is claimed."
+    },
+    "review": {
+      "status": "separate_agent_review",
+      "description": "Fresh corrected explanation review; scoped prose/source/interface review only, not helper replay."
+    },
+    "dependency_state": {
+      "status": "propagated",
+      "description": "Dependency/dependent traversals and review outputs expose unavailable, empty, partial, or captured data state next to result items."
+    },
+    "mcp": {
+      "status": "canonical_provider_plus_legacy_regression",
+      "description": "The plugin-linked provider is canonical Xylem; the bundled server remains regression/example-only."
+    }
+  },
+  "correspondence": [
+    {
+      "from": "compact-bounds-hS",
+      "to": "decomposition",
+      "status": "checked",
+      "claim": "The hS boundary has an exact-type and kernel-checked extraction receipt."
+    },
+    {
+      "from": "compact-bounds-hSpos",
+      "to": "decomposition",
+      "status": "checked",
+      "claim": "The hSpos boundary has an exact-type and kernel-checked extraction receipt."
+    },
+    {
+      "from": "compact-bounds-hS",
+      "to": "converter",
+      "status": "exact_text_fallback",
+      "claim": "The parent theorem capture retains exact binders and statement text; tree-free fragments are retained as exact Lean text."
+    },
+    {
+      "from": "compact-bounds-hS",
+      "to": "xylem_graph",
+      "status": "setup_only",
+      "claim": "The supplied graph contains containment only; helper-to-graph integration is unavailable."
+    },
+    {
+      "from": "compact-bounds-hS",
+      "to": "explanation",
+      "status": "grounded",
+      "claim": "The explanation is limited to the S construction and hS/hSpos boundaries."
+    },
+    {
+      "from": "compact-bounds-hS",
+      "to": "review",
+      "status": "separate_agent_review",
+      "claim": "Fresh scoped explanation review passed; see the corrected explanation verification receipt."
+    }
+  ],
+  "limits": [
+    "This is one first-use bridge example, not a complete plugin integration with the canonical dependency graph.",
+    "The capture projection omits expression trees, premises, and proof terms; exact signature and binder text are retained.",
+    "The included decomposition evidence is a leading-spine result, not a full theorem decomposition.",
+    "No semantic equivalence, theorem acceptance, engineering applicability, novelty, reuse, or speedup claim is made.",
+    "Richer navigation is deferred because no genuine captured relationship is available in this example."
+  ]
+}

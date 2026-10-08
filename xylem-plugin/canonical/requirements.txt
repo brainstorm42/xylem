@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+# Direct runtime pins validated in the Python 3.12.14 staging environment.
+PyYAML==6.0.3
+mcp==2.2.0

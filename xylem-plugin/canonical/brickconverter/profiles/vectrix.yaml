@@ -1,0 +1,22 @@
+schema_version: 1
+profile_id: vectrix
+profile_version: 1
+symbols:
+  velocity.vector:
+    aliases:
+      - "v"
+    output: "{}^{frame}\\mathbf{v}"
+    kind: "quantity"
+    arity: 0
+    frame_required: true
+    provenance: "Initial frame-explicit Vectrix fixture; no cross-product rule."
+  velocity.component:
+    aliases:
+      - "v_i"
+    output: "{}^{frame}v_i"
+    kind: "quantity"
+    arity: 0
+    frame_required: true
+    provenance: "Initial frame-explicit scalar-component fixture."
+structures: {}
+notes: "Rendering profile only; missing frames reject and cross products are out of scope."

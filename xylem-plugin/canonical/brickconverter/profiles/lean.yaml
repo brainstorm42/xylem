@@ -1,0 +1,41 @@
+schema_version: 1
+profile_id: lean
+profile_version: 1
+symbols:
+  Neg.neg:
+    aliases:
+      - "Neg.neg"
+    output: "Neg.neg"
+    kind: "constant"
+    arity: 1
+    provenance: "Lean core negation."
+  Real:
+    aliases:
+      - "Real"
+    output: "ℝ"
+    kind: "constant"
+    arity: 0
+    provenance: "Mathlib real numbers."
+  q:
+    aliases:
+      - "q"
+    output: "q"
+    kind: "binder"
+    arity: 0
+    provenance: "Declared binder."
+  q_dot:
+    aliases:
+      - "q_dot"
+    output: "q_dot"
+    kind: "binder"
+    arity: 0
+    provenance: "Declared derivative binder in a generated context."
+  lambda:
+    aliases:
+      - "lambda"
+    output: "lambda"
+    kind: "binder"
+    arity: 0
+    provenance: "Declared binder."
+structures: {}
+notes: "Valid Lean-facing spellings; elaboration remains a separate gate."

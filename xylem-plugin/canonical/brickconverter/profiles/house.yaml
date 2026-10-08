@@ -1,0 +1,52 @@
+schema_version: 1
+profile_id: house
+profile_version: 1
+symbols:
+  Neg.neg:
+    aliases:
+      - "neg"
+    output: "-"
+    kind: "constant"
+    arity: 1
+    provenance: "Built-in unary negation."
+  Real:
+    aliases:
+      - "Real"
+      - "\\mathbb{R}"
+      - "ℝ"
+    output: "\\mathbb{R}"
+    kind: "constant"
+    arity: 0
+    provenance: "ProofBricks house notation."
+  q:
+    aliases:
+      - "q"
+    output: "q"
+    kind: "binder"
+    arity: 0
+    provenance: "Moving-reference phase error."
+  q_dot:
+    aliases:
+      - "\\dot{q}"
+      - "q_dot"
+    output: "\\dot{q}"
+    kind: "binder"
+    arity: 0
+    provenance: "Declared first time derivative of the phase error."
+  lambda:
+    aliases:
+      - "\\lambda"
+      - "lambda"
+    output: "\\lambda"
+    kind: "binder"
+    arity: 0
+    provenance: "Moving-reference phase rate."
+  velocity.vector:
+    aliases:
+      - "v"
+    output: "\\mathbf{v}"
+    kind: "quantity"
+    arity: 0
+    provenance: "House rendering for the Vectrix conformance fixture."
+structures: {}
+notes: "Reader-facing ProofBricks notation."

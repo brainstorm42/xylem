@@ -1,0 +1,81 @@
+{
+  "capture_projection": {
+    "binder_text_complete": true,
+    "expression_trees_included": false,
+    "premises_included": false,
+    "proof_terms_included": false,
+    "statement_text_complete": true,
+    "status": "generated_from_elaborated_environment",
+    "tree_omission_reason": "The bundled first-use adapter preserves exact text and binder order without shipping proof-term, expression-tree, or premise-record payloads; dependency data is unavailable, not known empty."
+  },
+  "declarations": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "binders": [
+        {
+          "binderInfo": "implicit",
+          "idx": 0,
+          "name": "ι",
+          "tree": null,
+          "type": "Type uIota"
+        },
+        {
+          "binderInfo": "instance",
+          "idx": 1,
+          "name": null,
+          "tree": null,
+          "type": "Finite ι"
+        },
+        {
+          "binderInfo": "implicit",
+          "idx": 2,
+          "name": "K",
+          "tree": null,
+          "type": "Set (ι → ℝ)"
+        },
+        {
+          "binderInfo": "default",
+          "idx": 3,
+          "name": "hK",
+          "tree": null,
+          "type": "IsCompact K"
+        },
+        {
+          "binderInfo": "default",
+          "idx": 4,
+          "name": "hpos",
+          "tree": null,
+          "type": "∀ x ∈ K, ∀ (i : ι), 0 < x i"
+        }
+      ],
+      "conclusion": "∃ ε, 0 < ε ∧ ε < 1 ∧ ∀ x ∈ K, ∀ (i : ι), ε ≤ x i ∧ x i ≤ ε⁻¹",
+      "conclusion_tree": null,
+      "doc": "A compact set in a finite-dimensional positive orthant lies in a uniform\npositive box. Neither nonemptiness nor positive dimension is necessary. ",
+      "kind": "theorem",
+      "module": "CompactBoundsExplicitResolved",
+      "name": "OAI.Problem326.compact_positive_uniform_bounds",
+      "premises": [],
+      "range": {
+        "end": [
+          55,
+          46
+        ],
+        "start": [
+          27,
+          0
+        ]
+      },
+      "signature": "OAI.Problem326.compact_positive_uniform_bounds.{uIota} {ι : Type uIota} [Finite ι] {K : Set (ι → ℝ)}\n  (hK : IsCompact K) (hpos : ∀ x ∈ K, ∀ (i : ι), 0 < x i) :\n  ∃ ε, 0 < ε ∧ ε < 1 ∧ ∀ x ∈ K, ∀ (i : ι), ε ≤ x i ∧ x i ≤ ε⁻¹",
+      "src_file": "CompactBoundsExplicitResolved.lean"
+    }
+  ],
+  "errors": [],
+  "generated_from": "CompactBoundsExplicitResolved",
+  "schema_version": 1,
+  "source_sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+  "toolchain": "leanprover/lean4:v4.34.0"
+}

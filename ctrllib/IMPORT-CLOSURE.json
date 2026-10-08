@@ -1,0 +1,8 @@
+{
+  "schema": "ctrllib-filtered-import-closure-v1",
+  "included_candidate_modules": 123,
+  "filtered_umbrella_direct_imports": 122,
+  "standalone_included_candidate": "Ctrllib.AllocationSignConvention",
+  "umbrella": "Ctrllib.lean is a filtered copy; Extract.lean remains unchanged and imports the umbrella dynamically.",
+  "dependencies": "lake-manifest.json pins external packages; no .lake tree or dependency source is bundled."
+}

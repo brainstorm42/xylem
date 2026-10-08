@@ -1,0 +1,3 @@
+digraph importGraph {
+  // The example has one captured declaration and no asserted import edges.
+}

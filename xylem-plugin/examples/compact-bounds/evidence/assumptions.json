@@ -1,0 +1,6 @@
+{
+  "schema": "xylem-compact-bounds-assumptions/v1",
+  "mathematical_assumptions": ["ι has a Finite instance.", "K : Set (ι → ℝ) is IsCompact.", "hpos : ∀ x ∈ K, ∀ i, 0 < x i."],
+  "not_assumed": ["ι is nonempty", "ι has positive dimension", "K is nonempty"],
+  "out_of_scope": ["later a/b/ε/final-bound spine after obtain", "assumption minimization", "generalization or reuse claim"]
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "xylem-compact-bounds-extraction-summary/v1",
+  "status": "observed_pass",
+  "target": "OAI.Problem326.compact_positive_uniform_bounds",
+  "components": [
+    {"id": "compact-bounds-hS", "selection_path": "root/body/body/body/body/body/body", "endpoint": "OAI.Problem326.compact_positive_uniform_bounds_hS", "helper": "OAI.Problem326.compact_positive_uniform_bounds_hS_component", "status": "PASS", "exact_type_equal": true, "kernel_checked": true, "helper_used": true, "original_donor_excluded": true, "axioms": ["propext", "Classical.choice", "Quot.sound"]},
+    {"id": "compact-bounds-hSpos", "selection_path": "root/body/body/body/body/body/body/body", "endpoint": "OAI.Problem326.compact_positive_uniform_bounds_hSpos", "helper": "OAI.Problem326.compact_positive_uniform_bounds_hSpos_component", "status": "PASS", "exact_type_equal": true, "kernel_checked": true, "helper_used": true, "original_donor_excluded": true, "axioms": ["propext", "Classical.choice", "Quot.sound"]}
+  ],
+  "limits": ["Leading-spine proposition boundaries only; not a full theorem decomposition.", "No general reuse, novelty, speedup, or semantic-equivalence claim."]
+}

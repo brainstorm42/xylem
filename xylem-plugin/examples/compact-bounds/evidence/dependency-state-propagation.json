@@ -1,0 +1,46 @@
+{
+  "schema": "proofbricks-xylem-dependency-state-propagation/v1",
+  "package_version": "0.1.0",
+  "release_scope": "reviewed-fixed-successor-v0.1.0",
+  "status": "fixed_and_rechecked",
+  "finding": "F-DEPENDENCY-STATE-PROPAGATION",
+  "capture_state": {
+    "premises_included": false,
+    "status": "unavailable",
+    "note": "dependency records were not supplied; zero indexed edges do not mean no dependencies"
+  },
+  "contract": {
+    "traversal_shape": "direction, target, depth, count, items, dependency_data, scope_note",
+    "states": ["empty", "unavailable", "partial", "captured"],
+    "interpretation": "items is meaningful only together with dependency_data.status and dependency_data.note"
+  },
+  "canonical_cli": {
+    "dependencies": {"status": "unavailable", "items": []},
+    "dependents": {"status": "unavailable", "items": []},
+    "impact": {"status": "unavailable", "items": []}
+  },
+  "canonical_mcp": {
+    "dependencies": {"status": "unavailable", "items": []},
+    "dependents": {"status": "unavailable", "items": []},
+    "impact": {"status": "unavailable", "items": []}
+  },
+  "review_report": {
+    "json": {
+      "top_level_dependency_data": "unavailable",
+      "proof_section": "unavailable",
+      "type_section": "unavailable",
+      "affected_local_results": "unavailable"
+    },
+    "html": [
+      "dependency data state: unavailable",
+      "dependency data state=unavailable"
+    ]
+  },
+  "regression_command": "tests/test_host_config.py under the pinned dependency-bearing Python",
+  "regression_result": "PASS",
+  "related_classifier_result": "empty, partial, captured, and mixed summary states PASS",
+  "limits": [
+    "This fixes state propagation only; it does not add omitted dependency records.",
+    "The bundled example remains one module, one declaration, and one DECLARED_IN edge."
+  ]
+}

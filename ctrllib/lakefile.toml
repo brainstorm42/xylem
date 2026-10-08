@@ -1,0 +1,23 @@
+name = "Ctrllib"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["Ctrllib"]
+
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.34.0"
+
+[[lean_lib]]
+name = "Ctrllib"
+
+[[lean_exe]]
+name = "extract"
+root = "Extract"
+supportInterpreter = true

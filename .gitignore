@@ -1,0 +1,11 @@
+# Local build and cache outputs; no generated artifacts belong in the candidate.
+.lake/
+__pycache__/
+*.py[cod]
+*.olean
+*.ilean
+*.trace
+*.db
+*.sqlite
+*.sqlite3
+.DS_Store

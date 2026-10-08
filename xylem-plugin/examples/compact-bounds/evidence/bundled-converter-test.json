@@ -1,0 +1,14 @@
+{
+  "schema": "proofbricks-bundled-converter-test/v1",
+  "status": "PASS",
+  "surface": "legacy_regression",
+  "operation": "render-statement",
+  "declaration": "OAI.Problem326.compact_positive_uniform_bounds",
+  "capture_toolchain": "leanprover/lean4:v4.34.0",
+  "all_binders_retained": true,
+  "binder_count": 5,
+  "exact_text_fragments": 6,
+  "acceptance_status": "not_assessed",
+  "formal_check_performed": false,
+  "source_equivalence_checked": false
+}

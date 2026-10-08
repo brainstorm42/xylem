@@ -1,0 +1,13 @@
+{
+  "schema": "proofbricks-bundled-mcp-test/v1",
+  "status": "PASS",
+  "server": "mcp/bundled_server.py",
+  "protocol": "stdio Content-Length JSON-RPC",
+  "checks": ["initialize", "notifications/initialized", "tools/list", "tools/call status", "tools/call context", "tools/call dependencies returns not_connected"],
+  "tool": "xylem_query",
+  "context_component": "compact-bounds-hS",
+  "binder_count": 5,
+  "binder_names": ["ι", null, "K", "hK", "hpos"],
+  "canonical_graph": "not_connected",
+  "declaration_dependency_data": "unavailable; premises_included=false is not a no-dependencies claim"
+}

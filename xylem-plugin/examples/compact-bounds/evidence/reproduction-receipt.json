@@ -1,0 +1,11 @@
+{
+  "schema": "xylem-compact-bounds-reproduction/v2",
+  "status": "observed_pass",
+  "target": "OAI.Problem326.compact_positive_uniform_bounds",
+  "frozen_replay": {"lean_version": "4.34.1", "lean_commit": "5045d0056413266e57c625dcd7c365b10e377c52", "mathlib_revision": "d13f23b723b8a846827a245b89c10fc7d3f11612", "jobs": 1, "memory_megabytes": 4096, "max_heartbeats": 5000000, "timeout_seconds_per_process": 120, "lake_invoked": false, "network": false},
+  "frozen_steps": ["XylemDecompose.lean", "CompactBoundsExplicitResolved.lean", "Inventory.lean", "ExtractHS.lean", "ExtractHSPos.lean"],
+  "bundle_capture": {"status": "retained_projection", "lean_version": "4.34.0", "expression_trees_included": false, "proof_terms_included": false, "source": "user-supplied authorized capture tool not included"},
+  "components": ["hS", "hSpos"],
+  "checks": {"exact_type_equal": true, "kernel_checked": true, "helper_used": true, "original_donor_excluded": true, "bundled_mcp_stdio": "PASS", "bundled_converter": "PASS"},
+  "retained_outputs": ["inventory-summary.json", "extraction-summary.json", "source-fingerprints.json"]
+}

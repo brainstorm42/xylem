@@ -1,0 +1,20 @@
+{
+  "relative_to": "package_root",
+  "paths": {
+    "data": "examples/compact-bounds/graph",
+    "dot": "examples/compact-bounds/graph/module_graph.dot",
+    "extractor": "examples/compact-bounds/graph/declarations.json",
+    "vault": "examples/compact-bounds/vault",
+    "bricks": "",
+    "bib": "",
+    "ctrllib": "",
+    "db": "examples/compact-bounds/graph/xylem.db",
+    "converter_capture": "examples/compact-bounds/graph/declarations.json",
+    "converter_profile": "canonical/brickconverter/profiles/engineering.yaml"
+  },
+  "notes": {
+    "relative_to": "package root",
+    "dataset": "bundled tiny graph built from the supplied CompactBounds declaration capture; no full canonical database is included",
+    "dependency_data": "unavailable: capture_projection.premises_included=false; empty premises and zero USES edges do not mean no dependencies"
+  }
+}

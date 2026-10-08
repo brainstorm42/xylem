@@ -1,0 +1,123 @@
+{
+  "environment": {
+    "device": "MacBook Air Apple M2, 24 GB RAM",
+    "os": "macOS 26.6.2 arm64",
+    "python": "3.12.13",
+    "previous_python_baseline": "3.12.14",
+    "PyYAML": "6.0.3",
+    "mcp": "2.2.0",
+    "Lean": "4.34.0",
+    "Lake": "5.0.0-src+293d5d0",
+    "CompactBounds_retained_evidence_Lean": "4.34.1; not replayed"
+  },
+  "stages": {
+    "archive": "pass",
+    "quickstart": "pass",
+    "isolated_python_install": "pass",
+    "compact_bounds_CLI_converter_MCP_launcher": "pass",
+    "compact_ctrllib_CLI_converter_MCP": "pass; expected fresh:false/partial/14 omitted modules",
+    "public_pinned_dependency_bootstrap": "pass; 8908 cache files",
+    "source_first_build": "pass",
+    "extraction": "pass",
+    "full_graph_CLI_converter_MCP": "pass",
+    "repeated_status": "pass on compact and full",
+    "ordinary_ctrllib_lake_build_and_exe": "unrun; inspected direct runner used",
+    "CompactBounds_formal_replay": "unrun; retained evidence only"
+  },
+  "source_build_seconds": 460.371,
+  "extraction_seconds": 115.106,
+  "capture_sha256": "91f234ee5ab26a00c6aa2eac66dfac71f77de2ef42b889dad1e73ee78955597e",
+  "schema": "air-consumer-verification/v2",
+  "full_graph": {
+    "fresh": true,
+    "warning": null,
+    "nodes": {
+      "declaration": 3155,
+      "module": 123,
+      "wiki_page": 1
+    },
+    "edges": {
+      "DECLARED_IN": 808,
+      "IMPORTS": 140,
+      "PAIRED_WITH": 1,
+      "USES_IN_PROOF": 68381,
+      "USES_IN_TYPE": 26293
+    },
+    "declaration_dependency_data": {
+      "status": "partial",
+      "counts": {
+        "captured": 807,
+        "empty": 1,
+        "unavailable": 2347
+      },
+      "note": "the capture supplied only partial dependency data"
+    }
+  },
+  "public_dependency_pins": [
+    {
+      "name": "mathlib",
+      "commit": "5ed2965256430c3649e86755f9576b54eca72435",
+      "license": "Apache-2.0",
+      "license_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+    },
+    {
+      "name": "plausible",
+      "commit": "118aa17ee84656b8bd727fef7c458ee8c833385c",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "proofwidgets",
+      "commit": "106ff4fafc74ef4ac99d81dbf3ab399118f497a5",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "batteries",
+      "commit": "f2effa3d803fda822b1f97b806c47cf2adfbcbc2",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "Cli",
+      "commit": "e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204",
+      "license": "MIT",
+      "license_sha256": "f7e95706807e931782b6efd9a9d2789508a52423ad67b56ee7e5e324362d4aac"
+    },
+    {
+      "name": "aesop",
+      "commit": "355695d523e41d0554926416cba2a2b3544fbbc9",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "importGraph",
+      "commit": "e928b72544873815af278d38681b31c0293588e3",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "LeanSearchClient",
+      "commit": "ddf04cf3949fa556442341e87d47f9f6e6074707",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "name": "Qq",
+      "commit": "6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259",
+      "license": "Apache-2.0",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ],
+  "status": "air_consumer_e2e_pass_publication_hold",
+  "limits": [
+    "OS prerequisite installation unrun",
+    "Windows unrun",
+    "ordinary Ctrllib Lake build/extraction unrun",
+    "separate CompactBounds Lean 4.34.1 formal replay unrun",
+    "GitHub browser login unavailable/unverified",
+    "publication is separate"
+  ],
+  "scope": "Full source-build and graph results tested predecessor proof sources and pins, unchanged here. Current scoped runtime/explanation changes have separate correction verification.",
+  "source_verification": "All supplied Lean sources and dependency pins are unchanged from the tested full Air build."
+}

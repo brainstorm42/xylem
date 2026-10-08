@@ -1,0 +1,6 @@
+{
+  "schema": "xylem-compact-bounds-source-fingerprints/v1",
+  "upstream": {"repository": "https://github.com/openai/math", "revision": "adc7f1241b42e322a6451854ab7e4b4c146bf78a", "source": "lean/OAI/Analysis/MassAction/CompactBounds.lean", "sha256": "af82a12a9809255fa2e7902e2e7c5fe3782b5abbf77e9aad3a573b3cea16bb0f", "license": "Apache-2.0"},
+  "candidate_fixture_sha256": "bbb08607a3bb77b695c70d714e9420de2e11a44982ac42ff01d9bcc2d0a32373",
+  "note": "The adapted fixture changes imports only; statement and proof body are unchanged from namespace OAI onward."
+}
