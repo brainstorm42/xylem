@@ -1079,8 +1079,8 @@
   "components": {
     "manifest": {
       "path": "data/components-generated.json",
-      "bytes": 859142850,
-      "sha256": "ca447b800445807778682bcf63d5d1da0244f2a66a8c8316f1f4631abfc0459b"
+      "bytes": 797035700,
+      "sha256": "a27c7e0d634d17c8909e4cf751eb4b0ff48a4db76d7ff02a60a4d0888544ac7b"
     },
     "role_labels": {
       "path": "data/components.json",
@@ -685730,8 +685730,8 @@
       },
       "structural_validation_artifact": {
         "path": "data/subargument-validation.json",
-        "bytes": 2120,
-        "sha256": "b6fa2bbe720f47a46750f6f4d9307ce97442c288e523b8145115c6d6d1f592ec"
+        "bytes": 2080,
+        "sha256": "8ad72b9032486ac0c136b6e8f7ed988c211378814997b9d26dc1b00e7a319994"
       },
       "structural_validation_status": "PASS",
       "structural_validation": {
@@ -685796,8 +685796,8 @@
   "proof_trace": {
     "artifact": {
       "path": "data/proof-trace.json.gz",
-      "bytes": 188239134,
-      "sha256": "7b544a8e3836c66ff30e1b212c50534f9e57626d277fff78568617b4843870a3"
+      "bytes": 188859233,
+      "sha256": "0498ace2948de95d93ad05e916ed3e2b5d1211b48daa9101a48dbd87ee2854f7"
     },
     "schema_version": 1,
     "toolchain": "leanprover/lean4:v4.32.0",
@@ -695025,6 +695025,14 @@
     },
     "storage_note": "The committed xylem.db.gz is a compact derivative. It retains exact text signatures and all typed/proof/import/component edges; the compressed full capture retains premise rows and best-effort expression trees omitted from repeated node props."
   },
+  "repair": {
+    "status": "focused_capture_repair",
+    "source": "xylem-plugin/capture/percolation/ExtractProofTrace.lean",
+    "behavior": "expected_type displays the instantiated binder domain instead of the domain's inferred type",
+    "dependent_substitution": "applicationRecord continues to instantiate the dependent binder body with the supplied argument",
+    "index_status": "data/xylem.db.gz remains the previously validated compact derivative; no archive rebuild was performed for this focused repair",
+    "scope": "No discovery, MiLAC, or private-development documents are included in this release change."
+  },
   "tooling": {
     "python": "3.12.14 (main, Aug 12 2026, 13:57:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
     "pip_freeze": [
@@ -695093,6 +695101,6 @@
     "The compiler source-module regions are not mathematical subarguments. The complete reachable structural application layer is derived from retained Expr application/data records and exact captured interfaces; component nodes store bounded samples and exact counts, while discovered target interfaces and opaque theorem bodies remain separate.",
     "The independent subargument validator rejects reordered argument mappings and checks that AdditiveGluing/NearOneGluing statement constants are not misclassified as proof applications.",
     "The checked formal endpoint is theta (zdGraph d) 0 (criticalProbI d) = 0. The surrounding source prose uses continuity language; this receipt does not certify a broader literature-level equivalence.",
-    "No public release remote was modified; this receipt is for the private dev origin only."
+    "The public release carries the focused capture repair; the compact database/archive remains the previously validated derivative and was not rebuilt."
   ]
 }

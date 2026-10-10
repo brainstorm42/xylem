@@ -61,11 +61,12 @@ are explicit valueless constants: 97 constructors, 74 inductives, and 9
 recursors. The audit rejects `no_value` for theorem, definition, opaque, or
 axiom records.
 
-The independent validator reports PASS with 5,340 local proof-assumption
-applications, 197,963 `w/e` data applications, and 16,831 `g/e` data
-applications; neither data head was promoted to proof evidence. Its mutation
-test rejects swapped arguments, and its type-only test keeps the AdditiveGluing
-and NearOneGluing statement constants out of proof-application evidence.
+The independent JSON-record validator reports PASS with 5,340 local
+proof-assumption applications, 197,963 `w/e` data applications, and 16,831
+`g/e` data applications; neither data head was promoted to proof evidence. Its
+mutation test rejects swapped argument records, and its type-only test keeps the
+AdditiveGluing and NearOneGluing statement constants out of proof-application
+evidence. This is a structural validator result, not a Lean rejection test.
 `reconstruction/SubargumentSpine.lean` checks the reusable CSH interface, a
 direct local-assumption application, the named CSH-to-Conjecture-3-to-near-one
 chain, the theorem-6 input, and the reassembled public endpoint. It does not
@@ -189,7 +190,9 @@ cmp "$WORK/components-generated.json" data/components-generated.json
 cmp "$WORK/component-audit.json" data/component-audit.json
 cmp "$WORK/subargument-validation.json" data/subargument-validation.json
 
-# In the pinned upstream environment, check the named interface client:
+# In the pinned upstream environment, check the named interface client. This
+# checks the Lean interface only; the Python E2E test checks archive/SQLite
+# identity and hashes separately.
 cd upstream
 lake env lean ../reconstruction/SubargumentSpine.lean
 cd ..

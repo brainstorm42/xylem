@@ -1323,8 +1323,8 @@
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/components-generated.json",
-      "bytes": 859142850,
-      "sha256": "ca447b800445807778682bcf63d5d1da0244f2a66a8c8316f1f4631abfc0459b"
+      "bytes": 797035700,
+      "sha256": "a27c7e0d634d17c8909e4cf751eb4b0ff48a4db76d7ff02a60a4d0888544ac7b"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/components.json",
@@ -1353,13 +1353,13 @@
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/proof-trace.json.gz",
-      "bytes": 188239134,
-      "sha256": "7b544a8e3836c66ff30e1b212c50534f9e57626d277fff78568617b4843870a3"
+      "bytes": 188859233,
+      "sha256": "0498ace2948de95d93ad05e916ed3e2b5d1211b48daa9101a48dbd87ee2854f7"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/reproducibility-receipt.json",
-      "bytes": 31992199,
-      "sha256": "b7fcc7932d25ef50fd9d5f7faf32113e134938e7565fa14dc59691d257afd69d"
+      "bytes": 31992888,
+      "sha256": "5024fb2d583d5df4370316ea00e2a90f132feb6b43655cc771c2339cc33b17d5"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/source-manifest.json",
@@ -1373,8 +1373,8 @@
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/subargument-validation.json",
-      "bytes": 2120,
-      "sha256": "b6fa2bbe720f47a46750f6f4d9307ce97442c288e523b8145115c6d6d1f592ec"
+      "bytes": 2080,
+      "sha256": "8ad72b9032486ac0c136b6e8f7ed988c211378814997b9d26dc1b00e7a319994"
     },
     {
       "path": "xylem-plugin/examples/percolation-e2e/data/xylem.db.gz",

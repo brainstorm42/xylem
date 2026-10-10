@@ -229,7 +229,17 @@ def main() -> int:
     parser.add_argument("--proof-trace", type=Path, required=True)
     parser.add_argument("--client", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--bounded",
+        action="store_true",
+        help="stream the trace and component arrays without materializing the full artifacts",
+    )
     args = parser.parse_args()
+
+    if args.bounded:
+        from validate_subarguments_bounded import run_bounded
+
+        return run_bounded(args)
 
     components = load_json(args.components)
     trace = load_json(args.proof_trace)

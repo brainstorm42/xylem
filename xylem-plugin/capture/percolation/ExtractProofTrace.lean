@@ -116,6 +116,12 @@ def exprTypeText (e : Expr) : MetaM String := do
   catch _ =>
     return "<type unavailable>"
 
+def exprText (e : Expr) : MetaM String := do
+  try
+    return (← ppExpr e).pretty 100
+  catch _ =>
+    return "<expression unavailable>"
+
 def constantRole (env : Environment) (n : Name) : String :=
   match lookup env n with
   | some (.thmInfo _) => "theorem"
@@ -246,7 +252,7 @@ def applicationRecord (env : Environment) (path : String) (detailed : Bool) (e :
     let currentWhnf ← try whnf currentType catch _ => pure currentType
     match currentWhnf with
     | .forallE binderName domain body binderInfo =>
-        let expectedText ← exprTypeText domain
+        let expectedText ← exprText domain
         let expectedIsProp ← try isProp domain catch _ => pure false
         let defeq ← safeDefEq domain argType
         mappings := mappings.push <| Json.mkObj [

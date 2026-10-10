@@ -21,7 +21,7 @@
   "negative_tests": {
     "swapped_arguments": {
       "status": "PASS",
-      "candidate": "BondPercolation.percolation_continuity::/body/body/arg",
+      "candidate": "/body/body/arg",
       "mutated_error_sample": [
         "argument order/index mismatch: [1, 0]"
       ],

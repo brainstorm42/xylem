@@ -1153,7 +1153,17 @@ def main() -> int:
     parser.add_argument("--source-revision", required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--audit-output", type=Path, required=True)
+    parser.add_argument(
+        "--bounded",
+        action="store_true",
+        help="stream the capture and trace in two passes instead of materializing the full trace",
+    )
     args = parser.parse_args()
+
+    if args.bounded:
+        from derive_proof_components_bounded import run_bounded
+
+        return run_bounded(args)
 
     capture = load_capture(args.capture)
     records = record_map(capture)
