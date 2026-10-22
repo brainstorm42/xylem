@@ -40,10 +40,6 @@ discharged for `m • id`/`d • id`/`k • id`, mirroring `ComLaSalleMatrix`'s
 discharge for concrete SPD matrices (here even simpler: isotropic scalar
 operators).
 
-Human derivation:
-ClearFocus/30_library/10_proofs/p4_point_mass_com_flow.md
-Task packet:
-ClearFocus/20_context/20_focus/20_phase2/32_nominal_flow_invariance_P4.md
 -/
 import Mathlib.Analysis.Normed.Operator.Bilinear
 import Mathlib.Analysis.SpecialFunctions.Exponential

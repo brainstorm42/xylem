@@ -60,7 +60,7 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 | Dependency-data status | `partial` — external stubs retain their own data status |
 | Repeated CLI and MCP status | stable |
 
-The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results. This full run tested the same proof sources and pins supplied here; current converter-label, freshness-advice, and explanation corrections received separate targeted checks.
+The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results for the original 2026-10-08 source baseline. It does not cover the subsequent source increments. Converter-label, freshness-advice, and explanation corrections have separate targeted-check records.
 
 The 123-module figures above are the dated source-first verification baseline. The current checkout also contains nine standalone modularization modules, a selected 36-path RC source increment, and one BC interval-certificate pilot; those additions are not retroactively folded into that historical receipt.
 

@@ -8,9 +8,6 @@ on Mathlib's gronwallBound: convergence to zero under a vanishing disturbance
 (comparison_bounded). The engine is comparison_shift, L2's comparison lemma with a
 movable start point.
 
-SymPy pin: ~/Thesis/Prose/vault/lean/pin_comparison.py.
-Human derivation:
-ClearFocus/30_library/10_proofs/time_varying_comparison.md.
 -/
 import Mathlib.Analysis.ODE.Gronwall
 import Mathlib.Analysis.SpecialFunctions.Exp

@@ -30,9 +30,9 @@ fi
   Brick mappings.
 - [`ROVER-PROVISIONAL.md`](ROVER-PROVISIONAL.md) — the 16-module Rover
   subject collection with source and theorem links.
-- [`MODULE-BRICK-MAP.json`](MODULE-BRICK-MAP.json) — exact current manifest
-  relations.
-- [`IMPORT-CLOSURE.json`](IMPORT-CLOSURE.json) — current module and import counts.
+- [`MODULE-BRICK-MAP.json`](MODULE-BRICK-MAP.json) — module-to-Brick relations in the original
+  123-module baseline.
+- [`IMPORT-CLOSURE.json`](IMPORT-CLOSURE.json) — module and import counts in the original 123-module baseline.
 - [`NOTICE.md`](NOTICE.md) — source notices, attribution, and dependency scope.
 - [`HANDBOOK-PLANAR.md`](HANDBOOK-PLANAR.md) — the standalone planar source slice and its boundaries.
 
