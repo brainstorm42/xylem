@@ -1,10 +1,10 @@
 /-
-PD+ local domination step (the corresponding design note, follow-up to TrackingCrossTerm) — the
+PD+ local domination step (research packet 08, follow-up to TrackingCrossTerm) — the
 strict-Lyapunov inequalities for the augmented tracking storage
 W = V_e + α gᵀ M̆ e (g = J_x̃ᵀ K̆ x̃), stated under NAMED pointwise bounds.
 
 THE STEP. TrackingCrossTerm seals the exact rate identity of W along the `velocity_ff`
-loop (the source model note eq 4.12, scientific configuration) with the moving-reference
+loop (current_sota eq 4.12, scientific configuration) with the moving-reference
 kinematics residual r (eq 4.1c). A convergence theorem needs two more facts:
 (1) W is bounded below by a positive multiple of ‖e‖² + ‖x̃‖² (coercive), and
 (2) Ẇ ≤ −κ(‖e‖² + ‖x̃‖²) for some κ > 0. Both follow from the identity plus bounds on
@@ -39,10 +39,10 @@ WHAT IS PROVEN:
                               supplies the flow-level derivative of √W (see the note
                               at the theorem).
 
-PINNED (the corresponding project check (not bundled).py):
+PINNED (30_projects/30_proofs/10_proofbricks/20_pins/pin_tracking_strict_bound.py):
   (A) Young/quadratic-form lemma; (B) dominated rate on random data satisfying the
   bounds; (C) the storage lower bound.
-PINNED (the corresponding private check):
+PINNED (pin_tracking_strict_bound_sandwich.py):
   (D) the storage upper bound / sandwich; (E) the forced √W comparison inequality on
   random samples; (F) the exact-twist (κ_r = 0) corollary.
 
@@ -56,32 +56,23 @@ smaller than the strict term the cross term buys; for the exact relative twist
 (r = 0) it is automatic.
 -/
 import Ctrllib.TrackingCrossTerm
+import Ctrllib.QuadraticCrossTerm
+
+/-!
+## Concepts
+
+Derives coercivity and strict-rate domination for the PD+ augmented tracking storage under named
+pointwise bounds, including forced and exact-twist variants.
+
+## Techniques
+
+Uses Young’s inequality, quadratic-form bounds, and the cross-term identity; gain, symmetry,
+definiteness, and forcing hypotheses remain explicit.
+-/
 
 open Matrix
 
 namespace Ctrllib
-
-/-- Young's inequality in the form used for the cross term: `C s t ≤ (Cλ/2) s² + (C/(2λ)) t²`. -/
-theorem young_cross {C lam s t : ℝ} (hC : 0 ≤ C) (hlam : 0 < lam) :
-    C * s * t ≤ C * lam / 2 * s ^ 2 + C / (2 * lam) * t ^ 2 := by
-  have hkey : 0 ≤ C / (2 * lam) * (lam * s - t) ^ 2 := by positivity
-  have hexp : C / (2 * lam) * (lam * s - t) ^ 2
-      = C * lam / 2 * s ^ 2 - C * s * t + C / (2 * lam) * t ^ 2 := by
-    field_simp
-    ring
-  linarith
-
-/-- **Quadratic-form domination.** For `A, B > 0`-type margins after Young,
-`A s² + B t² − C s t ≥ min(A − Cλ/2, B − C/(2λ)) (s² + t²)`. -/
-theorem quad_form_dominates {A B C lam s t : ℝ} (hC : 0 ≤ C) (hlam : 0 < lam) :
-    min (A - C * lam / 2) (B - C / (2 * lam)) * (s ^ 2 + t ^ 2)
-      ≤ A * s ^ 2 + B * t ^ 2 - C * s * t := by
-  have hy := young_cross (s := s) (t := t) hC hlam
-  have h1 : min (A - C * lam / 2) (B - C / (2 * lam)) * s ^ 2 ≤ (A - C * lam / 2) * s ^ 2 :=
-    mul_le_mul_of_nonneg_right (min_le_left _ _) (sq_nonneg s)
-  have h2 : min (A - C * lam / 2) (B - C / (2 * lam)) * t ^ 2 ≤ (B - C / (2 * lam)) * t ^ 2 :=
-    mul_le_mul_of_nonneg_right (min_le_right _ _) (sq_nonneg t)
-  nlinarith [h1, h2, hy]
 
 variable {n m : Type*} [Fintype n] [Fintype m]
 
@@ -281,7 +272,7 @@ theorem strict_storage_upper {m₂ k₂ c₆ α : ℝ} (hα : 0 ≤ α) (hc₆ :
 /-- **The storage sandwich.** `strict_storage_lower` and `strict_storage_upper`
 packaged: `c_lo(‖e‖² + ‖x̃‖²) ≤ W ≤ c_hi(‖e‖² + ‖x̃‖²)`, `c_lo = min(m₁,k₁)/2 − αc₆/2`,
 `c_hi = max(m₂,k₂)/2 + αc₆/2`. Closes the report's asserted-but-unbricked `c_hi` half
-(the corresponding local note, "forced lemma" update). -/
+(`tracking_convergence_argument.md`, "forced lemma" update). -/
 theorem strict_storage_sandwich {m₁ m₂ k₁ k₂ c₆ α : ℝ} (hα : 0 ≤ α) (hc₆ : 0 ≤ c₆)
     (hM1 : m₁ * (e ⬝ᵥ e) ≤ e ⬝ᵥ M *ᵥ e) (hM2 : e ⬝ᵥ M *ᵥ e ≤ m₂ * (e ⬝ᵥ e))
     (hK1 : k₁ * (x ⬝ᵥ x) ≤ x ⬝ᵥ K *ᵥ x) (hK2 : x ⬝ᵥ K *ᵥ x ≤ k₂ * (x ⬝ᵥ x))
@@ -299,7 +290,7 @@ section Comparison
 `Ẇ ≤ −κ(E+X) + f√E + (αγ₂f+ρ)√X` and a storage sandwich `c_lo(E+X) ≤ W ≤ c_hi(E+X)`
 (`strict_storage_sandwich`), derive `Ẇ ≤ −(κ/c_hi)W + c'(f+ρ)√W` with
 `c' = (1+αγ₂)/√c_lo` — the report's asserted intermediate step
-(the corresponding local note, "forced lemma" update).
+(`tracking_convergence_argument.md`, "forced lemma" update).
 
 This is a PURELY ALGEBRAIC, pointwise inequality: it needs no positivity of `W`
 (the sandwich already forces `0 ≤ W`, and `E, X ≤ W/c_lo` holds whether or not

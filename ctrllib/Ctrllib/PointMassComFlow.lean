@@ -1,9 +1,9 @@
 /-
 Point-mass CoM flow realization, invariant energy sublevels, and convergence
-(the corresponding point-mass flow note).
+(P4.1 of the Euclid-lane Phase-2 packet).
 
-SYSTEM (the corresponding flow note §P4.1; human proof
-the corresponding local note): the autonomous linear loop
+SYSTEM (research packet 32_nominal_flow_invariance_P4.md §P4.1; human proof
+p4_point_mass_com_flow.md): the autonomous linear loop
 
     m v' + d v + k x = 0 ,   x' = v ,   m, d, k > 0 ,
 
@@ -17,7 +17,7 @@ and the mechanical energy is `V(v, x) = (m/2) ‖v‖² + (k/2) ‖x‖²`.
 THE NEW CONTENT (`IsSolutionTo` discharged, not assumed). `Ctrllib.LaSalle`'s
 own comment names the standing wall: "How such a flow arises on the region of
 interest (Picard–Lindelöf, completeness on Ω) deliberately stays on the
-applier's side", and the corresponding local note's `IsSolutionTo` row records that
+applier's side", and `interfaces.md`'s `IsSolutionTo` row records that
 "Mathlib v4.31.0 has no ODE→Flow bridge" for the general nonlinear case. This
 module does not build that general bridge. It builds the flow BY HAND for
 this one linear field, from the pinned Mathlib operator-exponential calculus
@@ -41,13 +41,15 @@ discharge for concrete SPD matrices (here even simpler: isotropic scalar
 operators).
 
 Human derivation:
-the corresponding derivation record (not bundled)
+ClearFocus/30_library/10_proofs/p4_point_mass_com_flow.md
 Task packet:
-the corresponding derivation record (not bundled)
+ClearFocus/20_context/20_focus/20_phase2/32_nominal_flow_invariance_P4.md
 -/
 import Mathlib.Analysis.Normed.Operator.Bilinear
 import Mathlib.Analysis.SpecialFunctions.Exponential
 import Ctrllib.ComLaSalle
+import Ctrllib.LinearOperatorFlow
+import Ctrllib.ProdNorm
 
 /- Instance search for `Module ℝ (PointMassState →L[ℝ] PointMassState)` and the
 `SMulCommClass` fact behind `Commute.smul_left` needs a pending-synthesis depth
@@ -103,55 +105,16 @@ section Flow
 
 variable (m d k : ℝ)
 
-/-- `PointMassState →L[ℝ] PointMassState` has `expSeries` radius `⊤`, so every
-element is trivially in the convergence ball. This is the fact that lets the
-CharZero-generic exponential lemmas (`𝕂 := ℝ`, no need for the `ℚ`-specialized
-unconditional corollaries, which would additionally demand a
-`NormedAlgebra ℚ` instance this non-division-ring endomorphism algebra does
-not have) apply unconditionally here. -/
-private theorem mem_ball_pointMassCLM (x : PointMassState →L[ℝ] PointMassState) :
-    x ∈ Metric.eball (0 : PointMassState →L[ℝ] PointMassState)
-      (NormedSpace.expSeries ℝ (PointMassState →L[ℝ] PointMassState)).radius :=
-  (NormedSpace.expSeries_radius_eq_top ℝ (PointMassState →L[ℝ] PointMassState)).symm ▸
-    edist_lt_top _ _
-
-private theorem pointMassCLM_exp_continuous :
-    Continuous fun x : PointMassState →L[ℝ] PointMassState => NormedSpace.exp x := by
-  rw [← continuousOn_univ, ← Metric.eball_top_eq_univ (0 : PointMassState →L[ℝ] PointMassState),
-    ← NormedSpace.expSeries_radius_eq_top ℝ (PointMassState →L[ℝ] PointMassState)]
-  exact NormedSpace.continuousOn_exp
-
 -- `hm` is carried only to match the pinned interface signature; the
 -- construction below is well-defined (if not physically meaningful) for any
 -- `m`.
 set_option linter.unusedVariables false in
 /-- **T1 — global realization.** The point-mass flow `Φ(t, z) := exp(t • A) z`
-(human proof eq (7)), built directly from the operator exponential — no
-ODE→Flow bridge, no Picard–Lindelöf. Continuity, the group law, and
-`Φ(0, ·) = id` are algebraic consequences of `NormedSpace.exp`'s own
-continuity, additivity on commuting elements, and value at zero. -/
-noncomputable def pointMassFlow (hm : 0 < m) : Flow ℝ PointMassState where
-  toFun t z := (NormedSpace.exp (t • pointMassCLM m d k)) z
-  cont' := by
-    have h1 : Continuous fun p : ℝ × PointMassState => p.1 • pointMassCLM m d k :=
-      continuous_fst.smul continuous_const
-    have h2 : Continuous fun p : ℝ × PointMassState =>
-        NormedSpace.exp (p.1 • pointMassCLM m d k) :=
-      pointMassCLM_exp_continuous.comp h1
-    exact (isBoundedBilinearMap_apply (𝕜 := ℝ)
-      (E := PointMassState) (F := PointMassState)).continuous.comp
-      (h2.prodMk continuous_snd)
-  map_add' t₁ t₂ z := by
-    have hcomm : Commute (t₁ • pointMassCLM m d k) (t₂ • pointMassCLM m d k) :=
-      ((Commute.refl (pointMassCLM m d k)).smul_left t₁).smul_right t₂
-    change NormedSpace.exp ((t₁ + t₂) • pointMassCLM m d k) z = _
-    rw [add_smul, NormedSpace.exp_add_of_commute_of_mem_ball hcomm
-        (mem_ball_pointMassCLM _) (mem_ball_pointMassCLM _),
-      ContinuousLinearMap.mul_def, ContinuousLinearMap.comp_apply]
-  map_zero' z := by
-    change NormedSpace.exp ((0 : ℝ) • pointMassCLM m d k) z = z
-    rw [zero_smul, NormedSpace.exp_zero, ContinuousLinearMap.one_def,
-      ContinuousLinearMap.id_apply]
+(human proof eq (7)), now delegated to the reusable bounded-operator flow.
+The carried `hm` argument preserves the public interface; the flow itself is
+well-defined for every operator. -/
+noncomputable def pointMassFlow (hm : 0 < m) : Flow ℝ PointMassState :=
+  linearOperatorFlow (pointMassCLM m d k)
 
 /-- The flow really does solve the field: `d/dt Φ(t, z) = A (Φ(t, z))`
 (human-proof eq (9)), read off `NormedSpace.hasDerivAt_exp_smul_const'`
@@ -160,13 +123,8 @@ algebra) post-composed with the evaluation map at `z`. -/
 theorem pointMassFlow_hasDerivAt (hm : 0 < m) (z : PointMassState) (t : ℝ) :
     HasDerivAt (fun s => pointMassFlow m d k hm s z)
       (pointMassCLM m d k ((pointMassFlow m d k hm) t z)) t := by
-  have hderiv : HasDerivAt (fun u : ℝ => NormedSpace.exp (u • pointMassCLM m d k))
-      (pointMassCLM m d k * NormedSpace.exp (t • pointMassCLM m d k)) t :=
-    hasDerivAt_exp_smul_const' (pointMassCLM m d k) t
-  have hcomp := (ContinuousLinearMap.apply ℝ PointMassState z).hasFDerivAt.comp_hasDerivAt
-    t hderiv
-  simp only [ContinuousLinearMap.apply_apply] at hcomp
-  rwa [ContinuousLinearMap.mul_def, ContinuousLinearMap.comp_apply] at hcomp
+  simpa [pointMassFlow] using linearOperatorFlow_hasDerivAt
+    (pointMassCLM m d k) z t
 
 end Flow
 
@@ -188,15 +146,6 @@ section Coercivity
 
 variable (m k : ℝ)
 
-/-- `PointMassState` has the sup product norm, so `‖z‖² ≤ ‖z.1‖² + ‖z.2‖²`
-(the same bookkeeping `BlockPrecompact.blockLyap_norm_coercive` uses). -/
-private theorem pointMassState_norm_sq_le (z : PointMassState) :
-    ‖z‖ ^ 2 ≤ ‖z.1‖ ^ 2 + ‖z.2‖ ^ 2 := by
-  rw [Prod.norm_def]
-  rcases le_total ‖z.1‖ ‖z.2‖ with h | h
-  · rw [max_eq_right h]; nlinarith [sq_nonneg ‖z.1‖]
-  · rw [max_eq_left h]; nlinarith [sq_nonneg ‖z.2‖]
-
 /-- **Coercivity of the point-mass energy.** `(min m k / 2) ‖z‖² ≤ V z`. -/
 theorem pointMassEnergy_coercive (hm : 0 < m) (hk : 0 < k) (z : PointMassState) :
     min m k / 2 * ‖z‖ ^ 2 ≤ pointMassEnergy m k z := by
@@ -204,7 +153,7 @@ theorem pointMassEnergy_coercive (hm : 0 < m) (hk : 0 < k) (z : PointMassState) 
     have h1 : min m k ≤ m := min_le_left m k
     have h2 : min m k ≤ k := min_le_right m k
     nlinarith [sq_nonneg ‖z.1‖, sq_nonneg ‖z.2‖]
-  have h3 := pointMassState_norm_sq_le z
+  have h3 := prod_norm_sq_le_sum_sq z
   have hminpos : 0 < min m k := lt_min hm hk
   unfold pointMassEnergy
   nlinarith [mul_le_mul_of_nonneg_left h3 hminpos.le]
@@ -299,21 +248,6 @@ section Invariance
 
 variable (m d k : ℝ)
 
-/-- Local helper: energy is nonincreasing forward in time along any solution
-of a field with `fderiv V [f] ≤ 0` everywhere (the flow-level integration
-Ctrllib.LaSalle's own `lasalle` proof performs internally). -/
-private theorem energy_antitone_of_decrease {V : PointMassState → ℝ}
-    {f : PointMassState → PointMassState}
-    {ϕ : Flow ℝ PointMassState} (hϕ : IsSolutionTo ϕ f) (hV : Differentiable ℝ V)
-    (hdec : ∀ y, fderiv ℝ V y (f y) ≤ 0) (z : PointMassState) :
-    Antitone (fun t : ℝ => V (ϕ t z)) := by
-  have hg_diff : Differentiable ℝ fun t : ℝ => V (ϕ t z) := fun t =>
-    (hϕ.hasDerivAt_comp hV z t).differentiableAt
-  have hg_deriv : ∀ t : ℝ, deriv (fun t : ℝ => V (ϕ t z)) t ≤ 0 := fun t => by
-    rw [(hϕ.hasDerivAt_comp hV z t).deriv]
-    exact hdec _
-  exact antitone_of_deriv_nonpos hg_diff hg_deriv
-
 /-- The point-mass flow, viewed as solving the scalar-operator `comField`. -/
 private theorem pointMass_isSolutionTo_comField (hm : 0 < m) (hd : 0 < d) (hk : 0 < k) :
     IsSolutionTo (pointMassFlow m d k hm) (comField (pmD d) (pmK k) (pmMinv m)) := by
@@ -329,7 +263,7 @@ theorem pointMass_sublevel_forwardInvariant (hm : 0 < m) (hd : 0 < d) (hk : 0 < 
   have hϕfield := pointMass_isSolutionTo_comField m d k hm hd hk
   have hdec := com_decrease (M := pmM m) (D := pmD d) (K := pmK k) (Minv := pmMinv m)
     pmM_selfAdjoint pmK_selfAdjoint (pmM_inv hm) (pmD_nonneg hd)
-  have hanti := energy_antitone_of_decrease hϕfield comEnergy_differentiable hdec z
+  have hanti := antitone_of_solution_field_decrease hϕfield comEnergy_differentiable hdec z
   have h0 : (fun t : ℝ => comEnergy (pmM m) (pmK k) ((pointMassFlow m d k hm) t z)) 0
       = comEnergy (pmM m) (pmK k) z := by
     simp [(pointMassFlow m d k hm).map_zero_apply]
@@ -359,7 +293,8 @@ theorem pointMass_tendsto_zero (m d k : ℝ) (hm : 0 < m) (hd : 0 < d) (hk : 0 <
       rw [← pointMassEnergy_eq_comEnergy]
       exact pointMassEnergy_coercive m k hm hk y
     · intro t ht
-      have hanti := energy_antitone_of_decrease hϕfield comEnergy_differentiable hdec z₀
+      have hanti := antitone_of_solution_field_decrease
+        hϕfield comEnergy_differentiable hdec z₀
       have h0 : (fun t : ℝ => comEnergy (pmM m) (pmK k) ((pointMassFlow m d k hm) t z₀)) 0
           = comEnergy (pmM m) (pmK k) z₀ := by
         simp [(pointMassFlow m d k hm).map_zero_apply]

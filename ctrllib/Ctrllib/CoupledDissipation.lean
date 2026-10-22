@@ -4,7 +4,7 @@ difficulty L). Along the sealed closed-loop field `g₂` the storage function
 
     V(y) = ½⟪v̆, M̆ v̆⟫ + ½⟪x̃, K̆ x̃⟫
 
-has TOTAL time derivative `V̇ = -⟪v̆, D̆ v̆⟫ ≤ 0` (Giordano eqs 37-38; the source model note
+has TOTAL time derivative `V̇ = -⟪v̆, D̆ v̆⟫ ≤ 0` (Giordano eqs 37-38; current_sota.md
 §4.6 eqs 4.15-4.16). This is the `hdec` input the sealed `propIV1_tendsto` consumes.
 
 The sealed `CoupledField.coupledEnergy_fderiv_field` gives only the STATE-SPACE
@@ -14,7 +14,7 @@ partial (M̆ held constant), already with the stiffness cross-terms cancelled:
 
 That partial is NOT sign-definite — the Coriolis term survives. The TOTAL derivative
 along a real trajectory adds the term the constant-operator storage form drops,
-`½⟪v̆, Ṁ̆ v̆⟫`, because `M̆ = M̆(q(t))` is configuration-dependent (the source model note eq 38).
+`½⟪v̆, Ṁ̆ v̆⟫`, because `M̆ = M̆(q(t))` is configuration-dependent (current_sota eq 38).
 The sealed passivity identity — `Ctrllib.transported_passivity_identity`, which
 *produces* `Ṁ̆ = C̆ + C̆ᵀ` by congruence transport of the Christoffel choice, hence
 `v̆ᵀ(Ṁ̆ - 2C̆)v̆ = 0` — collapses that correction to `⟪v̆, C̆ v̆⟫`, EXACTLY cancelling
@@ -33,7 +33,7 @@ WHAT IS PROVEN (real content):
     sealed `propIV1_tendsto`, so the coupled-block trajectory converges to Γ₁.
     The `hdec` hole of Prop IV.1's assembly is now filled by construction.
 
-SymPy-pinned (the corresponding symbolic check (not bundled).py) BEFORE the Lean:
+SymPy-pinned (~/Thesis/Prose/vault/lean/pin_coupled_dissipation.py) BEFORE the Lean:
   (1) `partial + ½ v̆ᵀ(C̆+C̆ᵀ)v̆ = -v̆ᵀD̆v̆` — symbolic n=2,3 + numeric n=3,6,9 (<4e-13);
   (2) sign `-v̆ᵀD̆v̆ ≤ 0` for D̆ PSD (numeric);
   (3) the operator form `v̆ᵀ(C̆+C̆ᵀ)v̆ = 2 v̆ᵀC̆v̆` — the faithful transcription of the
@@ -59,10 +59,21 @@ INTERFACE BOUNDARY (honest, the ComLaSalle `hMinv`/`hJadj` precedent):
     a silent `sorry`; the ALGEBRA it brackets — the cross-cancellation + Coriolis
     kill — is proved outright in `coupled_total_dissipation`.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Ctrllib.CoupledField
 import Ctrllib.Reduction
+
+/-!
+## Concepts
+
+Defines the coupled Lyapunov rate and proves that the total derivative is the negative
+velocity-damping term, then derives nonincrease and block-limit facts.
+
+## Techniques
+
+Combines the field partial-derivative identity with chain-rule calculus and
+`CoupledField`/`Reduction` interfaces; symmetry and derivative hypotheses are explicit.
+-/
 
 open Set Filter Topology
 open scoped InnerProductSpace
@@ -76,7 +87,7 @@ variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 
 /-- The TOTAL Lyapunov rate along the coupled block: the sealed state-space partial
 `DV(y)[g₂(y)]` PLUS the time-varying-inertia correction `½⟪v̆, Ṁ̆ v̆⟫` that the
-constant-operator storage form drops (the source model note eq 38). `Mdot` (= Ṁ̆) is the
+constant-operator storage form drops (current_sota eq 38). `Mdot` (= Ṁ̆) is the
 supplied inertia-rate operator carrying the passivity identity as its defining
 property (`hpass`). -/
 noncomputable def coupledLyapRate (y : CoupledState H) : ℝ :=
@@ -88,7 +99,7 @@ variable {M C D K J Minv Jadj Mdot}
 /-- **The total dissipation identity (the genuine core).** `V̇ = -⟪v̆, D̆ v̆⟫`.
 Consumes the sealed field lemma `coupledEnergy_fderiv_field` (which already cancels
 the stiffness cross-terms) and the passivity collapse `½⟪v̆,Ṁ̆v̆⟫ = ⟪v̆,C̆v̆⟫`, which
-kills the surviving Coriolis term. SymPy-pinned (the corresponding private check (1)). -/
+kills the surviving Coriolis term. SymPy-pinned (pin_coupled_dissipation.py (1)). -/
 theorem coupled_total_dissipation
     (hMsa : ∀ a b : H, ⟪M a, b⟫_ℝ = ⟪a, M b⟫_ℝ)
     (hKsa : ∀ a b : H, ⟪K a, b⟫_ℝ = ⟪a, K b⟫_ℝ)

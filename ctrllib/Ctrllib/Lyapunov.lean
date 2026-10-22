@@ -15,9 +15,20 @@ The theorem is the exponential comparison lemma (Khalil, *Nonlinear Systems*,
   LaSalle/negative-semidefinite argument (eq 38) + compact-set cascade
   theorems — that invariance layer is future work (L3+), NOT this file.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Analysis.ODE.Gronwall
+
+/-!
+## Concepts
+
+Defines Lyapunov decrease and quadratic sandwiches, then proves exponential comparison, ultimate
+bounds, and norm-squared consequences.
+
+## Techniques
+
+Applies Mathlib’s Grönwall bound to explicit derivative, continuity, and nonnegativity premises
+and translates through the sandwich.
+-/
 
 open Set Real
 

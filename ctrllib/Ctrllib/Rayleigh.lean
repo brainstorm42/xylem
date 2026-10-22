@@ -18,12 +18,23 @@ so `x ⬝ᵥ K *ᵥ x = Σ λᵢ wᵢ²` and `x ⬝ᵥ x = Σ wᵢ²`, then a te
 The load-bearing algebraic step (`quad_conj`) is a pure ring identity with NO
 orthogonality — orthogonality enters only to preserve the norm (`Σ wᵢ² = x⬝ᵥx`).
 
-SymPy pin (all three facts): the corresponding symbolic check (not bundled).py.
-Human derivation: the corresponding derivation record (not bundled)
+SymPy pin (all three facts): ~/Thesis/Prose/vault/lean/pin_rayleigh.py.
 -/
 import Mathlib.Analysis.Matrix.Spectrum
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Ctrllib.Lyapunov
+
+/-!
+## Concepts
+
+Proves the Hermitian matrix Rayleigh sandwich between minimum and maximum eigenvalues and
+packages it as a `QuadSandwich` witness.
+
+## Techniques
+
+Uses the finite spectral theorem, orthogonal diagonalization, and dot-product comparisons;
+`Nonempty` and Hermitian assumptions remain.
+-/
 
 open Matrix
 

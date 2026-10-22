@@ -29,8 +29,7 @@ WHAT IS PROVEN (real content, non-vacuous):
     named hypothesis).
 
 INTERFACED, NOT PROVEN (flagged, per the charter's documented fallback and the
-L3 retreat precedent
-the corresponding derivation record (not bundled)):
+L3 retreat precedent):
   - The EHM Appendix-A topological reduction (Theorem 6 stability ε–δ; the
     Lemma-22 relative-attraction collapse). These are Prop IV.1's cited [13]
     engine; here they are the named hypotheses `hStable` / `hLandsInΓ₁`, and
@@ -41,10 +40,21 @@ T1 predicate definitions below (`StableSet`, relative forms, `LocallyStableNear`
 `LocallyAttractiveNear`, `LUBNear`) transcribe EHM Definitions 1/3/4/5 verbatim
 in ε–δ form, for the record and to type the interface hypotheses.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Topology.MetricSpace.HausdorffDistance
 import Ctrllib.LaSalle
+
+/-!
+## Concepts
+
+Defines stability and attractivity relative to sets and supplies the El-Hawwary–Maggiore
+reduction from omega-limit containment to asymptotic stability.
+
+## Techniques
+
+Combines point-to-set distance, precompact flows, omega-limit properties, and LaSalle outputs;
+compactness and closedness premises are named.
+-/
 
 open Set Filter Topology omegaLimit
 

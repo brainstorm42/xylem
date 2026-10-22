@@ -2,7 +2,7 @@
 CoM tracking loop — global asymptotic stability via the sealed LaSalle engine
 (TARGET 1 of the ctrllib stream, difficulty M, the rung's headline).
 
-SYSTEM (the source model note §4.3 line 402 / eq 4.9; Giordano 2019 RA-L eq 34a — the
+SYSTEM (current_sota.md §4.3 line 402 / eq 4.9; Giordano 2019 RA-L eq 34a — the
 homogeneous damped second-order CoM-error loop):
 
     M x'' + D x' + K x = 0 ,   M, D, K symmetric positive definite.
@@ -18,7 +18,7 @@ The storage function is the mechanical energy
 WHAT IS PROVEN OUTRIGHT (real content, non-vacuous):
   `com_dissipation` — the energy-dissipation identity `DV(z)[f z] = -⟪v, D v⟫`.
     The `K` cross terms cancel by symmetry of `K`; the `M⁻¹` cancels against
-    the `M` in `∇V` (SymPy-pinned, the corresponding symbolic check (not bundled).py).
+    the `M` in `∇V` (SymPy-pinned, ~/Thesis/Prose/vault/lean/pin_com_lasalle.py).
   `com_decrease` — `DV(z)[f z] ≤ 0` (negative semidefinite: `D ⪰ 0`).
   `com_collapse` — the LaSalle collapse: on ANY invariant set where `DV[f] = 0`
     the state is the origin. This is the headline — the largest invariant set in
@@ -44,20 +44,30 @@ INTERFACES (named, not `sorry` — the L3/L4a precedent):
     only (the forward-only refactor of the SAME named hypothesis `lasalle` and
     `propIV1_tendsto` carry). Coercivity of `V` (the sealed
     `Ctrllib.blockLyap_coercive`, `forwardPrecompact_of_coercive`) supplies it;
-    two-sided precompactness is no longer required (see the wiki page
-    the corresponding local note §5).
+    two-sided precompactness is no longer required.
   * The operator hypotheses `hMsa/hKsa` (symmetry), `hMinv` (M invertible),
     `hDnn/hDdef` (D ⪰ 0, definite), `hKdef` (K injective) ARE positive-definite
     symmetry; for concrete symmetric-PosDef matrices they are discharged by the
     sealed `Ctrllib.le_dotProduct_mulVec` / `PosDef.isUnit` (Rayleigh,
-    StiffnessResidual). See the .
+    StiffnessResidual). See the .md.
 
-SymPy pin: the corresponding symbolic check (not bundled).py.
-Human derivation: the corresponding derivation record (not bundled)
+SymPy pin: ~/Thesis/Prose/vault/lean/pin_com_lasalle.py.
 -/
 import Mathlib.Analysis.InnerProductSpace.Calculus
 import Ctrllib.LaSalle
 import Ctrllib.Reduction
+
+/-!
+## Concepts
+
+Models the homogeneous damped second-order CoM loop as a first-order field with mechanical
+energy and derives LaSalle-based convergence under the stated matrix assumptions.
+
+## Techniques
+
+Builds differentiability and dissipation facts, then wires them through `LaSalle` and
+`Reduction`; symmetry, positive-definiteness, and flow premises stay explicit.
+-/
 
 open Set Filter Topology omegaLimit
 open scoped InnerProductSpace

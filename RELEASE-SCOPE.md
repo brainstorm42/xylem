@@ -11,6 +11,7 @@ Xylem provides graph navigation through CLI and foreground MCP. BrickConverter r
 | Umbrella imports | 122 | [Ctrllib.lean](ctrllib/Ctrllib.lean) |
 | Separately importable module | 1 | [AllocationSignConvention](ctrllib/Ctrllib/AllocationSignConvention.lean) |
 | New standalone modularization modules | 9 | [Planar module slice](ctrllib/HANDBOOK-PLANAR.md) and [ProdNorm](ctrllib/Ctrllib/ProdNorm.lean) |
+| Selected RC/BC source increment | 36 Ctrllib paths plus 1 interval-certificate pilot | [Evaluation status](RESULTS-STATUS.md) |
 | Rover modules | 16 | [Geometry, motion, timing, and clearance](ctrllib/ROVER-PROVISIONAL.md) |
 | Rover source declaration links | 68 | [Source declaration guide](ctrllib/ROVER-PROVISIONAL.md) |
 | CompactBounds parent-statement binders | 5 | [Explanation](xylem-plugin/examples/compact-bounds/explanation-hS.md) |
@@ -61,7 +62,7 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 
 The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results. This full run tested the same proof sources and pins supplied here; current converter-label, freshness-advice, and explanation corrections received separate targeted checks.
 
-The 123-module figures above are the dated source-first verification baseline. The current checkout also contains nine newly included standalone modularization modules; those additions are not retroactively folded into that historical receipt.
+The 123-module figures above are the dated source-first verification baseline. The current checkout also contains nine standalone modularization modules, a selected 36-path RC source increment, and one BC interval-certificate pilot; those additions are not retroactively folded into that historical receipt.
 
 ## Public percolation example
 

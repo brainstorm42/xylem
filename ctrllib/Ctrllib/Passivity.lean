@@ -13,7 +13,6 @@ Formalized at matrix-value level: at any instant, if the inertia-rate value
 Ṁ equals C + Cᵀ, then Ṁ − 2C is skew-symmetric, and the quadratic form of a
 skew-symmetric matrix vanishes — together, eq 23.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Data.Matrix.Mul
 import Mathlib.Data.Real.Basic
@@ -47,6 +46,15 @@ theorem dotProduct_mulVec_self_of_skew [Fintype n] {A : Matrix n n ℝ}
   have h4 : (A *ᵥ x) ⬝ᵥ x = x ⬝ᵥ A *ᵥ x := dotProduct_comm _ _
   linarith [h3, h4]
 
+/-- The scalar cancellation exposed by a skew residual. -/
+theorem half_quadratic_sub_quadratic_of_skew [Fintype n] {A C : Matrix n n ℝ}
+    (hA : (A - 2 • C)ᵀ = -(A - 2 • C)) (x : n → ℝ) :
+    (1 / 2 : ℝ) * (x ⬝ᵥ A *ᵥ x) - x ⬝ᵥ C *ᵥ x = 0 := by
+  have hzero := dotProduct_mulVec_self_of_skew hA x
+  rw [sub_mulVec, dotProduct_sub, smul_mulVec, dotProduct_smul] at hzero
+  norm_num at hzero
+  linarith
+
 /-- giordano2019coordinated eq 23: with the Christoffel-consistent Coriolis
 matrix, the velocity quadratic form of `Ṁ − 2C` vanishes identically. -/
 theorem passivity_identity [Fintype n] {Mdot C : Matrix n n ℝ} (hM : Mdot = C + Cᵀ)
@@ -57,4 +65,5 @@ end Ctrllib
 
 #print axioms Ctrllib.mdot_sub_two_coriolis_skew
 #print axioms Ctrllib.dotProduct_mulVec_self_of_skew
+#print axioms Ctrllib.half_quadratic_sub_quadratic_of_skew
 #print axioms Ctrllib.passivity_identity

@@ -7,6 +7,18 @@ import Mathlib.Analysis.Normed.Operator.Bilinear
 import Mathlib.Analysis.SpecialFunctions.Exponential
 import Ctrllib.LaSalle
 
+/-!
+## Concepts
+
+Constructs a global flow for a bounded real continuous-linear operator using the operator
+exponential and proves its derivative and solution facts.
+
+## Techniques
+
+Uses exponential calculus and the `Flow` interface; bounded-operator and initial-state
+assumptions are carried by the types.
+-/
+
 set_option maxSynthPendingDepth 3
 
 namespace Ctrllib

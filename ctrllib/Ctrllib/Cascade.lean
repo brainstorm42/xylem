@@ -44,7 +44,7 @@ coupled block's origin by LaSalle on the coupled field directly. This route reac
 (com, coupled) origin through the CASCADE theorem, using `com_attractive` as the driving engine
 and the comparison/growth argument (not LaSalle) for the driven convergence.
 `coupled_attractive` is the JUSTIFICATION for the driven-block reshaping interface (its
-zero-input attractivity is Prop 1's premise), documented in the corresponding local note — never a silent
+zero-input attractivity is Prop 1's premise), documented in interfaces.md — never a silent
 substitution.
 
 ISS. Deliberately NOT defined: the majorization route (panteley2001growth Theorem 4) needs only
@@ -52,7 +52,7 @@ the differential inequality, not the ISS characterisation (Theorem 3's optional 
 conclusion). Per the ratified done-bar, "ISS definitions ONLY where the theorem needs them" —
 here, nowhere.
 
-INTERFACE BOUNDARY (honest; the corresponding local note carries the rows):
+INTERFACE BOUNDARY (honest; interfaces.md carries the rows):
   * `hsand` — the class-𝒦∞ sandwich `α₁‖x₁‖ ≤ V(x₁)` (eq 10/13). For the reshaped 𝒱 of Proposition 1
     it is a theorem (converse Lyapunov), here the named modelling input.
   * `hdi` (eq 35) — the interconnection differential inequality `v' ≤ -a·V(x₁) + c‖x₂‖`. Bundles the
@@ -65,14 +65,25 @@ INTERFACE BOUNDARY (honest; the corresponding local note carries the rows):
   * (instantiation) `hϕc`, `hcptc` + the CoM operator hypotheses — the sealed `com_attractive`
     interface, discharged for concrete SPD blocks exactly as ComLaSalle documents.
 
-SymPy pin: the corresponding symbolic check (not bundled).py
+SymPy pin: ~/Thesis/Prose/vault/lean/pin_cascade.py
   (𝒦∞ inverse leftInv + Panteley Example 2 numeric).
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Ctrllib.TimeVaryingComparison
 import Ctrllib.ComparisonFunctions
 import Ctrllib.ComLaSalle
 import Ctrllib.CoupledCollapse
+
+/-!
+## Concepts
+
+Formalizes the Panteley–Loría cascade composition: class-K comparisons, attractivity,
+boundedness, and the stated UGAS-style assembly for the declared flow interfaces.
+
+## Techniques
+
+Chains comparison estimates and set/flow convergence lemmas; system boundedness and component
+assumptions are passed as named premises.
+-/
 
 open Set Filter Topology
 open scoped InnerProductSpace
@@ -204,7 +215,7 @@ both into `cascade_attractive` yields convergence of the FULL closed-loop state
 Independent of the `coupled_attractive` LaSalle route: here the coupled block's convergence
 comes from the cascade comparison argument driven by the CoM loop, not from LaSalle on the
 coupled field. The coupled block's zero-input attractivity (`coupled_attractive`) is the
-justification for the reshaping interface (Proposition 1), recorded in the corresponding local note — never
+justification for the reshaping interface (Proposition 1), recorded in interfaces.md — never
 silently substituted. -/
 theorem propIV1_cascade_attractive
     -- driving subsystem: the CoM loop, with the sealed `com_attractive` hypotheses

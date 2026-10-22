@@ -1,9 +1,9 @@
 /-
-PD+ strict-Lyapunov candidate for the tracking loop (the corresponding design note, follow-up to
+PD+ strict-Lyapunov candidate for the tracking loop (research packet 08, follow-up to
 TrackingDissipation) — the exact rate identity of the CROSS-TERM-AUGMENTED storage
-along the `velocity_ff` working control equation (the source model note eq 4.12 with
+along the `velocity_ff` working control equation (current_sota.md eq 4.12 with
 `desired_twist.velocity_ff: true`, the scientific configuration adopted 2026-08-15),
-with the moving-reference kinematics residual (the source model note eq 4.1c) carried.
+with the moving-reference kinematics residual (current_sota.md eq 4.1c) carried.
 
 THE STEP. TrackingDissipation seals `V̇_e = −eᵀD̆e − eᵀF` for the storage
 `V_e = ½eᵀM̆e + ½x̃ᵀK̆x̃`; that rate has no strict term in x̃, so convergence of x̃
@@ -30,7 +30,7 @@ WHAT IS PROVEN (value-level algebra at one instant, K̆ symmetric, Ṁ̆ = C̆ +
   `strict_term_zero_iff` — the strict term vanishes only at zero pose error when
     K̆ ≻ 0 and J_x̃ is nonsingular (via the sealed `stiffness_residual_injective`).
 
-SYMPY-PINNED (the corresponding project check (not bundled).py):
+SYMPY-PINNED (30_projects/30_proofs/10_proofbricks/20_pins/pin_tracking_cross_term.py):
   (A) the identity; (B) indefiniteness of x̃ᵀJᵀK̆x̃ for eq 4.1a; (C) W ≥ 0 for small α.
 
 INTERFACE BOUNDARY (honest). Pointwise identities only. NOT here: (i) that the flow
@@ -39,10 +39,22 @@ realises the displayed rate (`IsSolutionTo`/`hreal`, as in CoupledDissipation);
 on a forward-invariant set, and a choice of α making Ẇ ≤ −κ(‖e‖² + ‖x̃‖²) locally;
 (iii) positivity/coercivity of W for that α (pin (C) numeric). Those are the named
 inputs of the local PD+ convergence theorem, still open (research deliverable
-the corresponding local note, gap 1 route (a)).
+tracking_convergence_argument.md, gap 1 route (a)).
 -/
 import Ctrllib.TrackingDissipation
 import Ctrllib.StiffnessResidual
+
+/-!
+## Concepts
+
+Defines the cross-term-augmented tracking storage and proves its exact rate identity and
+strict-term zero characterization for the moving-reference residual.
+
+## Techniques
+
+Expands matrix derivatives and skew/passivity cancellations, then uses positive-definite
+stiffness-kernel facts; symmetry and derivative identities remain premises.
+-/
 
 open Matrix
 

@@ -3,7 +3,7 @@ Block Lyapunov admissibility (TARGET 20 of the ctrllib stream) — the
 *candidate-admissibility* leg the thesis states without proof.
 
 The framing paper's storage function (giordano2019coordinated eq 37;
-the source model note §4.6 eq 4.15) is the sum of two quadratic forms
+current_sota.md §4.6 eq 4.15) is the sum of two quadratic forms
 
     V(v, x) = ½ vᵀ M v + ½ xᵀ K x ,     M ≻ 0 , K ≻ 0
 
@@ -17,14 +17,25 @@ no `fromBlocks` single-matrix detour, because eq 4.15 is literally the sum.
 
 The quantity `v ⬝ᵥ v + x ⬝ᵥ x` IS the squared Euclidean norm of the stacked
 state `(v, x)`; it is written transparently so no `WithLp`/product-norm
-bookkeeping is needed (see the ).
+bookkeeping is needed (see the .md).
 
-SymPy/numeric pin: the corresponding symbolic check (not bundled).py (4000 random SPD 9×9
+SymPy/numeric pin: ~/Thesis/Prose/vault/lean/pin_block_lyapunov.py (4000 random SPD 9×9
 blocks + the symbolic min/max collapse identity).
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Analysis.Matrix.PosDef
 import Ctrllib.Rayleigh
+
+/-!
+## Concepts
+
+Defines the block quadratic storage `½vᵀMv + ½xᵀKx` and proves spectral sandwiches,
+nonnegativity, and zero characterization under Hermitian and positive-definite assumptions.
+
+## Techniques
+
+Combines Rayleigh bounds for the two blocks and unfolds quadratic forms; `Nonempty` and
+positivity premises are explicit.
+-/
 
 open Matrix
 
@@ -39,7 +50,7 @@ variable {n m : Type*} [Fintype n] [Fintype m] [DecidableEq n] [DecidableEq m]
   {M : Matrix n n ℝ} {K : Matrix m m ℝ}
 
 /-- The block Lyapunov value `V(v,x) = ½ vᵀ M v + ½ xᵀ K x`
-(giordano2019coordinated eq 37; the source model note eq 4.15). -/
+(giordano2019coordinated eq 37; current_sota.md eq 4.15). -/
 noncomputable def blockLyap (M : Matrix n n ℝ) (K : Matrix m m ℝ) (v : n → ℝ) (x : m → ℝ) : ℝ :=
   (1 / 2) * (v ⬝ᵥ M *ᵥ v) + (1 / 2) * (x ⬝ᵥ K *ᵥ x)
 

@@ -1,6 +1,6 @@
 /-
 Coupled-block class-𝒦∞ sandwich — the cheap discharge of the cascade `hsand`
-interface (scope dossier the corresponding local note card 86baw867b).
+interface (scope dossier tasks/streams/ctrllib/scope_hsand_hdi.md, card 86baw867b).
 
 `Cascade.lean` carries `hsand : ∀ t ∈ Ici 0, α₁ ‖x₁ t‖ ≤ V (x₁ t)` (α₁ ∈ 𝒦∞) as a
 named modelling input — the reshaped-Lyapunov lower sandwich (panteley2001growth
@@ -31,6 +31,7 @@ Imports the sealed `BlockLyapunov` and `ComparisonFunctions`; edits neither.
 -/
 import Ctrllib.BlockLyapunov
 import Ctrllib.ComparisonFunctions
+import Ctrllib.ProdNorm
 
 open Set Filter Topology Matrix
 
@@ -52,9 +53,11 @@ theorem isClassKInfinity_sq : IsClassKInfinity (fun s : ℝ => s ^ 2) where
 variable {n m : Type*} [Fintype n] [Fintype m]
 
 /-- On `EuclideanSpace ℝ n` the squared norm is the self dot product `‖x‖² = x ⬝ᵥ x`:
-the `L²` norm's defining sum `∑ (x i)²` is literally `∑ x i * x i`. This is the bridge
-from `blockLyap_coercive`'s `v ⬝ᵥ v` to the comparison function's `‖·‖`. -/
-private lemma norm_sq_eq_dotProduct (x : EuclideanSpace ℝ n) : ‖x‖ ^ 2 = x ⬝ᵥ x := by
+the `L²` norm's defining sum `∑ (x i)²` is literally `∑ x i * x i`. This is the shared
+bridge from block Lyapunov dot-product bounds to norm-shaped comparison and compactness
+interfaces. -/
+theorem euclideanSpace_norm_sq_eq_dotProduct (x : EuclideanSpace ℝ n) :
+    ‖x‖ ^ 2 = x ⬝ᵥ x := by
   rw [EuclideanSpace.real_norm_sq_eq, dotProduct]
   simp only [pow_two]
 
@@ -74,16 +77,12 @@ theorem blockLyap_classKInfinity_sandwich [Nonempty n] [Nonempty m]
   obtain ⟨c₁, hc₁, hbound⟩ := blockLyap_coercive hM hK
   refine ⟨fun s => c₁ * s ^ 2, isClassKInfinity_sq.const_mul hc₁, ?_⟩
   intro y
-  -- sup-product norm: `‖y‖² ≤ ‖y.1‖² + ‖y.2‖²`
-  have hmax : ‖y‖ ^ 2 ≤ ‖y.1‖ ^ 2 + ‖y.2‖ ^ 2 := by
-    rw [Prod.norm_def]
-    rcases le_total ‖y.1‖ ‖y.2‖ with h | h
-    · rw [max_eq_right h]; nlinarith [sq_nonneg ‖y.1‖]
-    · rw [max_eq_left h]; nlinarith [sq_nonneg ‖y.2‖]
+  have hmax := prod_norm_sq_le_sum_sq y
   -- the sealed quadratic lower bound, in norm form
   have hb : c₁ * (‖y.1‖ ^ 2 + ‖y.2‖ ^ 2) ≤ blockLyap M K y.1 y.2 := by
     have := hbound y.1 y.2
-    rwa [← norm_sq_eq_dotProduct y.1, ← norm_sq_eq_dotProduct y.2] at this
+    rwa [← euclideanSpace_norm_sq_eq_dotProduct y.1,
+      ← euclideanSpace_norm_sq_eq_dotProduct y.2] at this
   calc c₁ * ‖y‖ ^ 2
       ≤ c₁ * (‖y.1‖ ^ 2 + ‖y.2‖ ^ 2) := mul_le_mul_of_nonneg_left hmax hc₁.le
     _ ≤ blockLyap M K y.1 y.2 := hb
@@ -105,5 +104,6 @@ theorem blockLyap_hsand [Nonempty n] [Nonempty m]
 end Ctrllib
 
 #print axioms Ctrllib.isClassKInfinity_sq
+#print axioms Ctrllib.euclideanSpace_norm_sq_eq_dotProduct
 #print axioms Ctrllib.blockLyap_classKInfinity_sandwich
 #print axioms Ctrllib.blockLyap_hsand

@@ -1,7 +1,7 @@
 /-
-Tracking-extension energy rate (the corresponding design note, gap 1) — the exact rate
+Tracking-extension energy rate (research packet 06, gap 1) — the exact rate
 identity of the tracking storage along the WORKING control equation
-(the source model note eq 4.12; `the implemented dynamics expression`, the implementation revision
+(current_sota.md eq 4.12; `BreveController.RHS34b`, dynamics_stack commit
 86a522b), naming the residual that separates the implemented tracking loop from
 the regulator whose Lyapunov argument is already sealed
 (BlockLyapunov / CoupledDissipation).
@@ -34,7 +34,7 @@ WHAT IS PROVEN (value-level algebra at one instant, K̆ symmetric):
   `tracking_storage_coercive` — the storage is the sealed block Lyapunov value,
       so it is coercive for M̆, K̆ ≻ 0 (BlockLyapunov.lean).
 
-SYMPY-PINNED (the corresponding project check (not bundled).py):
+SYMPY-PINNED (30_projects/30_proofs/10_proofbricks/20_pins/pin_tracking_dissipation.py):
   (A) identity + bracket = 0; (B) velocity_ff branch; (C) regulator-kinematics
   residual; (D) numeric witness that −eᵀDe − eᵀCv_d can be positive.
 
@@ -43,9 +43,9 @@ vectors of one instant; the ODE realisation (a flow whose derivative is the
 displayed rate) is the same `IsSolutionTo`/`hreal` interface used by
 CoupledDissipation.lean and is not discharged here. Which branch the fresh
 nominal run used, and the sign/size of the residual along it, are simulation
-evidence (the corresponding design note), not theorems. Nothing here claims convergence of the
+evidence (Packet 05), not theorems. Nothing here claims convergence of the
 tracking loop: the residual −eᵀC̆v̆_d is the named mathematical gap that a
-convergence argument (the corresponding design note) must either remove (velocity_ff), bound
+convergence argument (Packet 08) must either remove (velocity_ff), bound
 (TimeVaryingComparison.lean shape), or accept as a steady lag (CruiseLag.lean).
 -/
 import Ctrllib.Passivity
@@ -76,9 +76,7 @@ theorem stiffness_cross_symm {K : Matrix m m ℝ} (hK : Kᵀ = K)
 /-- Passivity bracket: with `Ṁ = C + Cᵀ`, `½ eᵀṀe − eᵀCe = 0` (Giordano eq 23). -/
 theorem passivity_bracket {Mdot C : Matrix n n ℝ} (hM : Mdot = C + Cᵀ) (e : n → ℝ) :
     (1 / 2) * (e ⬝ᵥ Mdot *ᵥ e) - e ⬝ᵥ C *ᵥ e = 0 := by
-  have h := passivity_identity hM e
-  rw [two_smul, sub_mulVec, add_mulVec, dotProduct_sub, dotProduct_add] at h
-  linarith
+  exact half_quadratic_sub_quadratic_of_skew (mdot_sub_two_coriolis_skew hM) e
 
 section Identity
 
@@ -117,7 +115,7 @@ theorem tracking_rate_passive (hK : Kᵀ = K) (hM : Mdot = C + Cᵀ)
       = -((v - vd) ⬝ᵥ D *ᵥ (v - vd)) - (v - vd) ⬝ᵥ C *ᵥ vd - (v - vd) ⬝ᵥ F := by
   rw [tracking_rate_identity hK hdyn hkin, passivity_bracket hM, add_zero]
 
-/-- **The `velocity_ff` branch** (`−C (v − v_d)`, `the private implementation note:420-425`):
+/-- **The `velocity_ff` branch** (`−C (v − v_d)`, `breve_controller.py:420-425`):
 the residual disappears, `V̇_e = −eᵀDe − eᵀF`. -/
 theorem tracking_rate_velocity_ff (hK : Kᵀ = K) (hM : Mdot = C + Cᵀ)
     (hdyn : M *ᵥ vdot = -(C *ᵥ (v - vd)) - D *ᵥ (v - vd) - Jᵀ *ᵥ (K *ᵥ x) - F

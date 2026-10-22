@@ -31,12 +31,12 @@ WHAT IS PROVEN (real content, non-vacuous):
     positive definite (⇒ injective). Recorded because it is the rank-robust reason
     the residual map is injective.
 
-SYMPY-PINNED (the corresponding symbolic check (not bundled).py), before formalizing:
+SYMPY-PINNED (~/Thesis/Prose/vault/lean/pin_stiffness_residual.py), before formalizing:
   (A) the SQUARE claim above holds — det(JᵀK)=det(J)det(K), 5000 random 9×9;
   (B) the RECTANGULAR reduced form is FALSE — a 3×2 full-column-rank J and K=I
       give a nonzero x with JᵀK x = 0 (nullspace `[0,0,1]`). So the Lean statement
       MUST require J square/nonsingular; a rectangular "J^T K x=0 ⇒ x=0" would be a
-      false seal. This resolves the the corresponding local note §7 wording flag.
+      false seal. This resolves the reduction_cascade.md §7 wording flag.
   (C) the Gram form JᵀKJ ≻ 0 for full-column-rank J (rectangular ok);
   (D) det(J_x̃_b) = det(−η E + [ε]ˣ) = −η on the unit quaternion, so J_x̃ is
       nonsingular exactly when each quaternion scalar part η ≠ 0 — automatic near
@@ -51,10 +51,21 @@ closed-loop field `g₂` (eq 34b) to turn the abstract `fderiv V y (f y) = 0` in
 `IsSolutionTo` interface precedent used throughout L3/L4a — so the coordinate
 wiring stays applier-side; this lemma is its final, machine-checked link.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.LinearAlgebra.Matrix.PosDef
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+
+/-!
+## Concepts
+
+Proves injectivity of the stiffness residual `JᵀKx` in the stacked/full-rank setting used to
+close `v ≡ 0 ⇒ x ≡ 0`.
+
+## Techniques
+
+Uses positive-definite matrix invertibility and block/kernel cancellation; rank, symmetry, and
+type-size premises remain explicit.
+-/
 
 open Matrix
 

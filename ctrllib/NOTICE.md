@@ -17,4 +17,6 @@ The standalone `HandbookPlanarEndpointJacobian`, `HandbookPlanarTwoLink`, `Handb
 
 `Ctrllib/ProdNorm.lean` is a user-authored Mathlib-only helper included with an explicit Apache-2.0 source notice. It contains no copied textbook, paper, or third-party source text.
 
+The selected startup-ramp source closure is included as Ctrllib overlay material. Its authored adapter files retain their Apache-2.0 notices; the closure also preserves the existing project notices and dependency terms. `QuadraticForm.lean` identifies NASALib as a mathematical source and explicitly states that it does not copy the PVS representation. `ControllerScalarPilotV2.lean` is an additive interval-certificate client over that closure; it is included as a bounded study artifact, not as a general automated-bound or physical-control claim.
+
 Mathlib and the other Lake dependencies use the revisions in `lake-manifest.json` and retain their own license terms.

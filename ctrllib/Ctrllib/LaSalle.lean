@@ -18,7 +18,6 @@ stays on the applier's side of the Prop — the documented design choice.
 giordano2019coordinated Prop IV.1 proof (verbatim): "Applying LaSalle to
 (34b), v̆ ≡ 0 implies x̃ = 0" — the theorems below are that step's engine.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 import Mathlib.Dynamics.OmegaLimit
@@ -103,6 +102,20 @@ theorem IsSolutionTo.hasDerivAt_comp {ϕ : Flow ℝ E} {f : E → E}
     HasDerivAt (fun s => V (ϕ s x)) (fderiv ℝ V (ϕ t x) (f (ϕ t x))) t :=
   HasFDerivAt.comp_hasDerivAt t (hV (ϕ t x)).hasFDerivAt (hϕ x t)
 
+/-- A nonpositive field derivative makes the storage value antitone on every
+orbit of a supplied solution flow. -/
+theorem antitone_of_solution_field_decrease
+    {f : E → E} {ϕ : Flow ℝ E} {V : E → ℝ}
+    (hϕ : IsSolutionTo ϕ f) (hV : Differentiable ℝ V)
+    (hdec : ∀ y, fderiv ℝ V y (f y) ≤ 0) (x : E) :
+    Antitone (fun t : ℝ => V (ϕ t x)) := by
+  have hg_diff : Differentiable ℝ (fun t : ℝ => V (ϕ t x)) := fun t =>
+    (hϕ.hasDerivAt_comp hV x t).differentiableAt
+  have hg_deriv : ∀ t : ℝ, deriv (fun t : ℝ => V (ϕ t x)) t ≤ 0 := fun t => by
+    rw [(hϕ.hasDerivAt_comp hV x t).deriv]
+    exact hdec _
+  exact antitone_of_deriv_nonpos hg_diff hg_deriv
+
 /-- LaSalle's invariance principle at flow level. For a flow solving
 `x' = f x`, a differentiable `V` nonincreasing along the field, and a point
 with precompact orbit closure: the ω-limit set is nonempty, invariant, `V`
@@ -127,13 +140,7 @@ theorem lasalle (ϕ : Flow ℝ E) {f : E → E} (hϕ : IsSolutionTo ϕ f)
       (singleton_nonempty x₀)
   have hinv : IsInvariant ϕ.toFun (ω⁺ ϕ.toFun {x₀}) :=
     ϕ.isInvariant_omegaLimit atTop {x₀} hshift
-  have hg_diff : Differentiable ℝ fun t : ℝ => V (ϕ t x₀) := fun t =>
-    (hϕ.hasDerivAt_comp hV x₀ t).differentiableAt
-  have hg_deriv : ∀ t : ℝ, deriv (fun t : ℝ => V (ϕ t x₀)) t ≤ 0 := fun t => by
-    rw [(hϕ.hasDerivAt_comp hV x₀ t).deriv]
-    exact hdec _
-  have hmono : Antitone fun t : ℝ => V (ϕ t x₀) :=
-    antitone_of_deriv_nonpos hg_diff hg_deriv
+  have hmono := antitone_of_solution_field_decrease hϕ hV hdec x₀
   -- Forward-only precompactness bounds `V` below on the forward orbit; the
   -- backward orbit is handled by antitonicity (`V(ϕ t x₀) ≥ V(x₀)` for `t ≤ 0`),
   -- so the same bound serves the whole two-sided range.
@@ -184,6 +191,7 @@ theorem eventually_mem_of_omegaLimit_subset (ϕ : Flow ℝ E) (x₀ : E)
 end Ctrllib
 
 #print axioms Ctrllib.eq_on_omegaLimit_of_tendsto
+#print axioms Ctrllib.antitone_of_solution_field_decrease
 #print axioms Ctrllib.lasalle
 #print axioms Ctrllib.eventually_mem_of_omegaLimit_subset
 #print axioms Ctrllib.forwardPrecompact_of_isBounded

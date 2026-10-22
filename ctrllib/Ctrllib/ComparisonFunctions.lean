@@ -14,7 +14,7 @@ Provenance. The definitions are read verbatim from the rendered sources on disk:
   - Khalil, Nonlinear Systems 3rd ed. (2002), §4.4 "Comparison Functions"
     (render line 4584): Definition 4.2 (render line 4588; classes 𝒦 and 𝒦∞) and
     Definition 4.3 (render line 4590; class 𝒦ℒ). Confirmed against the corpus
-    render 2026-07-11 (the corresponding local note).
+    render 2026-07-11 (tasks/streams/ctrllib/khalil_cite_confirmations.md).
 
 Carrier. Functions `ℝ → ℝ` with the defining properties asserted on `Set.Ici 0`
 (the ray `[0,∞)`). This matches the paper's `ℝ≥0 → ℝ≥0` while composing directly
@@ -23,7 +23,6 @@ rungs manipulate -- and it reuses the `ContinuousOn _ (Ici 0)` idiom already
 carried by TimeVaryingComparison.lean. Nonnegativity of the output on the ray is
 a THEOREM (`IsClassK.nonneg`), not a hypothesis: `f 0 = 0` plus monotonicity give it.
 
-Human derivation: the corresponding derivation record (not bundled).
 -/
 import Mathlib.Topology.Instances.Real.Lemmas
 import Mathlib.Topology.Order.MonotoneContinuity
@@ -31,6 +30,18 @@ import Mathlib.Topology.Order.IntermediateValue
 import Mathlib.Topology.Order.Lattice
 import Mathlib.Order.Filter.AtTopBot.Field
 import Mathlib.Order.Hom.Set
+
+/-!
+## Concepts
+
+Defines class-K, class-K∞, and class-KL predicates and proves their monotonicity, inverse/limit,
+and comparison properties.
+
+## Techniques
+
+Uses ordered-real topology, continuity, intermediate-value arguments, and filter limits;
+nonnegativity and strict-increase hypotheses remain in the structures.
+-/
 
 open Set Filter Topology Function
 

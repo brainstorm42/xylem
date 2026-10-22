@@ -2,7 +2,7 @@
 TARGET G2 — the closed-loop coupled-block field, once (ctrllib infrastructure).
 
 The shared prerequisite for the cascade's driven-block (`g₂`) analysis. Prop IV.1
-step 2 (giordano2019coordinated §IV.D; the source model note §4.6 eqs 4.10/4.12; Giordano
+step 2 (giordano2019coordinated §IV.D; current_sota.md §4.6 eqs 4.10/4.12; Giordano
 eqs 37-38) studies the AUTONOMOUS coupled attitude+EE block — the CoM driver zeroed
 (x̃_c = ẋ̃_c = 0 on Γ₂, so the eq-4.10 forcing drops):
 
@@ -36,7 +36,7 @@ WHAT IS PROVEN (real content, non-vacuous):
     derivation. This is NOT sign-definite (the Coriolis term survives): that is why
     it is infrastructure, not a stability claim.
 
-SymPy-pinned (the corresponding symbolic check (not bundled).py) BEFORE freezing the definition:
+SymPy-pinned (~/Thesis/Prose/vault/lean/pin_g2_field.py) BEFORE freezing the definition:
   (1) TOTAL derivative along the field (M̆ time-varying, house eq 38):
       d/dt V = -v̆ᵀD̆v̆ + ½v̆ᵀ(Ṁ̆ - 2C̆)v̆, symbolic n=2,3 + numeric n=3,6,9.
   (2) the STATE-SPACE partial `DV[g₂] = -v̆ᵀC̆v̆ - v̆ᵀD̆v̆` (this module's field lemma);
@@ -53,9 +53,20 @@ passivity cancellation are the hdec lane's, named here, not smuggled. The adjoin
 identities (`hJadj`, `hMinv`) — the ComLaSalle `hMinv` precedent; for concrete
 matrices on `EuclideanSpace` these are `Matrix.toEuclideanCLM` facts.
 
-Human derivation: the corresponding derivation record (not bundled)
 -/
 import Mathlib.Analysis.InnerProductSpace.Calculus
+
+/-!
+## Concepts
+
+Defines the autonomous coupled attitude/end-effector field and its quadratic energy, including
+origin and differentiability facts; the CoM driver is zeroed in this field.
+
+## Techniques
+
+Uses typed inner-product-space products, matrix-vector maps, and calculus lemmas; invertibility
+and symmetry assumptions remain arguments.
+-/
 
 open scoped InnerProductSpace
 
@@ -71,7 +82,7 @@ variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 abbrev CoupledState (H : Type*) [NormedAddCommGroup H] [InnerProductSpace ℝ H] := H × H
 
 /-- The autonomous coupled-block field `g₂(y) = (J v̆, -M̆⁻¹(C̆ v̆ + D̆ v̆ + Jᵀ K̆ x̃))`
-(the source model note eq 4.10 / Giordano eq 34b, CoM forcing zeroed). `Minv` is the given
+(current_sota.md eq 4.10 / Giordano eq 34b, CoM forcing zeroed). `Minv` is the given
 inverse of `M̆`, `Jadj` the given adjoint of `J`. -/
 def g2Field (y : CoupledState H) : CoupledState H :=
   (J y.2, -(Minv (C y.2 + D y.2 + Jadj (K y.1))))

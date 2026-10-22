@@ -1,11 +1,20 @@
 /-!
+## Concepts
+
+Defines relational contracts, satisfaction, enabledness, wiring, sequential composition, and
+refinement; it supplies no temporal, probabilistic, or flow semantics.
+
+## Techniques
+
+Builds existential witnesses through relation composition and keeps downstream compatibility and
+output existence as separate premises.
+-/
+/-!
 # Relational assume–guarantee interfaces
 
 A small non-temporal composition rule for mathematical components. Inputs and
 outputs may themselves be trajectories or random variables, but this module
 supplies no temporal logic, deadlines, flow existence, or probabilistic law.
-The conventional argument and application obligations are in the corresponding derivation record's
-the corresponding local note.
 -/
 
 namespace Ctrllib.AssumeGuarantee

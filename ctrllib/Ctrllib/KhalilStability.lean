@@ -92,12 +92,7 @@ theorem lyapunov_stable [FiniteDimensional ℝ E] (ϕ : Flow ℝ E) {f : E → E
     -- The orbit is continuous, and `V` is nonincreasing along it.
     have horbit_cont : Continuous (fun s => ϕ s x) :=
       continuous_iff_continuousAt.mpr (fun s => (hϕ x s).continuousAt)
-    have hg_diff : Differentiable ℝ (fun s : ℝ => V (ϕ s x)) := fun s =>
-      (hϕ.hasDerivAt_comp hVdiff x s).differentiableAt
-    have hg_deriv : ∀ s : ℝ, deriv (fun s : ℝ => V (ϕ s x)) s ≤ 0 := fun s => by
-      rw [(hϕ.hasDerivAt_comp hVdiff x s).deriv]; exact hdec _
-    have hanti : Antitone (fun s : ℝ => V (ϕ s x)) :=
-      antitone_of_deriv_nonpos hg_diff hg_deriv
+    have hanti := antitone_of_solution_field_decrease hϕ hVdiff hdec x
     -- Suppose the orbit reaches the sphere; derive a contradiction via IVT.
     by_contra hcon
     rw [not_lt] at hcon
@@ -202,12 +197,7 @@ theorem lyapunov_globally_asymptotically_stable [FiniteDimensional ℝ E]
   have hstab : LyapStable ϕ := lyapunov_stable ϕ hϕ hVdiff hV0 hVpos hdec
   refine ⟨hstab, fun x => ?_⟩
   -- `V` is nonincreasing along the orbit; the forward orbit lies in `{V ≤ V x}`.
-  have hg_diff : Differentiable ℝ (fun s : ℝ => V (ϕ s x)) := fun s =>
-    (hϕ.hasDerivAt_comp hVdiff x s).differentiableAt
-  have hg_deriv : ∀ s : ℝ, deriv (fun s : ℝ => V (ϕ s x)) s ≤ 0 := fun s => by
-    rw [(hϕ.hasDerivAt_comp hVdiff x s).deriv]; exact hdec _
-  have hanti : Antitone (fun s : ℝ => V (ϕ s x)) :=
-    antitone_of_deriv_nonpos hg_diff hg_deriv
+  have hanti := antitone_of_solution_field_decrease hϕ hVdiff hdec x
   have hsublevel : Bornology.IsBounded {y : E | V y ≤ V x} :=
     sublevel_isBounded_of_tendsto_cobounded hRadUnbdd (V x)
   have hbdd : Bornology.IsBounded ((fun t : ℝ => ϕ t x) '' Set.Ici 0) := by

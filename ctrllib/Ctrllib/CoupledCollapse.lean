@@ -6,7 +6,7 @@ sealed algebra of that step (StiffnessResidual, Rayleigh) into the sealed LaSall
 engine (LaSalle + Reduction) at the coupled-block field level, and assembles the
 resulting convergence to the origin.
 
-THE STRUCTURAL FACT THE PIN FORCED (the corresponding private check, before any Lean).
+THE STRUCTURAL FACT THE PIN FORCED (pin_coupled_collapse.py, before any Lean).
 The sealed previous lane gives the TOTAL Lyapunov rate `V̇ = -⟪v̆, D̆ v̆⟫`
 (`coupled_total_dissipation`, via the passivity collapse). This depends ONLY on
 v̆, so its zero-set is the WHOLE subspace `{v̆ = 0}` — NOT `{0}`. Consequently the
@@ -56,7 +56,7 @@ INTERFACE BOUNDARY (honest — the defense will be asked about exactly this list
     statement `M C D K J Minv Jadj Mdot` are FIXED operators (`variable … (M C … : H →L[ℝ] H)`),
     so `hreal`/`hfield` describe a constant-operator (LTI, with a skew-type `C` via `hpass`)
     instance. The configuration-dependent system M̆(q), C̆(q), … of the paper is NOT covered
-    by this statement; the ledger (the corresponding local note, row `hreal + hfield`) records the boundary.
+    by this statement; the ledger (interfaces.md, row `hreal + hfield`) records the boundary.
   * `hfield : ∀ y, (f y).2 = (g2Field …).2` — the true field's VELOCITY component
     is the eq-34b right-hand side with the same fixed operators. New to this lane
     (the CoM block had no Coriolis, so there `f = comField` exactly); the velocity
@@ -72,11 +72,22 @@ INTERFACE BOUNDARY (honest — the defense will be asked about exactly this list
     `stiffness_residual_injective'` (K̆ ≻ 0, J_x̃ square nonsingular). The `com`
     `hKdef` precedent.
 
-SymPy-pinned: the corresponding symbolic check (not bundled).py.
-Human derivation: the corresponding derivation record (not bundled)
+SymPy-pinned: ~/Thesis/Prose/vault/lean/pin_coupled_collapse.py.
 -/
 import Mathlib.Analysis.InnerProductSpace.Calculus
 import Ctrllib.CoupledDissipation
+
+/-!
+## Concepts
+
+Closes the coupled-block LaSalle step: convergence of velocity plus the stiffness-residual zero
+set yields convergence of the coupled state.
+
+## Techniques
+
+Composes `CoupledDissipation`, `LaSalle`, and `Reduction` with an explicit zero-set discharge;
+flow, precompactness, and matrix premises remain.
+-/
 
 open Set Filter Topology omegaLimit
 open scoped InnerProductSpace

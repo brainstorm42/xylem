@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 # Ctrllib source overlay
 
-This directory contains the original 123-module public overlay, the standalone `ProdNorm` helper, and eight standalone planar handbook modules. The umbrella and its 123-module extraction receipt remain the historical baseline; the standalone additions are listed in [the planar slice](HANDBOOK-PLANAR.md) or their source files and are not silently folded into those counts.
+This directory contains the original 123-module public overlay, the standalone `ProdNorm` helper, eight standalone planar handbook modules, and the selected startup-ramp RC/BC source increment. The umbrella and its 123-module extraction receipt remain the historical baseline; standalone additions and the 36-path RC increment plus interval-certificate pilot are tracked separately and are not silently folded into those counts.
 
 ## Use
 

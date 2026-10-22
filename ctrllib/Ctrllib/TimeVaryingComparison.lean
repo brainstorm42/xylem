@@ -8,14 +8,26 @@ on Mathlib's gronwallBound: convergence to zero under a vanishing disturbance
 (comparison_bounded). The engine is comparison_shift, L2's comparison lemma with a
 movable start point.
 
-SymPy pin: the corresponding symbolic check (not bundled).py.
+SymPy pin: ~/Thesis/Prose/vault/lean/pin_comparison.py.
 Human derivation:
-the corresponding derivation record (not bundled).
+ClearFocus/30_library/10_proofs/time_varying_comparison.md.
 -/
 import Mathlib.Analysis.ODE.Gronwall
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Order.Filter.AtTopBot.Field
 import Mathlib.Analysis.Normed.Group.Basic
+
+/-!
+## Concepts
+
+Provides comparison-shift, vanishing-disturbance, and bounded-disturbance results for `v' ≤ -a v
++ ε(t)`.
+
+## Techniques
+
+Reuses Grönwall bounds at a movable start and converts exponential estimates through
+eventual-limit/filter arguments; derivative and continuity hypotheses stay explicit.
+-/
 
 open Set Filter Topology Real
 

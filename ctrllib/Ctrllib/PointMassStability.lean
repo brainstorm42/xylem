@@ -12,6 +12,18 @@ energy; global convergence is reused from `pointMass_tendsto_zero`.
 import Ctrllib.PointMassComFlow
 import Ctrllib.KhalilStability
 
+/-!
+## Concepts
+
+Proves Lyapunov stability and global asymptotic stability for the ideal damped isotropic
+point-mass CoM loop using its nonincreasing energy.
+
+## Techniques
+
+Combines positive-definite energy, semidefinite derivative, and existing
+`pointMass_tendsto_zero` LaSalle results; strict-derivative convergence is not used.
+-/
+
 set_option maxSynthPendingDepth 3
 
 open Set Filter Topology
