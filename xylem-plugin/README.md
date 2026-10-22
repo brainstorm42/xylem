@@ -17,13 +17,13 @@ The mathematics-first explanation is [`examples/compact-bounds/explanation-hS.md
 
 ## Run from the package root
 
-The checked environment is Python 3.12.14 with the pinned direct dependencies `PyYAML==6.0.3` and `mcp==2.2.0`. The package does not install them.
+The checked environment is Python 3.12.14 with the pinned direct dependencies `PyYAML==6.0.3` and `mcp==2.2.0`.
 
-For a fresh isolated consumer install, create a virtual environment in the copied package directory and install the declared pins:
+For a fresh isolated consumer install, create a virtual environment in the copied package directory and install the package:
 
 ```sh
 python3.12 -m venv .venv
-.venv/bin/python -m pip install -r canonical/requirements.txt
+.venv/bin/python -m pip install canonical/xylem
 PYTHON="$PWD/.venv/bin/python"
 ```
 

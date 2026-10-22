@@ -1,83 +1,36 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-# Xylem: A method to find structure in formal proofs
+# Xylem
 
-## Purpose
+Xylem connects formal proofs with explanations and a searchable dependency graph. A ProofBrick pairs a formal proof and its supporting declarations with a people-centred explanation of its assumptions and guarantees. Xylem helps you follow those relationships in a checked Lean development.
 
-Xylem helps an individual person or agent inspect a mathematical proof. It makes the named pieces, their dependencies, and their supporting records easy to find. It provides a route from a well-posed question to an exact statement and provides the evidence needed to support and analyze it.
+Lean checks proofs; Xylem exposes their recorded structure.
 
-The pivotal realization is that Lean is a programming language and, as such, the modularity of code should simplify it. As a codebase, it has underlying structure. To change a function in code, one needs its inputs, what it calls, where it is used, and what it is intended to do—the real-world function. A large formal proof presents very similar issues. Xylem supplies the index and navigation tools for that problem. The mathematical argument is already there; the xylem provides the internal structure and relates the concepts together, creating a graph which links those discrete modules. Tree-sitter parses source code into concrete syntax trees; see the [Tree-sitter documentation](https://tree-sitter.github.io/tree-sitter/).
+## Read a result
 
-This release is rushed, as the recent OpenAI proof corpus is earth-shaking and requires an immediate response. It is very much a work in progress and much of the following prose is generated. While I will work with my agents going forward to improve it, my focus is on robotics—risk-aware planning and control with modular formal verification and compositional assurance, i.e., those assumptions, guarantees, and exclusions formally specified at interfaces between the components that comprise a robotic control system. We have included a [long list of teaching materials](TEACHING-RESOURCES.md), which we exhort readers to use with their own agents to improve and build on this system.
+1. Start with the [Xylem and ProofBricks reader guide](xylem-plugin/docs/xylem-reader-guide.md).
+2. Read the worked [strict-comparisons-to-equality example](xylem-plugin/docs/from-strict-comparisons-to-equality.md), then compare its two one-sided bounds and the equality they recover.
+3. Try the [Ctrllib source-first example](xylem-plugin/examples/ctrllib-e2e/README.md) and use search, context, dependencies, and path queries around its result.
 
-```mermaid
-flowchart TD
-  subgraph P["One CompactBounds proof"]
-    S["S: coordinate-value union"]
-    C["hS: S is compact"]
-    V["hSpos: values are positive"]
-    B["Uniform positive bounds"]
-    S -->|compactness argument| C
-    S -->|positivity argument| V
-    C -->|used in| B
-    V -->|used in| B
-  end
-```
+## Install and try
 
-**High-level simplification:** this authored source map uses boxes for named facts and the conclusion, and arrows for how the proof uses them. Xylem supports this kind of inspection over captured declarations and relationships.
-
-## Installation and Use
-
-1. **Read the mathematics first, with no installation.** Start with [CompactBounds: one bound for every positive coordinate](xylem-plugin/examples/compact-bounds/explanation-hS.md), [a damped point mass returning to zero](xylem-plugin/examples/ctrllib-e2e/vault/PointMassComFlow.md), or the [Ctrllib mechanics and passivity reading path](TEACHING-RESOURCES.md#ctrllib-mechanics-and-passivity). Each explanation connects the equations to named source facts.
-2. **Ask the graph a concrete question.** For the point-mass example, follow the convergence theorem to the mass-inverse fact it uses. From the copied package root:
+You need Git and Python 3.12. From a fresh checkout, create an isolated environment, install the package, and run the compact Ctrllib example:
 
 ```sh
-cd xylem-plugin
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/brainstorm42/xylem.git
+cd xylem/xylem-plugin
 python3.12 -m venv .venv
-.venv/bin/python -m pip install -r canonical/requirements.txt
-PYTHON="$PWD/.venv/bin/python"
-CFG=examples/ctrllib-e2e/xylem-e2e-config.json
-"$PYTHON" canonical/run.py --config "$CFG" build
-"$PYTHON" canonical/run.py --config "$CFG" convert render-statement \
-  --declaration Ctrllib.pointMass_tendsto_zero --json
-"$PYTHON" canonical/run.py --config "$CFG" query path \
-  Ctrllib.pointMass_tendsto_zero Ctrllib.pmM_inv --json
+.venv/bin/python -m pip install canonical/xylem
+./try-xylem
 ```
 
-The statement view retains all seven binders. The path connects `Ctrllib.pointMass_tendsto_zero` with `Ctrllib.pmM_inv`. This selected fixture reports partial coverage and `fresh: false`; its [example guide](xylem-plugin/examples/ctrllib-e2e/README.md) explains the result and provides more CLI and MCP queries.
+The compact example does not need the large percolation capture, so the clone command leaves Git LFS pointers untouched. The helper keeps its generated SQLite database in the ignored `graph/` directory. For further CLI and MCP usage, see the [Ctrllib example guide](xylem-plugin/examples/ctrllib-e2e/README.md).
 
-## From source to a checked explanation
+## Current results
 
-```mermaid
-flowchart TD
-  S["Formal source and capture"] --> A["Author an explanation"]
-  A --> R["Independent source-grounded review"]
-  R --> D{"Revision needed?"}
-  D -->|yes: revise| A
-  D -->|ready| C["Targeted tests or Lean checks"]
-  C --> E["Scoped result and evidence"]
-```
+The public snapshot includes a CompactBounds navigation example, a source-first Ctrllib example, and a standalone [planar module slice](ctrllib/HANDBOOK-PLANAR.md). The [evaluation status](RESULTS-STATUS.md) records the checked reuse, bound, proof-generalization, and technique-selection results, including the work that remains incomplete. The package also includes an optional [structural-discovery overlay](xylem-plugin/canonical/DISCOVERY.md) for caller-supplied captures.
 
-**High-level simplification:** the supplied skills guide the author/reviewer loop, and tools produce targeted test or Lean evidence for the claim being checked. Review assesses the explanation; formal checks assess Lean obligations.
+For related proof-generalization context, see the paper [Automatically Generalizing Proofs and Statements](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2025.12).
 
-## Dedication
+## License and provenance
 
-
-<img src="assets/margaret-hamilton.webp" width="240" alt="Margaret Hamilton beside the Apollo software listings developed by her and her MIT team, 1969.">
-
-In memory of Margaret Hamilton, whose hard work helped make the first giant leap possible. We hope to honour her with another.
-
-Photograph: MIT Instrumentation Laboratory (now Draper Laboratory), 1969. Public domain in the United States. [Photo sources and rights](assets/NOTICE.md).
-
-As we wade through the semantic mud of what it all means, many deep thinkers will expound upon the question of "is all this necessary?" Indeed, Bastounis, Circelli and Hansen's [*Navier–Stokes lost in translation*](https://arxiv.org/html/2610.08144v1) offers a reason for Halting. For the pragmatic purposes of engineering, it is sufficient to refer to a fundamental truth of computing and probability: "Garbage in, garbage out." It is my hope that we are just Starting, and that our next leap may be as giant as that of those upon whose shoulders we stand.
-
-## Explore further
-
-Find related mathematics in the [Ctrllib subject index](ctrllib/SUBJECT-INDEX.md) and [rover geometry, motion, timing, and clearance guide](ctrllib/ROVER-PROVISIONAL.md). To regenerate the full 123-module graph, follow [public dependency provisioning](xylem-plugin/examples/ctrllib-e2e/BOOTSTRAP-PUBLIC-MACOS.md) and [full regeneration](xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md).
-
-For teaching-oriented starting points and planned work, see [Mathematics learning and teaching resources](TEACHING-RESOURCES.md) and [Future directions](FUTURE-DIRECTIONS.md).
-
-For the public percolation example, start with the [percolation capture and index guide](xylem-plugin/examples/percolation-e2e/README.md) and [integration provenance](provenance/PERCOLATION-INTEGRATION.md). The guide begins with the committed capture and query commands; source rebuilding remains a separately scoped, dependency-downloading operation.
-
-For a bounded, source-inspected Navier–Stokes assurance case, read the [Navier–Stokes inverse-estimate semantic map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.md) and its [machine-readable evidence map](xylem-plugin/examples/navier-stokes/navier-stokes-semantic-map.json).
-
-[Verification and technical scope](RELEASE-SCOPE.md) distinguish the compact examples, full source-first results, and the checks performed. Source credits and licenses are in [Ctrllib notices](ctrllib/NOTICE.md) and [Xylem notices](xylem-plugin/NOTICE.md).
+Read the [Apache-2.0 license](LICENSE) and [top-level notices](NOTICE.md). Those notices link the component terms and provenance records; supplied source snapshots, captures, generated graphs, and cited works may retain separate terms.

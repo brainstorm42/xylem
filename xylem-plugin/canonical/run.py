@@ -128,6 +128,14 @@ def _build(paths: dict[str, Path | None]) -> int:
 
 def _query(paths: dict[str, Path | None], argv: list[str]) -> int:
     _set_xylem_environment(paths)
+    # Techniques is deliberately a standard-library-only, capture-backed
+    # read-only analysis. Avoid importing the optional YAML catalogue and MCP
+    # server when this subcommand is selected through the canonical runner.
+    if argv and argv[0] == "techniques":
+        sys.path.insert(0, str(XYLEM_ROOT))
+        from xylem import query  # type: ignore[import-not-found]
+
+        return query.main(["--db", str(paths["db"]), *argv])
     _build_module, query, _server = _import_xylem()
     return query.main(["--db", str(paths["db"]), *argv])
 

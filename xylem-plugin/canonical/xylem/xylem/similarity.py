@@ -172,7 +172,7 @@ def _shape_counter(payload: dict[str, Any]) -> Counter[str]:
 
 
 def _multiset_jaccard(a: Counter[str], b: Counter[str]) -> tuple[float, int]:
-    keys = set(a) | set(b)
+    keys = sorted(set(a) | set(b))
     if not keys:
         return 0.0, 0
     shared = sum(min(a[key], b[key]) for key in keys)
@@ -183,16 +183,16 @@ def _multiset_jaccard(a: Counter[str], b: Counter[str]) -> tuple[float, int]:
 def _idf_weights(documents: list[set[str]]) -> dict[str, float]:
     df: Counter[str] = Counter()
     for document in documents:
-        df.update(document)
+        df.update(sorted(document))
     n = len(documents)
-    return {term: math.log((n + 1) / (count + 1)) + 1.0 for term, count in df.items()}
+    return {term: math.log((n + 1) / (df[term] + 1)) + 1.0 for term in sorted(df)}
 
 
 def _weighted_jaccard(a: set[str], b: set[str], weights: dict[str, float]) -> float:
-    union = a | b
+    union = sorted(a | b)
     if not union:
         return 0.0
-    return sum(weights.get(term, 1.0) for term in a & b) / sum(
+    return sum(weights.get(term, 1.0) for term in sorted(a & b)) / sum(
         weights.get(term, 1.0) for term in union
     )
 

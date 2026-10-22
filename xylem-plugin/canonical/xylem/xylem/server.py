@@ -19,7 +19,7 @@ from typing import Literal
 
 from mcp.server import MCPServer
 
-from . import navigation, query, similarity, store
+from . import discovery, navigation, query, similarity, store
 
 DB_PATH = os.environ.get("XYLEM_DB", str(store.db_path_default()))
 
@@ -77,7 +77,7 @@ def hubs(by: str = "degree", n: int = 10) -> list[dict]:
     try:
         if by == "pagerank":
             rows = conn.execute(
-                "SELECT id, kind, name, rank FROM node ORDER BY rank DESC LIMIT ?", (n,)
+                "SELECT id, kind, name, rank FROM node ORDER BY rank DESC, id LIMIT ?", (n,)
             ).fetchall()
             return [{"id": r["id"], "kind": r["kind"], "name": r["name"],
                      "rank": round(r["rank"], 6)} for r in rows]
@@ -85,7 +85,7 @@ def hubs(by: str = "degree", n: int = 10) -> list[dict]:
         for src, dst, _t in store.load_edges(conn, query.DEP):
             deg[src] = deg.get(src, 0) + 1
             deg[dst] = deg.get(dst, 0) + 1
-        top = sorted(deg.items(), key=lambda kv: kv[1], reverse=True)[:n]
+        top = sorted(deg.items(), key=lambda kv: (-kv[1], kv[0]))[:n]
         by_id = {r["id"]: r for r in _labels(conn, [i for i, _ in top])}
         return [{"id": i, "kind": by_id[i]["kind"], "name": by_id[i]["name"], "degree": d}
                 for i, d in top if i in by_id]
@@ -169,8 +169,82 @@ def similar(name: str, limit: int = 10, all_kinds: bool = False,
         conn.close()
 
 
+def techniques(manifest_path: str) -> dict:
+    """Run the fixed-manifest structural overlay without writing any artifact."""
+    roots = _authorized_roots()
+    try:
+        manifest = _authorized_discovery_manifest(manifest_path, roots)
+        result = discovery.discover(manifest)
+        return {"ok": True, "operation": "techniques", "data": result}
+    except (OSError, discovery.DiscoveryError, ValueError) as error:
+        return _error("techniques", str(error))
+
+
 def _error(operation, message):
     return {"ok": False, "operation": operation, "error": message}
+
+
+def _authorized_roots() -> list[Path]:
+    """Return roots permitted for MCP discovery-manifest inputs."""
+    raw = os.environ.get("XYLEM_AUTHORIZED_ROOTS", "")
+    values = [Path(item).expanduser().resolve() for item in raw.split(os.pathsep) if item]
+    if not values:
+        values = [Path(DB_PATH).expanduser().resolve().parent]
+        data_root = os.environ.get("DATA")
+        if data_root:
+            values.append(Path(data_root).expanduser().resolve())
+    return list(dict.fromkeys(values))
+
+
+def _authorized_file(raw_path: str, roots: list[Path] | None = None) -> Path:
+    candidate = Path(raw_path).expanduser().resolve()
+    if not candidate.is_file():
+        raise ValueError(f"MCP file is not a regular file: {candidate}")
+    roots = roots or _authorized_roots()
+    for root in roots:
+        try:
+            candidate.relative_to(root)
+            return candidate
+        except ValueError:
+            continue
+    rendered = ", ".join(str(root) for root in roots)
+    raise ValueError(f"MCP file access denied outside configured authorized roots: {rendered}")
+
+
+def _authorized_directory(raw_path: str, roots: list[Path] | None = None) -> Path:
+    candidate = Path(raw_path).expanduser().resolve()
+    if not candidate.is_dir():
+        raise ValueError(f"MCP directory is not a directory: {candidate}")
+    roots = roots or _authorized_roots()
+    for root in roots:
+        try:
+            candidate.relative_to(root)
+            return candidate
+        except ValueError:
+            continue
+    rendered = ", ".join(str(root) for root in roots)
+    raise ValueError(f"MCP directory access denied outside configured authorized roots: {rendered}")
+
+
+def _authorized_discovery_manifest(raw_path: str, roots: list[Path] | None = None) -> Path:
+    """Authorize a manifest and every resolved input path it names."""
+    roots = roots or _authorized_roots()
+    manifest = _authorized_file(raw_path, roots)
+    parsed = discovery.load_manifest(manifest)
+    for immediate in (
+        parsed.capture_path,
+        parsed.trace_path,
+        parsed.type_evidence_path,
+        parsed.source_manifest_path,
+    ):
+        if immediate is not None:
+            _authorized_file(str(immediate), roots)
+    for path in discovery.referenced_paths(manifest):
+        if path.is_dir():
+            _authorized_directory(str(path), roots)
+        else:
+            _authorized_file(str(path), roots)
+    return manifest
 
 
 def _status():
@@ -211,7 +285,7 @@ def _status():
 
 @mcp.tool()
 def xylem_query(
-    operation: Literal["status", "search", "dependencies", "dependents", "path", "similar",
+    operation: Literal["status", "search", "dependencies", "dependents", "path", "similar", "techniques",
                        "context", "explain", "impact", "discover", "overview", "components"],
     query_text: str | None = None,
     target: str | None = None,
@@ -219,6 +293,7 @@ def xylem_query(
     limit: int = 10,
     all_kinds: bool = False,
     cross_module_only: bool = False,
+    manifest_path: str | None = None,
     edge_scope: Literal["all", "type", "proof", "imports"] = "all",
     surface: Literal["solution", "challenge", "shared"] | None = None,
 ) -> dict:
@@ -233,9 +308,15 @@ def xylem_query(
     edge reasons (target required, default depth 8). Impact returns reverse users
     and witness paths (default depth 3). These new reports use limit (1..100) and
     edge_scope to bound/select results; they do not certify theorem reuse.
+    Techniques takes manifest_path and runs the separate read-only structural
+    overlay; it does not write the report or certify mathematical meaning.
     """
     if operation == "status":
         return _status()
+    if operation == "techniques":
+        if not manifest_path:
+            return _error(operation, "manifest_path is required")
+        return techniques(manifest_path)
     if operation in ("overview", "components"):
         conn = _conn()
         try:

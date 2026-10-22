@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 # Ctrllib source overlay
 
-This directory contains 123 Lean source modules. The umbrella imports 122; `Ctrllib.AllocationSignConvention` is available as a standalone module.
+This directory contains the original 123-module public overlay, the standalone `ProdNorm` helper, and eight standalone planar handbook modules. The umbrella and its 123-module extraction receipt remain the historical baseline; the standalone additions are listed in [the planar slice](HANDBOOK-PLANAR.md) or their source files and are not silently folded into those counts.
 
 ## Use
 
@@ -22,7 +22,7 @@ else
 fi
 ```
 
-`lake exe extract` emits declaration JSON to stdout. The [public source-first procedure](../xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md) compiled all 123 modules on macOS arm64 and extracted 808 declarations with exact coverage. The ordinary Lake entrypoint above was not run in that test; inspect dependency hooks before execution. The temporary output directory preserves the extractor exit status and existing output files.
+`lake exe extract` emits declaration JSON to stdout. The [public source-first procedure](../xylem-plugin/examples/ctrllib-e2e/REGENERATE-FULL.md) compiled the original 123 modules on macOS arm64 and extracted 808 declarations with exact coverage. The ordinary Lake entrypoint above was not run in that test; inspect dependency hooks before execution. The temporary output directory preserves the extractor exit status and existing output files.
 
 ## Read the scope
 
@@ -34,5 +34,6 @@ fi
   relations.
 - [`IMPORT-CLOSURE.json`](IMPORT-CLOSURE.json) — current module and import counts.
 - [`NOTICE.md`](NOTICE.md) — source notices, attribution, and dependency scope.
+- [`HANDBOOK-PLANAR.md`](HANDBOOK-PLANAR.md) — the standalone planar source slice and its boundaries.
 
 Use the mathematical source files to inspect exact theorem statements and assumptions, and follow the subject routes to related results.

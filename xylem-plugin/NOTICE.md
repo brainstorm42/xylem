@@ -14,3 +14,12 @@ dependencies remain separate works under their own terms. The generated
 capture, audit, index, and navigation artifacts are included as scoped local
 records and do not grant permission to publish the upstream corpus or claim
 semantic equivalence beyond the checked formal declarations.
+
+The reader guide and the strict-comparisons-to-equality note under `docs/` are
+user-authored explanatory documents. They link to their related papers and
+retain those works' separate terms; no third-party source text or PDF is
+bundled in these documents.
+
+The selected NEW-PG candidate/client files have their source and dependency
+boundary in `examples/proof-generalizer/NOTICE.md`. They retain Mathlib's
+terms and do not copy the donor Ctrllib modules.

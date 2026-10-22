@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xylem"
+version = "0.1.0"
+description = "Read-only dependency map and MCP server for a Lean proof repository."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "PyYAML==6.0.3",
+    "mcp==2.2.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+xylem-build = "xylem.build:main"
+xylem-query = "xylem.query:main"
+xylem-mcp = "xylem.server:main"
+
+[tool.setuptools.packages.find]
+include = ["xylem*"]
+
+[tool.setuptools.package-data]
+xylem = ["schema.sql"]

@@ -13,8 +13,20 @@ import json
 import sys
 from pathlib import Path
 
-from . import navigation, reviewer, similarity, store
-from .build import DATA_DIR, VAULT_LEAN
+from . import discovery, navigation, reviewer, similarity, store
+try:
+    from .build import DATA_DIR, VAULT_LEAN
+except ModuleNotFoundError as error:
+    # Structural discovery is intentionally standard-library only. Keep it
+    # usable in a minimal environment even when the optional YAML catalogue
+    # dependency is not installed; graph build/query commands still report
+    # their normal dependency error when they actually need build.py.
+    if error.name != "yaml":
+        raise
+    from .config import data_default, vault_lean_default
+
+    DATA_DIR = data_default()
+    VAULT_LEAN = vault_lean_default()
 
 DEP = store.DEPENDENCY_EDGE_TYPES
 
@@ -116,7 +128,7 @@ def cmd_hubs(conn, args):
     # Rank nodes by degree (dependency edges) or PageRank.
     if args.by == "pagerank":
         rows = conn.execute(
-            "SELECT id, kind, name, rank FROM node ORDER BY rank DESC LIMIT ?", (args.n,)
+            "SELECT id, kind, name, rank FROM node ORDER BY rank DESC, id LIMIT ?", (args.n,)
         ).fetchall()
         out = [{"id": r["id"], "kind": r["kind"], "name": r["name"],
                 "rank": round(r["rank"], 6)} for r in rows]
@@ -125,7 +137,7 @@ def cmd_hubs(conn, args):
         for src, dst, _t in store.load_edges(conn, DEP):
             deg[src] = deg.get(src, 0) + 1
             deg[dst] = deg.get(dst, 0) + 1
-        top = sorted(deg.items(), key=lambda kv: kv[1], reverse=True)[: args.n]
+        top = sorted(deg.items(), key=lambda kv: (-kv[1], kv[0]))[: args.n]
         labels = {r["id"]: r for r in _labels(conn, [i for i, _ in top])}
         by_id = {r["id"]: r for r in labels.values()}
         out = [{"id": i, "kind": by_id[i]["kind"], "name": by_id[i]["name"], "degree": d}
@@ -276,6 +288,22 @@ def cmd_similar(conn, args):
     if not result["candidates"]:
         print("(no structurally usable candidates)")
     print("report-only: inspect premises, domains, frames, and the exact theorem type before reuse")
+    return 0
+
+
+def cmd_techniques(_conn, args):
+    """Run the bounded structural overlay without opening or changing SQLite."""
+    try:
+        result = discovery.discover(args.manifest)
+        if args.output:
+            discovery.write_result(result, args.output)
+    except (OSError, discovery.DiscoveryError, ValueError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    if args.json or not args.output:
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+    else:
+        print(f"wrote {Path(args.output).expanduser().resolve()}")
     return 0
 
 
@@ -460,6 +488,15 @@ def build_parser():
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_components)
 
+    p = sub.add_parser(
+        "techniques",
+        help="read-only CPU structural discovery over a fixed capture manifest",
+    )
+    p.add_argument("--manifest", required=True, type=Path)
+    p.add_argument("--output", type=Path, help="optional canonical JSON report path")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_techniques)
+
     p = sub.add_parser("path", help=f"shortest A->B ({dep_help})")
     p.add_argument("a"); p.add_argument("b")
     p.add_argument("--json", action="store_true"); p.set_defaults(func=cmd_path)
@@ -494,6 +531,8 @@ def build_parser():
 
 def main(argv=None):
     args = build_parser().parse_args(argv)
+    if args.cmd == "techniques":
+        return args.func(None, args)
     if args.cmd == "status" and not Path(args.db).is_file():
         payload = {"database": str(args.db), "fresh": False,
                    "warning": f"database not found: {args.db}",

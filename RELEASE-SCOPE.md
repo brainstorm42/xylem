@@ -7,9 +7,10 @@ Xylem provides graph navigation through CLI and foreground MCP. BrickConverter r
 
 | Content | Count | Route |
 | --- | ---: | --- |
-| Ctrllib source modules | 123 | [Source library](ctrllib/README.md) |
+| Original Ctrllib source modules (2026-10-08 verification baseline) | 123 | [Source library](ctrllib/README.md) |
 | Umbrella imports | 122 | [Ctrllib.lean](ctrllib/Ctrllib.lean) |
 | Separately importable module | 1 | [AllocationSignConvention](ctrllib/Ctrllib/AllocationSignConvention.lean) |
+| New standalone modularization modules | 9 | [Planar module slice](ctrllib/HANDBOOK-PLANAR.md) and [ProdNorm](ctrllib/Ctrllib/ProdNorm.lean) |
 | Rover modules | 16 | [Geometry, motion, timing, and clearance](ctrllib/ROVER-PROVISIONAL.md) |
 | Rover source declaration links | 68 | [Source declaration guide](ctrllib/ROVER-PROVISIONAL.md) |
 | CompactBounds parent-statement binders | 5 | [Explanation](xylem-plugin/examples/compact-bounds/explanation-hS.md) |
@@ -40,13 +41,13 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 
 | Measure | Result |
 | --- | ---: |
-| Source modules compiled and covered by extraction | 123 |
+| Original source modules compiled and covered by extraction (2026-10-08 baseline) | 123 |
 | Captured local declarations | 808 |
 | Extraction errors | 0 |
 | Formatted capture bytes | 892231751 |
 | Source build time, seconds | 460.371 |
 | Extraction time, seconds | 115.106 |
-| Indexed module nodes | 123 |
+| Baseline indexed module nodes | 123 |
 | Indexed declarations, including external stubs | 3155 |
 | External declaration stubs | 2347 |
 | IMPORTS edges | 140 |
@@ -59,6 +60,8 @@ The Ctrllib fixture is a selected navigation example. Full regeneration provides
 | Repeated CLI and MCP status | stable |
 
 The [verification receipt](provenance/air-consumer-verification.json) records dependency revisions and results. This full run tested the same proof sources and pins supplied here; current converter-label, freshness-advice, and explanation corrections received separate targeted checks.
+
+The 123-module figures above are the dated source-first verification baseline. The current checkout also contains nine newly included standalone modularization modules; those additions are not retroactively folded into that historical receipt.
 
 ## Public percolation example
 

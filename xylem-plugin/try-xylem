@@ -1,0 +1,29 @@
+#!/bin/sh
+set -eu
+
+# Keep all path resolution and directory changes inside this process so the
+# command is safe to invoke from any working directory, including one with
+# spaces in its path.
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PYTHON="$SCRIPT_DIR/.venv/bin/python"
+CONFIG="$SCRIPT_DIR/examples/ctrllib-e2e/xylem-e2e-config.json"
+
+if [ ! -x "$PYTHON" ]; then
+    echo "Create the local environment first: python3.12 -m venv \"$SCRIPT_DIR/.venv\"" >&2
+    exit 1
+fi
+
+if [ ! -f "$CONFIG" ]; then
+    echo "The compact Ctrllib example is missing: $CONFIG" >&2
+    exit 1
+fi
+
+cd "$SCRIPT_DIR"
+
+# The runner keeps this first example compact: it uses the checked Ctrllib
+# fixture and does not install packages or download the percolation capture.
+"$PYTHON" canonical/run.py --config "$CONFIG" build
+"$PYTHON" canonical/run.py --config "$CONFIG" query status --json
+"$PYTHON" canonical/run.py --config "$CONFIG" query search pointMass --json
+"$PYTHON" canonical/run.py --config "$CONFIG" query path \
+    Ctrllib.pointMass_tendsto_zero Ctrllib.pmM_inv --json

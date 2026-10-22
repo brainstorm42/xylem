@@ -26,11 +26,11 @@ def open_db(path):
 def load_edges(conn, types=None):
     """Return edge rows (src, dst, type), optionally filtered to a type set."""
     if types is None:
-        rows = conn.execute("SELECT src, dst, type FROM edge").fetchall()
+        rows = conn.execute("SELECT src, dst, type FROM edge ORDER BY src, dst, type").fetchall()
     else:
         marks = ",".join("?" for _ in types)
         rows = conn.execute(
-            f"SELECT src, dst, type FROM edge WHERE type IN ({marks})", tuple(types)
+            f"SELECT src, dst, type FROM edge WHERE type IN ({marks}) ORDER BY src, dst, type", tuple(types)
         ).fetchall()
     return [(r["src"], r["dst"], r["type"]) for r in rows]
 

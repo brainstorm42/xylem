@@ -1,8 +1,8 @@
 {
   "name": "proofbricks-xylem",
   "version": "0.1.0",
-  "description": "Private reviewed ProofBricks/Xylem release candidate held for human review and not authorized for public distribution, with the existing canonical Xylem MCP and BrickConverter runtimes, a tiny supplied graph example, and evidence-grounded explanation. Optional capture regeneration requires a user-supplied authorized tool.",
-  "author": {"name": "ProofBricks private review"},
+  "description": "Public ProofBricks/Xylem package for inspecting checked Lean proof graphs, rendering captured statements, and following source-backed explanations; see RELEASE-SCOPE.md and NOTICE.md for evidence and license boundaries. Optional capture regeneration requires caller-supplied authorized inputs.",
+  "author": {"name": "ProofBricks"},
   "license": "Apache-2.0",
   "licenseScope": "Scoped; see LICENSE-SCOPE.md and NOTICE.md",
   "mcpServers": "./.mcp.json"
